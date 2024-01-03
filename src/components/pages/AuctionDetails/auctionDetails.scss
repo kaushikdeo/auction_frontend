@@ -1,0 +1,57 @@
+.auctionDetailsWidget {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    padding: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
+    box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
+    border-radius: 10px;
+    height: 100px;
+
+    .left {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        -webkit-box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
+        box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px;
+        .title {
+            font-weight: bold;
+            font-size: 25px;
+            color: gray
+        }
+        .featuredLeft {
+            display: flex;
+            flex-direction: column;
+            .top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: gray;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        flex: 5;
+        flex-direction: column;
+        -webkit-box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
+        box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px;
+        .title {
+            font-weight: bold;
+            font-size: 25px;
+            color: gray
+        }
+        .featuredRight {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+}

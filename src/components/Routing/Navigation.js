@@ -10,6 +10,7 @@ import AdditionalAuctioneerInfo from "../User/AdditionalAuctioneerInfo";
 import PrivateRoutes from "./PrivateRoutes";
 import AuctionnerDashboard from "../Dashbaord/AuctionnerDashboard";
 import NewAuction from "../Auctions/NewAuction";
+import SingleAuction from "../pages/Home/SingleAuction";
 const Navigation = () => {
   return (
     <Routes>
@@ -24,6 +25,7 @@ const Navigation = () => {
           element={<AdditionalAuctioneerInfo />}
         />
         <Route path="/auctioneerDashboard" element={<AuctionnerDashboard />} />
+        <Route path="/auction/:auctionId" element={<SingleAuction />} />
         <Route path="/playerDashboard" element={<PlayerDashboard />} />
         <Route path="/role" element={<UserRole />} />
         <Route path="/newAuction" element={<NewAuction />} />

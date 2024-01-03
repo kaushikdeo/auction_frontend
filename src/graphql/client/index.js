@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context';
 import { getItem } from '../../utils/localStore';
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:4000/graphql',
+    uri: 'https://34c5-2401-4900-1c20-2a40-c0f3-fce4-2a71-65b0.ngrok-free.app/graphql',
   });
 
 const authLink = setContext((_, { headers }) => {

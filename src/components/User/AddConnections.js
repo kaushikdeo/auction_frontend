@@ -95,6 +95,7 @@ const tableColumns = [
   }, [searchInput]);
 
   const addToTable = (user) => {
+    console.log("USERRNSJKX", user);
     let initialUsers = [...selectedUsers];
     initialUsers.push({
       key: initialUsers.length + 1,

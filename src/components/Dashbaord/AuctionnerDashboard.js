@@ -158,7 +158,7 @@ const AuctionnerDashboard = () => {
                 <div className="row content">
                     <DashSideBar handleNewAuction={handleNewAuction} handleLogout={handleLogout} />
                     <br />
-                    <div className="col-sm-11">
+                    <div className="col-sm-10">
                         <DashHeader type={"Auctioneer"} useName={user && user.user && user.user && user.user.firstName && user.user.lastName ? `${user.user.firstName} ${user.user.lastName}` : ""} />
                         <div className="row">
                             <div className="col-sm-12">

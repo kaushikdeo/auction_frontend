@@ -1,0 +1,36 @@
+.userRoleContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    .connectionHeader{
+        display: flex;
+        justify-content: center;
+        padding-bottom: 10px;
+        padding-top: 20px;
+    }
+    .roleHeader {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+    .connectionsContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .roleContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        .card {
+            background-color: #add8e5;
+            width: 200px;
+            padding: 20px;
+            color: #1b3e59;
+            border-radius: 15px;
+            box-shadow: 8px 8px 16px 2px #1b3e59
+            }
+    }
+}

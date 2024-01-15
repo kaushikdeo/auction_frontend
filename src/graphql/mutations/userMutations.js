@@ -48,7 +48,18 @@ export const REGISTER = gql`
       firstName
       lastName
       mobile
-      stats
+      stats {
+      battingStats {
+        innings
+        runs
+        strikeRate
+      }
+      bowlingStats {
+        economy
+        wickets
+        overs
+      }
+    }
       userId
     }
   }

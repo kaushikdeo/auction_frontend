@@ -2,7 +2,7 @@ import React from 'react'
 
 const DashSideBar = ({handleLogout, handleNewAuction}) => {
   return (
-    <div className="col-sm-1 sidenav hidden-xs">
+    <div className="col-sm-2 sidenav hidden-xs">
             <h2>Logo</h2>
             <ul className="nav nav-pills nav-stacked">
                 <li className="active"><a href="#section1">Auctions</a></li>

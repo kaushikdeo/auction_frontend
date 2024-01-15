@@ -1,9 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Form, Input, Space, Table, Tag, Button } from "antd";
+import './newAuction.scss'
+import { 
+  Layout, 
+  Form, 
+  Input, 
+  Space, 
+  Table, 
+  Tag, 
+  Button, 
+  Steps,
+  DatePicker,
+  DatePickerProps
+ } from "antd";
+ import Dropzone from 'react-dropzone'
+import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_NEW_AUCTION } from "../../graphql/mutations/auctionMutations";
 import { GET_LOGGED_IN_USER } from "../../graphql/queries/userQueries";
+
+
+const dataSource = [
+  {
+    key: '1',
+    name: 'Mike',
+    age: 32,
+    address: '10 Downing Street',
+  },
+  {
+    key: '2',
+    name: 'John',
+    age: 42,
+    address: '10 Downing Street',
+  },
+];
+
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+];
 
 const { Content } = Layout;
 
@@ -100,9 +148,19 @@ const NewAuction = () => {
     loading: loggedInUserLoading,
     error: loggedInUserError,
   } = useQuery(GET_LOGGED_IN_USER);
+  const [currentStep, setCurrentStep] = useState(0);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [playerBucket, setPlayerBucket] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
+
+  const onChange = (value,dateString) => {
+    console.log('Selected Time: ', value);
+    console.log('Formatted Selected Time: ', dateString);
+  };
+  
+  const onOk = (value) => {
+    console.log('onOk: ', value);
+  };
 
   const addToBucket = (rec) => {
     let initialPlayerBucket = [...playerBucket];
@@ -142,6 +200,132 @@ const NewAuction = () => {
     // Implement your logic to handle form submission
   };
 
+  const renderStepsForms = () => {
+    if (currentStep === 0) {
+      return (
+        <div className="formContainer">
+          <div className="title">Basic Auction Details</div>
+          <form action="#">
+            <div className="user-details">
+              <div className="input-box">
+                <span className="details">Auction Name</span>
+                <input type="text" placeholder="Enter Auction Name" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Bucket Wallet Balance</span>
+                <input type="number" placeholder="Enter Bucket Wallet Balance" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Wallet Balance Difference</span>
+                <input type="number" placeholder="Enter Wallet Balance Difference" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Sport Name</span>
+                <input type="text" placeholder="Enter Sports Name" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Number of Teams</span>
+                <input type="number" placeholder="Enter Number of Teams" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Auction Name</span>
+                <input type="text" placeholder="Enter Auction Name" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Start Date Time</span>
+                <DatePicker showTime onChange={onChange} onOk={onOk} />
+              </div>
+              <div className="input-box">
+                <span className="details">End Date Time</span>
+                <DatePicker showTime onChange={onChange} onOk={onOk} />
+              </div>
+              <div className="input-box">
+                <span className="details">Venue</span>
+                <input type="text" placeholder="Enter Venue" required />
+              </div>
+              <div className="button">
+                <input type="submit" value='Next' onSubmit={() => setCurrentStep(1)}/>
+              </div>
+            </div>
+          </form>
+        </div>
+      )
+    } else if (currentStep === 1) {
+      return (
+        <div className="formContainer">
+          <div className="title">Team Details</div>
+          <form action="#">
+            <div className="user-details">
+              <div className="input-box">
+                <span className="details">Team Name</span>
+                <input type="text" placeholder="Enter Team Name" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Team Captain</span>
+                <input type="text" placeholder="Enter Team Captain" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Team Vice Captain</span>
+                <input type="text" placeholder="Enter Vice Team Captain" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Retained Players</span>
+                <input type="text" placeholder="Retained Players" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Team Description</span>
+                <input type="text" placeholder="Enter Description" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Team Logo</span>
+                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                {({getRootProps, getInputProps}) => (
+                  <section className="dropzoneSection">
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <p className="dropZonepText">+ Select Logo</p>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+              </div>
+              <div className="button">
+                <input type="submit" value='Add Team' />
+              </div>
+              <Table columns={tableColumnsInit} dataSource={selectedUsers} />
+              <div className="button">
+                <input type="submit" value='Next' />
+              </div>
+            </div>
+          </form>
+        </div>
+      )
+    } else {
+      return (
+        <div className="formContainer">
+          <div className="title">Players Bucket</div>
+          {loggedInUser &&
+          loggedInUser.connections &&
+          loggedInUser.connections.length && (
+            <div className="new-auction-table-container">
+              <div className="tableTitle">Connections</div>
+              <div>
+                <Table columns={tableColumnsInit} dataSource={selectedUsers} />
+              </div>
+              <div className="tableTitle">Tournament Players</div>
+              <div>
+                <Table columns={tableColumnsAuc} dataSource={playerBucket} />
+              </div>
+            </div>
+          )}
+          <div className="button">
+            <input type="submit" value='Create Auction' />
+          </div>
+        </div>
+      )
+    }
+  }
+
   useEffect(() => {
     if (
       loggedInUserData &&
@@ -166,8 +350,32 @@ const NewAuction = () => {
   }, [loggedInUserData, loggedInUserLoading, loggedInUserError]);
   console.log("loggedInUserloggedInUser", loggedInUser);
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Content
+    <div className="container">
+      <Steps
+      items={[
+        {
+          title: 'Basic Details',
+          status: currentStep > 0 ? 'finish' : 'progress',
+          icon: <SolutionOutlined />,
+        },
+        {
+          title: 'Teams',
+          status: currentStep > 1 ? 'finish' : 'progress',
+          icon: <BarsOutlined />,
+        },
+        {
+          title: 'Players',
+          status: currentStep > 2 ? 'finish' : 'progress',
+          icon: <TeamOutlined />,
+        },
+      ]}
+      />
+      {renderStepsForms()}
+    </div>
+  )
+   return (
+     <Layout style={{ minHeight: "100vh" }}>
+       <Content
         style={{
           backgroundSize: "cover",
           display: "flex",

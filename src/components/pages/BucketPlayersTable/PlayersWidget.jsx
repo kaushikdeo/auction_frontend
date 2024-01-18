@@ -13,7 +13,7 @@ const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlaye
         <div className="playerDetailsWidget">
             <div className="left">
                 <div className="playertoggle">
-                    <span className="title">Players Bucket</span>
+                    <span className="title">Auction</span>
                     <span className="sliderTextAfter">Auto Selection</span>
                     <Switch
                         checked
@@ -24,7 +24,7 @@ const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlaye
                     />
                 </div>
                 <div className="featuredLeft">
-                    <BucketPlayerTable showDrawer={showDrawer} currentPlayers={currentAuction.players} setDrawerSelectedPlayer={setDrawerSelectedPlayer}/>
+                    <h3>WE NEEED TO DESIGN THIS PART. THIS PART WILL HANDLE ALL THE AUCTION AUCTIONS</h3>
                 </div>
             </div>
             <div className="right">

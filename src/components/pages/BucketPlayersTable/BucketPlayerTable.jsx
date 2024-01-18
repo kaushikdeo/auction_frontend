@@ -49,12 +49,12 @@ const BucketPlayerTable = ({showDrawer, currentPlayers, handleDrawerSelectedPlay
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                         <TableCell component="th" scope="row">
-                            <Avatar sx={{ bgcolor: "rebeccapurple" }}>OP</Avatar>
+                            <Avatar sx={{ bgcolor: "rebeccapurple" }}>{`${row.playerName.split(" ")[0].split("")[0]}${row.playerName.split(" ")[1].split("")[0]}`}</Avatar>
                         </TableCell>
-                        <TableCell align="left"><b>{row.playerName}</b></TableCell>
-                        <TableCell align="left">{row.playerType}</TableCell>
-                        <TableCell onClick={() => handleDrawerSelectedPlayer(row)} align="right"><Button variant="contained">Check Stats</Button></TableCell>
-                        <TableCell onClick={() => console.log('Hello')} align="right"><Button variant="contained">Select Player</Button></TableCell>
+                        <TableCell className="tableCellStyle" align="left"><b>{row.playerName}</b></TableCell>
+                        <TableCell className="tableCellStyle" align="left">{row.playerType}</TableCell>
+                        <TableCell className="tableCellStyle" onClick={() => handleDrawerSelectedPlayer(row)} align="right"><Button variant="contained">Check Stats</Button></TableCell>
+                        <TableCell className="tableCellStyle" onClick={() => console.log('Hello')} align="right"><Button variant="contained">Select Player</Button></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

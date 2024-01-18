@@ -2,7 +2,7 @@ import React from "react";
 import './playerProfile.scss'
 
 const PlayerProfileCard = ({selectedPlayer}) => {
-    console.log(selectedPlayer)
+    console.log("selectedPlayer", selectedPlayer)
     return (
         <div className="cardwrapper">
             <div className="profile-card js-profile-card">
@@ -20,6 +20,7 @@ const PlayerProfileCard = ({selectedPlayer}) => {
                         </span>
                     </div>
                     <h3>Batting Stats</h3>
+                    <p>{` ${selectedPlayer.battingHand} Hand - Bat`}</p>
                     <div className="profile-card-inf">
                         <div className="profile-card-inf__item">
                             <div className="profile-card-inf__title">{selectedPlayer.stats.battingStats.innings}</div>
@@ -30,11 +31,12 @@ const PlayerProfileCard = ({selectedPlayer}) => {
                             <div className="profile-card-inf__txt">Runs</div>
                         </div>
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title">{selectedPlayer.stats.battingStats.strikeRate}</div>
+                            <div className="profile-card-inf__title">{Math.round(Number(selectedPlayer.stats.battingStats.strikeRate))}</div>
                             <div className="profile-card-inf__txt">Strike Rate</div>
                         </div>
                     </div>
                     <h3>Bowling Stats</h3>
+                    <p>{` ${selectedPlayer.bowlingHand} Hand - Bowl`}</p>
                     <div className="profile-card-inf">
                         <div className="profile-card-inf__item">
                             <div className="profile-card-inf__title">{selectedPlayer.stats.bowlingStats.overs}</div>
@@ -45,7 +47,7 @@ const PlayerProfileCard = ({selectedPlayer}) => {
                             <div className="profile-card-inf__txt">Wickets</div>
                         </div>
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title">{selectedPlayer.stats.bowlingStats.economy}</div>
+                            <div className="profile-card-inf__title">{Number(selectedPlayer.stats.bowlingStats.economy).toFixed(2)}</div>
                             <div className="profile-card-inf__txt">Economy</div>
                         </div>
                     </div>

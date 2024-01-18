@@ -46,10 +46,10 @@ const TeamsTable = ({currentAuction}) => {
                   {row.teamName}
                 </TableCell>
                 <TableCell className="tableCellStyle" align="right"><b>{row.captainName}</b></TableCell>
-                <TableCell className="tableCellStyle" align="right">{row.playersBought}</TableCell>
-                <TableCell className="tableCellStyle" align="right">{row.balanceAmount}</TableCell>
-                <TableCell className="tableCellStyle" align="right">{row.amountSpent}</TableCell>
-                <TableCell className="tableCellStyle" align="right">{row.allocatedFunds}</TableCell>
+                <TableCell className="tableCellStyle" align="right"><b>{row.playersBought}</b></TableCell>
+                <TableCell className="tableCellStyle" align="right"><b>{row.balanceAmount}</b></TableCell>
+                <TableCell className="tableCellStyle" align="right"><b>{row.amountSpent}</b></TableCell>
+                <TableCell className="tableCellStyle" align="right"><b>{row.allocatedFunds}</b></TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -18,7 +18,8 @@ const SingleAuction = () => {
     });
     const [open, setOpen] = useState(false);
     const [currentAuction, setCurrentAuction] = useState(null);
-    const [selectedPlayer, setSelectedPlayer] = useState(null)
+    const [selectedPlayer, setSelectedPlayer] = useState(null);
+    const [drawerSelectedPlayer, setDrawerSelectedPlayer] = useState(null);
 
     useEffect(() => {
         console.log("AUCTIONDATA", data)
@@ -34,6 +35,14 @@ const SingleAuction = () => {
 
     const selectPlayer = (userData) => {
         setSelectedPlayer(userData)
+        
+    }
+
+    const handleDrawerSelectedPlayer = (player) => {
+        let selectedPlayer = currentAuction.players.find(p => p.userId === player.playerId);
+        console.log("player", selectedPlayer)
+        setDrawerSelectedPlayer(selectedPlayer)
+        showDrawer();
     }
 
     const onClose = () => {
@@ -46,17 +55,31 @@ const SingleAuction = () => {
                 currentAuction ? (
                     <>
                         <Drawer title="Basic Drawer" placement="right" onClose={onClose} open={open}>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
+                            {
+                                drawerSelectedPlayer && <>
+                                <div>
+                                    <div><h1>{`${drawerSelectedPlayer.firstName} ${drawerSelectedPlayer.lastName}`}</h1></div>
+                                    <div>
+                                    <h3>Batting Stats</h3>
+                                    <p>Innings : {drawerSelectedPlayer.stats.battingStats.innings}</p>
+                                    <p>Runs : {drawerSelectedPlayer.stats.battingStats.runs}</p>
+                                    <p>Strike Rate : {drawerSelectedPlayer.stats.battingStats.strikeRate}</p>
+                                    <h3>Bowling Stats</h3>
+                                    <p>Overs : {drawerSelectedPlayer.stats.bowlingStats.overs}</p>
+                                    <p>Wickets : {drawerSelectedPlayer.stats.bowlingStats.wickets}</p>
+                                    <p>Economy : {drawerSelectedPlayer.stats.bowlingStats.economy}</p>
+                                    </div>
+                                </div>
+                                </>
+                            }
                         </Drawer>
                         <SideBar />
                         <div className='homeContainer'>
                             <NavBar />
                             <div className="widgets">
-                                <AuctionDetails currentAuction={currentAuction}/>
+                                <AuctionDetails currentAuction={currentAuction} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
                                 <RandomSelectButton selectPlayer={selectPlayer} currentAuction={currentAuction}/>
-                                <PlayersWidget showDrawer={showDrawer} currentAuction={currentAuction} selectPlayer={selectPlayer} selectedPlayer={selectedPlayer}/>
+                                <PlayersWidget showDrawer={showDrawer} currentAuction={currentAuction} selectPlayer={selectPlayer} selectedPlayer={selectedPlayer} setDrawerSelectedPlayer={setDrawerSelectedPlayer}/>
                                 {/* <BucketPlayerTable /> */}
                             </div>
                         </div>

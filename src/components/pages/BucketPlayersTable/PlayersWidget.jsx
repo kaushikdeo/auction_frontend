@@ -6,7 +6,7 @@ import BucketPlayerTable from "./BucketPlayerTable";
 import PlayerCard from "./PlayerCard";
 import PlayerProfileCard from "../../playerProfile/PlayerProfile";
 
-const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlayer }) => {
+const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer }) => {
     const [isAutoSelection, setIsAutoSelection] = useState(true);
 
     return (
@@ -24,7 +24,7 @@ const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlaye
                     />
                 </div>
                 <div className="featuredLeft">
-                    <BucketPlayerTable showDrawer={showDrawer} currentPlayers={currentAuction.players} />
+                    <BucketPlayerTable showDrawer={showDrawer} currentPlayers={currentAuction.players} setDrawerSelectedPlayer={setDrawerSelectedPlayer}/>
                 </div>
             </div>
             <div className="right">

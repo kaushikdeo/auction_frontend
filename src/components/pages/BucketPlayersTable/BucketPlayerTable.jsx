@@ -21,8 +21,7 @@ const rows = [
     createData("08379187",'https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', "Nitesh Mandal", 0, "Batsman"),
   ];
 
-const BucketPlayerTable = ({showDrawer, currentPlayers}) => {
-    console.log("asjxnajksnxkajnsx",currentPlayers)
+const BucketPlayerTable = ({showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
     let rows = currentPlayers.map(player => {
         return { 
             playerId: player.userId, 
@@ -54,8 +53,8 @@ const BucketPlayerTable = ({showDrawer, currentPlayers}) => {
                         </TableCell>
                         <TableCell align="left"><b>{row.playerName}</b></TableCell>
                         <TableCell align="left">{row.playerType}</TableCell>
-                        <TableCell onClick={() => showDrawer(row.playerId)} align="right"><Button variant="contained">Check Stats</Button></TableCell>
-                        <TableCell onClick={() => showDrawer(row.playerId)} align="right"><Button variant="contained">Select Player</Button></TableCell>
+                        <TableCell onClick={() => handleDrawerSelectedPlayer(row)} align="right"><Button variant="contained">Check Stats</Button></TableCell>
+                        <TableCell onClick={() => console.log('Hello')} align="right"><Button variant="contained">Select Player</Button></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

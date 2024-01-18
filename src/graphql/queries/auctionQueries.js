@@ -19,3 +19,76 @@ export const GET_AUCTIONS = gql`
   }
 }
 `;
+
+export const GET_SINGLE_AUCTION = gql`
+query GetAuction($auctionId: String) {
+  getAuction(auctionId: $auctionId) {
+    auctionId
+    auctionName
+    bucketWalletBalance
+    createdBy
+    endTime
+    players {
+      age
+      email
+      battingHand
+      battingPref
+      bowlingHand
+      bowlingStyle
+      email
+      fieldingPref
+      firstName
+      gender
+      lastName
+      playerType
+      stats {
+        battingStats {
+          innings
+          runs
+          strikeRate
+        }
+        bowlingStats {
+          economy
+          overs
+          wickets
+        }
+      }
+      userId
+    }
+    sportName
+    startTime
+    teams {
+      teamId
+      teamName
+      teamDescription
+      teamCaptain {
+        firstName
+        age
+        battingHand
+        battingPref
+        bowlingHand
+        bowlingStyle
+        email
+        gender
+        lastName
+        userId
+        stats {
+          battingStats {
+            innings
+            runs
+            strikeRate
+          }
+          bowlingStats {
+            economy
+            overs
+            wickets
+          }
+        }
+        fieldingPref
+      }
+      teamLogo
+    }
+    venue
+  }
+}
+`

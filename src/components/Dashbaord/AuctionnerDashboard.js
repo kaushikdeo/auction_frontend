@@ -98,7 +98,7 @@ const AuctionnerDashboard = () => {
             console.log("data.ajsxba", data && data.auctions && data.auctions.length)
             return data.auctions.map((auc) => (
                 <div className="aucCard" onClick={() => { handleSingleAuction(auc.auctionId) }}>
-                    <div class="card">
+                    <div className="card">
                         <header className="card-header">
                             <p style={{ color: 'white' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p>
                             <span style={{ color: 'white' }} className="title">{auc.auctionName}</span>

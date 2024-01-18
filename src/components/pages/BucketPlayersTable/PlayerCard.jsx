@@ -21,11 +21,11 @@ const rows = [
 
 const PlayerCard = () => {
     return (
-        <div class="card-container">
-            <span class="pro">PRO</span>
-            <img class="round" width={150} height={150} src="https://res.cloudinary.com/dfrmnqtwi/q5tfadda5ysg3xijpwuu" alt="user" />
+        <div className="card-container">
+            <span className="pro">PRO</span>
+            <img className="round" width={150} height={150} src="https://res.cloudinary.com/dfrmnqtwi/q5tfadda5ysg3xijpwuu" alt="user" />
             <h3>Vishal Rane</h3>
-            <div class="buttons">
+            <div className="buttons">
             <TableContainer component={Paper} className="selectedPlayertableContainer">
                 <Table sx={{ minWidth: 650 }} className="playertable" aria-label="simple table">
                     <TableHead>
@@ -51,7 +51,7 @@ const PlayerCard = () => {
                 </Table>
                 </TableContainer>
             </div>
-            <div class="skills">
+            <div className="skills">
                 <h6>Skills</h6>
                 <ul>
                     <li>Batsman</li>

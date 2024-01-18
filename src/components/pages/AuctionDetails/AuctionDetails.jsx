@@ -3,19 +3,19 @@ import './auctionDetails.scss'
 import TeamsTable from "../TeamsTable/TeamsTable";
 import CardComponent from "../Card/CardComponent";
 
-const AuctionDetails = () => {
+const AuctionDetails = ({currentAuction}) => {
     return (
         <div className="auctionDetailsWidget">
         <div className="left">
             <span className="title">Auction Details</span>
             <div className="featuredLeft">
-                <CardComponent />
+                <CardComponent currentAuction={currentAuction}/>
             </div>
         </div>
         <div className="right">
             <span className="title">Team Details</span>
             <div className="featuredRight">
-                <TeamsTable />
+                <TeamsTable currentAuction={currentAuction}/>
             </div>
         </div>
     </div>

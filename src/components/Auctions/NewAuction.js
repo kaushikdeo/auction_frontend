@@ -10,7 +10,8 @@ import {
   Button, 
   Steps,
   DatePicker,
-  DatePickerProps
+  DatePickerProps,
+  Dropdown 
  } from "antd";
  import Dropzone from 'react-dropzone'
 import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined } from '@ant-design/icons';
@@ -18,44 +19,76 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_NEW_AUCTION } from "../../graphql/mutations/auctionMutations";
 import { GET_LOGGED_IN_USER } from "../../graphql/queries/userQueries";
-
-
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
-
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-];
+import AddConnections from "../User/AddConnections";
+import AddPlayers from "./AddPlayers";
 
 const { Content } = Layout;
 
 const NewAuction = () => {
+  const items = [
+    {
+      key: '1',
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+          1st menu item
+        </a>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+          2nd menu item
+        </a>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+          3rd menu item
+        </a>
+      ),
+    },
+  ];
+  const teamsTableColumnsInit = [
+    {
+      title: "Team Name",
+      dataIndex: "teamName",
+      key: "teamName",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Team Captain",
+      dataIndex: "teamCaptain",
+      key: "teamCaptain",
+    },
+    {
+      title: "Team Description",
+      dataIndex: "teamDescription",
+      key: "teamDescription",
+    },
+    // {
+    //   title: "Tags",
+    //   key: "tags",
+    //   dataIndex: "tags",
+    //   render: (_, { tags }) => (
+    //     <>
+    //       {tags.map((tag) => {
+    //         let color = tag.length > 5 ? "geekblue" : "green";
+    //         if (tag === "loser") {
+    //           color = "volcano";
+    //         }
+    //         return (
+    //           <Tag color={color} key={tag}>
+    //             {tag.toUpperCase()}
+    //           </Tag>
+    //         );
+    //       })}
+    //     </>
+    //   ),
+    // },
+  ];
   const tableColumnsInit = [
     {
       title: "Name",
@@ -69,9 +102,9 @@ const NewAuction = () => {
       key: "email",
     },
     {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
+      title: "Select Bucket",
+      key: "selectBucket",
+      dataIndex: "selectBucket",
       render: (_, { tags }) => (
         <>
           {tags.map((tag) => {
@@ -80,9 +113,9 @@ const NewAuction = () => {
               color = "volcano";
             }
             return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
+                <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
+                  <Button>bottom</Button>
+                </Dropdown>
             );
           })}
         </>
@@ -148,17 +181,66 @@ const NewAuction = () => {
     loading: loggedInUserLoading,
     error: loggedInUserError,
   } = useQuery(GET_LOGGED_IN_USER);
+  const [auctionName, setAuctionName] = useState("");
+  const [bucketWalletBalance, setBucketWalletBalance] = useState(null);
+  const [walletBalanceDifference, setWalletBalanceDifference] = useState(null);
+  const [sportsName, setSportsName] = useState("");
+  const [numberOfTeams, setNumberOfTeams] = useState(0);
+  const [startDateTime, setStartDateTime] = useState(null);
+  const [endDateTime, setEndDateTime] = useState(null);
+  const [venueName, setVenueName] = useState("");
+
+  const [teams, setTeams] = useState([]);
+  const [teamName, setTeamName] = useState("");
+  const [teamCaptain, setTeamCaptain] = useState({
+    firstName: "",
+    lastName: "",
+    userId: ""
+  })
+  const [teamViceCaptain, setViceTeamCaptain] = useState({
+    firstName: "",
+    lastName: "",
+    userId: ""
+  })
+  const [teamDescription, setTeamDescription] = useState("");
+
   const [currentStep, setCurrentStep] = useState(0);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [playerBucket, setPlayerBucket] = useState([]);
+  const [buckets, setBuckets] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const onChange = (value,dateString) => {
+  const onChangeStart = (value,dateString) => {
     console.log('Selected Time: ', value);
     console.log('Formatted Selected Time: ', dateString);
+    setStartDateTime(dateString)
   };
-  
-  const onOk = (value) => {
+
+  const onChangeEnd = (value,dateString) => {
+    console.log('Selected Time: ', value);
+    console.log('Formatted Selected Time: ', dateString);
+    setEndDateTime(dateString)
+  };
+
+  const addNewTeam = () => {
+    let initTeams = [...teams];
+    console.log(teamName, teamCaptain, teamViceCaptain, teamDescription);
+    let newTeam = {
+      teamName,
+      teamCaptain: `${teamCaptain.firstName} ${teamCaptain.lastName}`,
+      teamCaptainUserId: teamCaptain.userId,
+      // teamViceCaptain,
+      teamDescription
+    }
+    initTeams.push(newTeam);
+    setTeams(initTeams);
+  }
+   
+  const onOkStart = (value) => {
+    console.log('onOk: ', value);
+  };
+
+  const onOkEnd = (value) => {
     console.log('onOk: ', value);
   };
 
@@ -182,13 +264,36 @@ const NewAuction = () => {
   }
 
   const handleCreateNewAuction = async (values) => {
-    console.log("Received values:", values);
+    let formattedTeams = teams.map(t => {
+      return {
+        teamName: t.teamName,
+        teamCaptain: t.teamCaptainUserId,
+        teamViceCaptain: "",
+        teamDescription: t.teamDescription,
+        teamLogo: "",
+      }
+    })
+    let formattedPlayers = playerBucket.map(player => player.userId)
+    console.log("playerBucketplayerBucketplayerBucketplayerBucket", playerBucket)
+    let newAuction = {
+        auctionName,
+        startTime: startDateTime,
+        endTime: endDateTime,
+        sportName: sportsName,
+        bucketWalletBalance: Number(bucketWalletBalance),
+        walletBalDifference: Number(walletBalanceDifference),
+        venue: venueName,
+        players: formattedPlayers,
+        teams: formattedTeams,
+        numberOfBuckets: Number(buckets) || 0
+    }
+    console.log("Received values:", newAuction);
     let addedAuction = await addNewAuction({
       variables: {
         newAuctionInput: {
-          ...values,
-          endTime: new Date(values.endTime).toISOString(),
-          startTime: new Date(values.startTime).toISOString(),
+          ...newAuction,
+          endTime: new Date(newAuction.endTime).toISOString(),
+          startTime: new Date(newAuction.startTime).toISOString(),
         },
       },
     });
@@ -200,7 +305,18 @@ const NewAuction = () => {
     // Implement your logic to handle form submission
   };
 
+  const addTeamCaptain = (addedCaptain) => {
+    console.log("ADDED CAPTAIN", addedCaptain);
+    let newCap = {
+      firstName: addedCaptain.name.split(" ")[0],
+      lastName: addedCaptain.name.split(" ")[1],
+      userId: addedCaptain.userId
+    }
+    setTeamCaptain(newCap);
+  }
+
   const renderStepsForms = () => {
+    console.log("Hello", currentStep)
     if (currentStep === 0) {
       return (
         <div className="formContainer">
@@ -209,42 +325,42 @@ const NewAuction = () => {
             <div className="user-details">
               <div className="input-box">
                 <span className="details">Auction Name</span>
-                <input type="text" placeholder="Enter Auction Name" required />
+                <input value={auctionName} onChange={(e) => setAuctionName(e.target.value)} type="text" placeholder="Enter Auction Name" required />
               </div>
               <div className="input-box">
                 <span className="details">Bucket Wallet Balance</span>
-                <input type="number" placeholder="Enter Bucket Wallet Balance" required />
+                <input value={bucketWalletBalance} onChange={(e) => setBucketWalletBalance(e.target.value)} type="number" placeholder="Enter Bucket Wallet Balance" required />
               </div>
               <div className="input-box">
                 <span className="details">Wallet Balance Difference</span>
-                <input type="number" placeholder="Enter Wallet Balance Difference" required />
+                <input value={walletBalanceDifference} onChange={(e) => setWalletBalanceDifference(e.target.value)} type="number" placeholder="Enter Wallet Balance Difference" required />
               </div>
               <div className="input-box">
                 <span className="details">Sport Name</span>
-                <input type="text" placeholder="Enter Sports Name" required />
+                <input value={sportsName} onChange={(e) => setSportsName(e.target.value)} type="text" placeholder="Enter Sports Name" required />
               </div>
               <div className="input-box">
                 <span className="details">Number of Teams</span>
-                <input type="number" placeholder="Enter Number of Teams" required />
+                <input value={numberOfTeams} onChange={(e) => setNumberOfTeams(e.target.value)} type="number" placeholder="Enter Number of Teams" required />
               </div>
               <div className="input-box">
-                <span className="details">Auction Name</span>
-                <input type="text" placeholder="Enter Auction Name" required />
+                <span className="details">Buckets</span>
+                <input value={buckets} onChange={(e) => setBuckets(e.target.value)} type="text" placeholder="Enter comma seperated bucket names" required />
               </div>
               <div className="input-box">
                 <span className="details">Start Date Time</span>
-                <DatePicker showTime onChange={onChange} onOk={onOk} />
+                <DatePicker showTime onChange={onChangeStart} onOk={onOkStart} />
               </div>
               <div className="input-box">
                 <span className="details">End Date Time</span>
-                <DatePicker showTime onChange={onChange} onOk={onOk} />
+                <DatePicker showTime onChange={onChangeEnd} onOk={onOkEnd} />
               </div>
               <div className="input-box">
                 <span className="details">Venue</span>
-                <input type="text" placeholder="Enter Venue" required />
+                <input value={venueName} onChange={(e) => setVenueName(e.target.value)} type="text" placeholder="Enter Venue" required />
               </div>
               <div className="button">
-                <input type="submit" value='Next' onSubmit={() => setCurrentStep(1)}/>
+                <input type="button" value='Next' onClick={() => setCurrentStep(1)}/>
               </div>
             </div>
           </form>
@@ -258,23 +374,24 @@ const NewAuction = () => {
             <div className="user-details">
               <div className="input-box">
                 <span className="details">Team Name</span>
-                <input type="text" placeholder="Enter Team Name" required />
+                <input onChange={(e) => setTeamName(e.target.value)} value={teamName} type="text" placeholder="Enter Team Name" required />
               </div>
               <div className="input-box">
                 <span className="details">Team Captain</span>
-                <input type="text" placeholder="Enter Team Captain" required />
+                {/* <input type="text" placeholder="Enter Team Captain" required /> */}
+                <AddPlayers addTeamCaptain={addTeamCaptain} />
               </div>
-              <div className="input-box">
+              {/* <div className="input-box">
                 <span className="details">Team Vice Captain</span>
                 <input type="text" placeholder="Enter Vice Team Captain" required />
               </div>
               <div className="input-box">
                 <span className="details">Retained Players</span>
                 <input type="text" placeholder="Retained Players" required />
-              </div>
+              </div> */}
               <div className="input-box">
                 <span className="details">Team Description</span>
-                <input type="text" placeholder="Enter Description" required />
+                <input onChange={(e) => setTeamDescription(e.target.value)} value={teamDescription} type="text" placeholder="Enter Description" required />
               </div>
               <div className="input-box">
                 <span className="details">Team Logo</span>
@@ -290,11 +407,11 @@ const NewAuction = () => {
               </Dropzone>
               </div>
               <div className="button">
-                <input type="submit" value='Add Team' />
+                <input type="button" value='Add Team' onClick={() => addNewTeam() } />
               </div>
-              <Table columns={tableColumnsInit} dataSource={selectedUsers} />
+              <Table columns={teamsTableColumnsInit} dataSource={teams} />
               <div className="button">
-                <input type="submit" value='Next' />
+              <input type="button" value='Next' onClick={() => setCurrentStep(2)}/>
               </div>
             </div>
           </form>
@@ -319,13 +436,13 @@ const NewAuction = () => {
             </div>
           )}
           <div className="button">
-            <input type="submit" value='Create Auction' />
+            <input type="button" value='Create Auction' onClick={() => handleCreateNewAuction()}/>
           </div>
         </div>
       )
     }
   }
-
+  console.log("Hello", teams)
   useEffect(() => {
     if (
       loggedInUserData &&

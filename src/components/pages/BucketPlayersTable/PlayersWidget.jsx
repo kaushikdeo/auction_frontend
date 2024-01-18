@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Switch } from 'antd';
 import './playerwidget.scss'
 import BucketPlayerTable from "./BucketPlayerTable";
 import PlayerCard from "./PlayerCard";
+import PlayerProfileCard from "../../playerProfile/PlayerProfile";
 
-const PlayersWidget = ({showDrawer}) => {
+const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlayer }) => {
+    const [isAutoSelection, setIsAutoSelection] = useState(true);
+
     return (
         <div className="playerDetailsWidget">
             <div className="left">
                 <div className="playertoggle">
                     <span className="title">Players Bucket</span>
-                    <span className="sliderTextBefore">Manual Selection</span>
-                    <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider"></span>
-                    </label>
                     <span className="sliderTextAfter">Auto Selection</span>
+                    <Switch
+                        checked
+                        onChange={(checked, event) => console.log(checked, event)}
+                        checkedChildren={<CheckOutlined />}
+                        unCheckedChildren={<CloseOutlined />}
+                        defaultChecked
+                    />
                 </div>
                 <div className="featuredLeft">
-                    <BucketPlayerTable showDrawer={showDrawer}/>
+                    <BucketPlayerTable showDrawer={showDrawer} currentPlayers={currentAuction.players} />
                 </div>
             </div>
             <div className="right">
-                <span className="title">Current Player</span>
-                <div className="featuredRight">
-                    <PlayerCard />
-                </div>
+                {
+                    selectedPlayer && <>
+                        <span className="title">Current Player</span>
+                        <div className="featuredRight">
+                            <PlayerProfileCard selectedPlayer={selectedPlayer}/>
+                        </div>
+                    </>
+                }
             </div>
         </div>
     )

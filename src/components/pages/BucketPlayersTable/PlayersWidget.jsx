@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Switch } from 'antd';
 import './playerwidget.scss'
-import BucketPlayerTable from "./BucketPlayerTable";
-import PlayerCard from "./PlayerCard";
 import PlayerProfileCard from "../../playerProfile/PlayerProfile";
 import AuctionCalc from "./AuctionCalc";
 
 const PlayersWidget = ({ handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setCurrentBid, currentBid }) => {
-    const [isAutoSelection, setIsAutoSelection] = useState(true);
+    // const [isAutoSelection, setIsAutoSelection] = useState(true);
 
     return (
         <div className="playerDetailsWidget">

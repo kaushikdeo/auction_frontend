@@ -1,7 +1,6 @@
 import React from "react";
 import './auctionDetails.scss'
 import TeamsTable from "../TeamsTable/TeamsTable";
-import CardComponent from "../Card/CardComponent";
 import BucketPlayerTable from "../BucketPlayersTable/BucketPlayerTable";
 
 const AuctionDetails = ({currentAuction,showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {

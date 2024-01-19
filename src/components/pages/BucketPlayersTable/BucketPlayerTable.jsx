@@ -9,18 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Avatar, Button } from "@mui/material";
 
-function createData(playerId, playerImage, playerName, basePrice, playerType) {
-    return { playerId, playerImage, playerName, basePrice, playerType };
-  }
-
-const rows = [
-    createData("918273", 'https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', "Vishal Rane", 0, "Bowler"),
-    createData("9128734",'https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', "Vishal Delwadia", 0, "Batsman"),
-    createData("912378",'https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', "Sumeel Parab", 0, "Batsman"),
-    createData("1231",'https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', "Kaushik Deo", 0, "Batsman"),
-    createData("08379187",'https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', "Nitesh Mandal", 0, "Batsman"),
-  ];
-
 const BucketPlayerTable = ({showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
     let rows = currentPlayers.map(player => {
         return { 

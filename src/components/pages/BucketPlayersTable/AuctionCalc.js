@@ -4,9 +4,6 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 const AuctionCalc = ({handleConfirmAuctionPlayer, currentAuction, selectedPlayer, setCurrentBid, currentBid}) => {
     const [selectedTeam, setSelectedteam] = useState(null)
-    const options = [
-        'one', 'two', 'three'
-      ];
     const items = currentAuction.teams.map((team,i) =>{ 
         console.log("teamteamteam", team)
         return { value: i+1, label: team.teamName }

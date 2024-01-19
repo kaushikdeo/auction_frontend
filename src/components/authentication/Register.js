@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation} from '@apollo/client';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Layout, Form, Input, Button } from 'antd';
 import { REGISTER } from '../../graphql/mutations/userMutations';
 import { setItem } from '../../utils/localStore';

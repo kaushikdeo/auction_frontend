@@ -32,6 +32,10 @@ const UserRole = () => {
             <h1>Auctioneer</h1>
           <p className="body-text">Select this role if you want to conduct auctions</p> 
         </div>
+        <div className="card" onClick={() => handleRoleSelect(0)}>
+            <h1>Captain</h1>
+          <p className="body-text">Select this role if you want to participate in a auction as a captain</p> 
+        </div>
         <div className="card" onClick={() => handleRoleSelect(1)}>
             <h1>Player</h1>
           <p className="body-text">Select this role if you want to login as a player</p> 

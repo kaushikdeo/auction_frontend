@@ -18,9 +18,9 @@ const PlayerDashboard = () => {
     }
 
     useEffect(() => {
-        if (selectedPlayerSubData && selectedPlayerSubData.auctionFeed && !selectedPlayerSubLoading && !selectedPlayerSubError) {
+        if (selectedPlayerSubData && selectedPlayerSubData.auctionFeed && selectedPlayerSubData.auctionFeed.user && selectedPlayerSubData.auctionFeed.auctionId && !selectedPlayerSubLoading && !selectedPlayerSubError) {
             console.log("dhhdhajbshdbajhsdbakhsdbajhbsdjahbdhj", selectedPlayerSubData.auctionFeed)
-            setAuctionedPlayer(selectedPlayerSubData.auctionFeed);
+            setAuctionedPlayer(selectedPlayerSubData.auctionFeed.user);
             setOpenModal(!openModal)
         }
     }, [selectedPlayerSubData, selectedPlayerSubLoading, selectedPlayerSubError])

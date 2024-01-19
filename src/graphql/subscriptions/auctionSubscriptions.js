@@ -2,7 +2,9 @@ import { gql } from '@apollo/client';
 
 export const HANDLE_PLAYER_SELECT_SUBSCRIPTION = gql`
   subscription {
-  auctionFeed {
+    auctionFeed {
+    auctionId
+    user {
     age
     battingHand
     battingPref
@@ -26,7 +28,7 @@ export const HANDLE_PLAYER_SELECT_SUBSCRIPTION = gql`
         wickets
       }
     }
-    userId
+    }
   }
 }
 `;

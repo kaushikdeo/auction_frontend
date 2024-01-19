@@ -64,6 +64,7 @@ const SingleAuction = () => {
         await handlePlayerSelectMutation({
             variables: {
               playerId: userData.userId,
+              auctionId: currentAuction.auctionId
             },
           });
     }

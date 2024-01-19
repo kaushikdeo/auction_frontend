@@ -14,32 +14,32 @@ export const ADD_NEW_AUCTION = gql`
 `;
 
 export const HANDLE_PLAYER_SELECT = gql`
-mutation($playerId: ID!) {
-  handlePlayerSelect(playerId: $playerId) {
-    age
-    battingHand
-    battingPref
-    bowlingHand
-    bowlingStyle
-    email
-    fieldingPref
-    firstName
-    gender
-    lastName
-    playerType
-    stats {
-      battingStats {
-        innings
-        runs
-        strikeRate
+mutation($playerId: ID!, $auctionId: ID!) {
+  handlePlayerSelect(playerId: $playerId, auctionId: $auctionId) {
+      age
+      battingHand
+      battingPref
+      bowlingHand
+      bowlingStyle
+      email
+      fieldingPref
+      firstName
+      gender
+      lastName
+      playerType
+      stats {
+        battingStats {
+          innings
+          runs
+          strikeRate
+        }
+        bowlingStats {
+          economy
+          overs
+          wickets
+        }
       }
-      bowlingStats {
-        economy
-        overs
-        wickets
-      }
-    }
-    userId
+      userId
   }
 }
 `

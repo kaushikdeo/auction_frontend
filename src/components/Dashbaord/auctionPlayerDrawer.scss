@@ -1,0 +1,84 @@
+section {
+    min-height: 100vh;
+    margin: 0 30px;
+    .container {
+        padding-left: 25px;
+        padding-right: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+  }
+  
+  
+  
+  .card {
+    background-color: #FFF;
+    padding: 3rem 3.5rem;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    max-width: 500px;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    width: 101%;
+    height: 110%;
+    background-image: linear-gradient(to right bottom, #4081f8, #7dd2f9);
+    z-index: -1;
+    border-radius: 15px;
+    transform: rotate(-5deg);
+    box-shadow: 0 0 45px 5px rgba(0, 0, 0, .2);
+  }
+  .card li {
+    width: 50%;
+    margin: 15px 0;
+  }
+  
+  .card li p {
+    display: flex;
+  }
+  
+  .card li h3 {
+    display: inline-block;
+    font-size: 2rem;
+    color: #333;
+    vertical-align: top;
+    margin-right: 5px;
+    line-height: 1.2;
+  }
+  .card li .fa {
+    font-size: .75rem;
+  }
+  .card li span {
+    color: #9ea6a8;
+    font-weight: bold;
+    font-size: .95rem;
+  }
+  
+  
+  .clr-up {
+    color: green;
+  }
+  
+  .clr-down {
+    color: red;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .card::before {
+      top: -10px;
+      left: -2px;
+    }
+    .card li {
+      width: 100%;
+    }
+    .card li:not(:first-of-type) {
+      margin-top: 15px;
+    }
+  }

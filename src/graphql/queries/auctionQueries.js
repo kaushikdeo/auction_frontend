@@ -28,6 +28,7 @@ query GetAuction($auctionId: String) {
     bucketWalletBalance
     createdBy
     endTime
+    minimumBid
     players {
       age
       email

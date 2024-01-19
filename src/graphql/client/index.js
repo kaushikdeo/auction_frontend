@@ -1,9 +1,20 @@
-import { ApolloClient,  InMemoryCache } from '@apollo/client';
+import { ApolloClient,  InMemoryCache, createHttpLink, split } from '@apollo/client';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { createClient } from 'graphql-ws';
 import { setContext } from '@apollo/client/link/context';
 import { getItem } from '../../utils/localStore';
-import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
-const uploadLink = createUploadLink({ uri: 'http://localhost:4000/graphql' });
+const httpLink = createHttpLink({
+    uri: 'https://smiling-similarly-ostrich.ngrok-free.app/graphql',
+  });
+
+  const wsLink = new GraphQLWsLink(createClient({
+    url: 'wss://smiling-similarly-ostrich.ngrok-free.app/graphql',
+    options: {
+      reconnect: true,
+    },
+  }));
 
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
@@ -17,7 +28,17 @@ const authLink = setContext((_, { headers }) => {
     }
   });
 
+  const splitLink = split(
+    ({ query }) => {
+      const {kind, operation} = getMainDefinition(query);
+      console.log("-----------------------------------", query, kind, operation )
+      return (kind === 'OperationDefinition' && operation === 'subscription');
+    },
+    wsLink,
+    authLink.concat(httpLink),
+  );
+
 export const apolloClient = new ApolloClient({
-    link: authLink.concat(uploadLink),
+    link: splitLink,
     cache: new InMemoryCache(),
 });

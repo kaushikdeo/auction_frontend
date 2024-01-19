@@ -7,12 +7,12 @@ import BucketPlayerTable from "../BucketPlayersTable/BucketPlayerTable";
 const AuctionDetails = ({currentAuction,showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
     return (
         <div className="auctionDetailsWidget">
-        <div className="left">
+        {/* <div className="left">
             <span className="title">Auction Details</span>
             <div className="featuredLeft">
                 <CardComponent currentAuction={currentAuction}/>
             </div>
-        </div>
+        </div> */}
         <div className="right">
             <span className="title">Player Bucket</span>
             <div className="featuredRight">

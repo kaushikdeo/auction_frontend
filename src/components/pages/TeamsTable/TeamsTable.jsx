@@ -18,7 +18,7 @@ const TeamsTable = ({currentAuction}) => {
       playersBought: 0, 
       balanceAmount: 0, 
       amountSpent: 0, 
-      allocatedFunds: 0
+      allocatedFunds: currentAuction.bucketWalletBalance
     }
   })
 

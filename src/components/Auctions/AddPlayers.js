@@ -73,7 +73,7 @@ const tableColumns = [
         setSelectedUsers([]);
         console.log("addConnData", addConnData);
     }
-  }, [addConnData, addConnLoading, addConnLoading, addConnError])
+  }, [addConnData, addConnLoading, addConnError])
 
   useEffect(() => {
     if (searchInput.length > 5) {

@@ -5,8 +5,9 @@ import './playerwidget.scss'
 import BucketPlayerTable from "./BucketPlayerTable";
 import PlayerCard from "./PlayerCard";
 import PlayerProfileCard from "../../playerProfile/PlayerProfile";
+import AuctionCalc from "./AuctionCalc";
 
-const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer }) => {
+const PlayersWidget = ({ handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setCurrentBid, currentBid }) => {
     const [isAutoSelection, setIsAutoSelection] = useState(true);
 
     return (
@@ -24,7 +25,7 @@ const PlayersWidget = ({ showDrawer, currentAuction, selectPlayer, selectedPlaye
                     />
                 </div>
                 <div className="featuredLeft">
-                    <h3>WE NEEED TO DESIGN THIS PART. THIS PART WILL HANDLE ALL THE AUCTION AUCTIONS</h3>
+                <AuctionCalc handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} currentAuction={currentAuction} selectedPlayer={selectedPlayer} setCurrentBid={setCurrentBid} currentBid={currentBid}/>
                 </div>
             </div>
             <div className="right">

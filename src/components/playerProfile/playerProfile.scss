@@ -6,6 +6,18 @@
     stroke: currentColor;
     fill: currentColor;
   }
+
+  .profile-card__img {
+    background-color: #6944ff;
+  }
+
+  .profileInitials {
+    font-size: 50px;
+      color: white;
+      position: fixed;
+      left: 35px;
+      top: 36px;
+  }
   
   .cardwrapper {
     width: 100%;

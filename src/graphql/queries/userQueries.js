@@ -11,6 +11,18 @@ export const GET_LOGGED_IN_USER = gql`
     mobile
     role
     userId
+    stats {
+  battingStats {
+    innings
+    runs
+    strikeRate
+  }
+  bowlingStats {
+    economy
+    overs
+    wickets
+  }
+}
     connections {
       userId
       firstName
@@ -36,3 +48,35 @@ export const SEARCH_USERS_BY_EMAIL = gql`
   }
   }
   `;
+
+export const LOGGEDINPLAYERAUCTION = gql`
+query GetPlayerAuctions {
+  getPlayerAuctions {
+    auctionId
+    auctionName
+    bucketWalletBalance
+    endTime
+    minimumBid
+    sportName
+    auctionDetails {
+      auctionTeams {
+        team {
+          teamId
+          teamLogo
+          teamName
+        }
+        teamPlayers {
+          player {
+            firstName
+            lastName
+            userId
+          }
+          isbidded
+          role
+          soldFor
+        }
+      }
+    }
+  }
+}
+`

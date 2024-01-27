@@ -43,3 +43,20 @@ mutation($playerId: ID!, $auctionId: ID!) {
   }
 }
 `
+
+export const HANDLE_BUY_PLAYER = gql`
+mutation ($playerId: ID!, $teamId: ID!, $bidAmount: Int!, $auctionId: ID!) {
+  handleBuyPlayer(playerId: $playerId, teamId: $teamId, bidAmount: $bidAmount, auctionId: $auctionId)
+}`
+
+export const HANDLE_SHIFT_PLAYER_TO_UNALLOCATED_BUCKET = gql`
+mutation ($playerId: ID!, $auctionId: ID!) {
+  handleAddPlayerToUnallocatedBucket(playerId: $playerId, auctionId: $auctionId)
+}
+`
+
+export const HANDLE_RESET_BUY_PLAYER = gql`
+mutation ($playerId: ID!, $teamId: ID!, $auctionId: ID!) {
+  handleResetBuy(playerId: $playerId, teamId: $teamId, auctionId: $auctionId)
+}
+`

@@ -4,10 +4,12 @@ import './playerProfile.scss'
 const PlayerProfileCard = ({selectedPlayer}) => {
     console.log("selectedPlayer", selectedPlayer)
     return (
+        
         <div className="cardwrapper">
-            <div className="profile-card js-profile-card">
+            {
+                selectedPlayer && selectedPlayer.stats ? (<div className="profile-card js-profile-card">
                 <div className="profile-card__img">
-                    <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1537638518/Ba%C5%9Fl%C4%B1ks%C4%B1z-1.jpg" alt="profile card" />
+                    <p className="profileInitials"><b>{`${selectedPlayer.firstName[0]} ${selectedPlayer.lastName[0]}`}</b></p>
                 </div>
                 <div className="profile-card__cnt js-profile-cnt">
                     <div className="profile-card__name">{`${selectedPlayer.firstName} ${selectedPlayer.lastName}`}</div>
@@ -52,7 +54,8 @@ const PlayerProfileCard = ({selectedPlayer}) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>) : (<>No Player Stats</>)
+            }
         </div>
     )
 }

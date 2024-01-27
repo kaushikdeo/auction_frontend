@@ -4,8 +4,9 @@ import { Switch } from 'antd';
 import './playerwidget.scss'
 import PlayerProfileCard from "../../playerProfile/PlayerProfile";
 import AuctionCalc from "./AuctionCalc";
+import BoughtPlayersTable from "./BoughtPlayersTable";
 
-const PlayersWidget = ({ handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setCurrentBid, currentBid }) => {
+const PlayersWidget = ({ teamCalc, shiftPlayerToUnallocatedTable, minBid, handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setSelectedPlayer, setCurrentBid, currentBid }) => {
     // const [isAutoSelection, setIsAutoSelection] = useState(true);
 
     return (
@@ -23,17 +24,18 @@ const PlayersWidget = ({ handleConfirmAuctionPlayer, showDrawer, currentAuction,
                     />
                 </div>
                 <div className="featuredLeft">
-                <AuctionCalc handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} currentAuction={currentAuction} selectedPlayer={selectedPlayer} setCurrentBid={setCurrentBid} currentBid={currentBid}/>
+                    <AuctionCalc teamCalc={teamCalc} shiftPlayerToUnallocatedTable={shiftPlayerToUnallocatedTable} minBid={minBid} handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} currentAuction={currentAuction} selectedPlayer={selectedPlayer} setSelectedPlayer={setSelectedPlayer} setCurrentBid={setCurrentBid} currentBid={currentBid}/>
+                    <BoughtPlayersTable currentAuction={currentAuction} />
                 </div>
             </div>
             <div className="right">
                 {
-                    selectedPlayer && <>
+                    selectedPlayer ? (<>
                         <span className="title">Current Player</span>
                         <div className="featuredRight">
                             <PlayerProfileCard selectedPlayer={selectedPlayer}/>
                         </div>
-                    </>
+                    </>) : (<div style={{margin: "auto"}} ><h1>SELECT PLAYER TO POPULATE</h1></div>)
                 }
             </div>
         </div>

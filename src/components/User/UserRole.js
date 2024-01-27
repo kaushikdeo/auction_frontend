@@ -47,39 +47,6 @@ const UserRole = () => {
       </div>
     </div>
   )
-
-  // return (
-  //   <div className="userRoleContainer">
-  //       Select Role
-  //         <Card
-  //           onClick={() => handleRoleSelect(0)}
-  //           hoverable
-  //           style={{ width: 240 }}
-  //           cover={
-  //             <img
-  //               alt="example"
-  //               src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-  //             />
-  //           }
-  //         >
-  //           <Meta title="Auctioneer" description="Select this role if you want to conduct auctions" />
-  //         </Card>
-  //         <Card
-  //           onClick={() => handleRoleSelect(1)}
-  //           hoverable
-  //           style={{ width: 240 }}
-  //           cover={
-  //             <img
-  //               alt="example"
-  //               src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-  //             />
-  //           }
-  //         >
-  //           <Meta title="Player" description="Select this role if you want to login as a player" />
-  //         </Card>
-  //     <AddConnections />
-  //   </div>
-  // );
 };
 
 export default UserRole;

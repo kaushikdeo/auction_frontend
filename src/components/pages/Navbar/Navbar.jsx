@@ -8,6 +8,10 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ChatIcon from '@mui/icons-material/Chat';
 
 const NavBar = () => {
+    const onHandleLogout = () => {
+
+    }
+    
     return (
         <div className="navbar">
             <div className="wrapper">

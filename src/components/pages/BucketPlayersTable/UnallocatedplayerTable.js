@@ -9,8 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Avatar, Button } from "@mui/material";
 
-const BucketPlayerTable = ({currentAuction, boughtPlayers, showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
-    let allPlayers = currentPlayers.map(player => {
+const UnallocatedplayerTable = ({currentAuction, boughtPlayers, showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
+    let allPlayers = currentAuction.unallocatedPlayers.map(player => {
         return { 
             playerId: player.userId, 
             playerImage: "", 
@@ -18,8 +18,7 @@ const BucketPlayerTable = ({currentAuction, boughtPlayers, showDrawer, currentPl
             playerType: player.playerType
         }
     })
-    let uniquePlayers = allPlayers.filter(({ playerId: id1 }) => !boughtPlayers.some((id2) => id2 === id1));
-    let finalUniquePlayers = uniquePlayers.filter(({ playerId: id1 }) => !currentAuction.unallocatedPlayers.some(({userId: id2}) => id2 === id1));
+    // let uniquePlayers = allPlayers.filter(({ playerId: id1 }) => !boughtPlayers.some((id2) => id2 === id1));
     return (
         <div>
              <div style={{overflowY: "scroll"}} className="playertableContainer">
@@ -33,7 +32,7 @@ const BucketPlayerTable = ({currentAuction, boughtPlayers, showDrawer, currentPl
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {finalUniquePlayers.map((row) => (
+                    {allPlayers.map((row) => (
                         <TableRow
                         key={row.playerId}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -55,4 +54,4 @@ const BucketPlayerTable = ({currentAuction, boughtPlayers, showDrawer, currentPl
     )
 }
 
-export default BucketPlayerTable;
+export default UnallocatedplayerTable;

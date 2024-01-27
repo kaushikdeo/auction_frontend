@@ -189,6 +189,7 @@ const NewAuction = () => {
   const [startDateTime, setStartDateTime] = useState(null);
   const [endDateTime, setEndDateTime] = useState(null);
   const [venueName, setVenueName] = useState("");
+  const [minimumBid, setMinimumBid] = useState(0)
 
   const [teams, setTeams] = useState([]);
   const [teamName, setTeamName] = useState("");
@@ -209,6 +210,8 @@ const NewAuction = () => {
   const [playerBucket, setPlayerBucket] = useState([]);
   const [buckets, setBuckets] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
+
+  console.log("selectedUsersselectedUsers", playerBucket);
 
   const onChangeStart = (value,dateString) => {
     console.log('Selected Time: ', value);
@@ -233,7 +236,10 @@ const NewAuction = () => {
       teamDescription
     }
     initTeams.push(newTeam);
+    setTeamName("")
+    setTeamCaptain("")
     setTeams(initTeams);
+    setTeamDescription("");
   }
    
   const onOkStart = (value) => {
@@ -285,7 +291,8 @@ const NewAuction = () => {
         venue: venueName,
         players: formattedPlayers,
         teams: formattedTeams,
-        numberOfBuckets: Number(buckets) || 0
+        numberOfBuckets: Number(buckets) || 0,
+        minimumBid: 200000,
     }
     console.log("Received values:", newAuction);
     let addedAuction = await addNewAuction({
@@ -334,6 +341,10 @@ const NewAuction = () => {
               <div className="input-box">
                 <span className="details">Wallet Balance Difference</span>
                 <input value={walletBalanceDifference} onChange={(e) => setWalletBalanceDifference(e.target.value)} type="number" placeholder="Enter Wallet Balance Difference" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Minimum Bid</span>
+                <input value={minimumBid} onChange={(e) => setMinimumBid(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
               </div>
               <div className="input-box">
                 <span className="details">Sport Name</span>

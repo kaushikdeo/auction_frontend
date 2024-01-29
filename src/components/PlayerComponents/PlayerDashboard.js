@@ -13,9 +13,8 @@ const { Content } = Layout;
 
 const PlayerDashboard = () => {
     const navigate = useNavigate();
-    const { data: selectedPlayerSubData, loading: selectedPlayerSubLoading, error: selectedPlayerSubError } = useSubscription(HANDLE_PLAYER_SELECT_SUBSCRIPTION);
-    const {data: loggedInUserData,loading: loggedInUserLoading,error: loggedInUserError } = useQuery(GET_LOGGED_IN_USER);
-    const {data,loading,error} = useQuery(LOGGEDINPLAYERAUCTION);
+    const {data: loggedInUserData, loading: loggedInUserLoading,error: loggedInUserError } = useQuery(GET_LOGGED_IN_USER);
+    const {data: playerAuctionData, loading: playerAuctionLoading , error: playerAuctionError} = useQuery(LOGGEDINPLAYERAUCTION);
 
     const [openModal, setOpenModal] = useState(false)
     const [auctionedPlayer, setAuctionedPlayer] = useState(null);
@@ -26,29 +25,21 @@ const PlayerDashboard = () => {
         console.log("AM I CALLLDE");
     }
 
-    useState(() => {
-        console.log("playerAuctionDataplayerAuctionDataplayerAuctionData", data, loading, error)
-        if (data && !error) {
-            if (data.getPlayerAuctions && data.getPlayerAuctions.length) {
-                setFetchedAuctions(data.getPlayerAuctions);
-            }
+    // console.log("playerAuctionDataplayerAuctionDataplayerAuctionData", playerAuctionData, playerAuctionLoading, playerAuctionError)
+
+    useEffect(() => {
+        if (!playerAuctionLoading && !playerAuctionError && playerAuctionData && playerAuctionData.getPlayerAuctions && playerAuctionData.getPlayerAuctions.length) {
+            console.log("aijsnxaksjxnajksnxkansxaknskxj", playerAuctionData);
+            setFetchedAuctions(playerAuctionData.getPlayerAuctions)
         }
-    }, [data, loading, error])
+    }, [playerAuctionData, playerAuctionLoading, playerAuctionError])
 
     useEffect(() => {
         if (loggedInUserData && loggedInUserData.getMe && !loggedInUserLoading && !loggedInUserError) {
-            console.log("aijsnx", loggedInUserData.getMe);
+            console.log("aijsnx", loggedInUserData.getMe.auctions);
             setCurrentUserData(loggedInUserData.getMe);
         }
     }, [loggedInUserData, loggedInUserLoading, loggedInUserError])
-
-    useEffect(() => {
-        if (selectedPlayerSubData && selectedPlayerSubData.auctionFeed && selectedPlayerSubData.auctionFeed.user && selectedPlayerSubData.auctionFeed.auctionId && !selectedPlayerSubLoading && !selectedPlayerSubError) {
-            console.log("dhhdhajbshdbajhsdbakhsdbajhbsdjahbdhj", selectedPlayerSubData.auctionFeed)
-            setAuctionedPlayer(selectedPlayerSubData.auctionFeed.user);
-            setOpenModal(!openModal)
-        }
-    }, [selectedPlayerSubData, selectedPlayerSubLoading, selectedPlayerSubError])
 
     const handleSingleAuction = (auctionId) => {
         navigate(`/playerauction/${auctionId}`)
@@ -88,7 +79,7 @@ const PlayerDashboard = () => {
         }
     }
 
-    console.log("kajsnkjasnxkjnskanxkajsnkajsnxa", fetchedAuction);
+    console.log("kajsnkjasnxkjnskanxkajsnkajsnxa", currentUserData);
     return (
         <Content>
             {
@@ -173,7 +164,7 @@ const PlayerDashboard = () => {
                                 </div>
                                 <div className="row">
                                     <div className="col-sm-12">
-                                        <div className="well">
+                                        <div style={{display: "flex"}} className="well">
                                         {renderCurrentAuctions()}
                                         </div>
                                     </div>

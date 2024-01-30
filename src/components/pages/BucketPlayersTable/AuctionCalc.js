@@ -12,6 +12,7 @@ const AuctionCalc = ({
     currentAuction,
     setSelectedPlayer,
     selectedPlayer,
+    handlePlayerIncreaseBidMutation,
     setCurrentBid,
     currentBid,
 }) => {
@@ -44,10 +45,16 @@ const AuctionCalc = ({
 
   const [confirmSell, setConfirmSell] = useState(false);
 
-  const handleIncreaseBid = () => {
-    console.log("akjsxjaksbxjhabsx", currentBid + 100000);
-    console.log("akjsxjaksbxjhabsx", currentBid);
+  const handleIncreaseBid = async () => {
+    console.log("akjsxjaksbxjhabsx", selectedPlayer);
     setCurrentBid(currentBid + 100000);
+    await handlePlayerIncreaseBidMutation({
+      variables: {
+        bidAmount: currentBid + 100000,
+        playerId: selectedPlayer.userId,
+        auctionId: currentAuction.auctionId
+      },
+    });
   };
 
   const handleDecreaseBid = () => {

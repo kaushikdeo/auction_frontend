@@ -54,6 +54,11 @@ mutation ($playerId: ID!, $auctionId: ID!) {
   handleAddPlayerToUnallocatedBucket(playerId: $playerId, auctionId: $auctionId)
 }
 `
+export const HANDLE_BID_FOR_PLAYER = gql`
+mutation INCREASEBID($playerId: ID!, $bidAmount: Int!, $auctionId: ID!) {
+  handleIncreaseBid(playerId: $playerId, bidAmount: $bidAmount, auctionId: $auctionId)
+}
+`;
 
 export const HANDLE_RESET_BUY_PLAYER = gql`
 mutation ($playerId: ID!, $teamId: ID!, $auctionId: ID!) {

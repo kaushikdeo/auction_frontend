@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useSubscription } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 import BucketPlayerTable from "../pages/BucketPlayersTable/BucketPlayerTable";
 import { GET_SINGLE_AUCTION_FOR_PLAYER } from "../../graphql/queries/auctionQueries";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
@@ -14,7 +15,7 @@ import PlayerAuctionDetails from "../pages/AuctionDetails/PlayerAuctionDetails/P
 import AuctionDetailsStrip from "./AuctionDetailsStrip";
 import PlayerProfileCard from "../playerProfile/PlayerProfile";
 import CurrentBidDetails from "./CurrentBidDetails";
-import { HANDLE_BID_FEED, HANDLE_PLAYER_BUY_FEED, HANDLE_PLAYER_SELECT_SUBSCRIPTION } from "../../graphql/subscriptions/auctionSubscriptions";
+import { HANDLE_BID_FEED, HANDLE_MOVE_PLAYER_TO_UNALLOCATED, HANDLE_PLAYER_BUY_FEED, HANDLE_PLAYER_SELECT_SUBSCRIPTION, PLAYER_RESET_FEED } from "../../graphql/subscriptions/auctionSubscriptions";
 import TableTabs from "../UtilityComponents/TableTabs";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -33,12 +34,15 @@ const PlayerSingleAuction = () => {
   const [open, setOpen] = useState(false);
   const [currentBid, setCurrentBid] = useState(0);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [soldPlayers, setSoldPlayers] = useState([]);
   // player selected for bid
   const { data: selectedPlayerSubData, loading: selectedPlayerSubLoading, error: selectedPlayerSubError } = useSubscription(HANDLE_PLAYER_SELECT_SUBSCRIPTION);
   // bid update for a selected player
   const { data: bidFeedData, loading: bidFeedLoading, error: bidFeedError } = useSubscription(HANDLE_BID_FEED);
   // player bought update
   const { data: buyFeedData, loading: buyFeedLoading, error: buyFeedError } = useSubscription(HANDLE_PLAYER_BUY_FEED);
+  const { data: moveToUnAllocatedFeedData, loading: moveToUnAllocatedFeedLoading, error: moveToUnAllocatedFeedError } = useSubscription(HANDLE_MOVE_PLAYER_TO_UNALLOCATED);
+  const { data: playerResetFeedData, loading: playerResetFeedLoading, error: playerResetFeedDataError } = useSubscription(PLAYER_RESET_FEED);
   // auction data for current logged in player
   const { loading, error, data, refetch } = useQuery(
     GET_SINGLE_AUCTION_FOR_PLAYER,
@@ -50,10 +54,26 @@ const PlayerSingleAuction = () => {
   };
 
   useEffect(() => {
+    if (playerResetFeedData && !playerResetFeedLoading && !playerResetFeedDataError) {
+      setSelectedPlayer(null)
+      refetch();
+    }
+  }, [playerResetFeedData, playerResetFeedLoading, playerResetFeedDataError])
+  
+  useEffect(() => {
+    if(moveToUnAllocatedFeedData && !moveToUnAllocatedFeedLoading && !moveToUnAllocatedFeedError) {
+      setSelectedPlayer(null)
+      refetch();
+    }
+  }, moveToUnAllocatedFeedData, moveToUnAllocatedFeedLoading, moveToUnAllocatedFeedError)
+
+  useEffect(() => {
     console.log("SUBSCRIPTION --- bid feed", buyFeedData);
+    refetch();
+    setSelectedPlayer(null)
   }, [buyFeedData, buyFeedLoading, buyFeedError])
 
-  // TODO: done
+  // TODO: increase bid feed done
   useEffect(() => {
     console.log("SUBSCRIPTION --- bid feed", bidFeedData);
     if (bidFeedData && bidFeedData.bidFeed && bidFeedData.bidFeed.auctionId && bidFeedData.bidFeed.auctionId === currentAuction.auctionId) {
@@ -62,11 +82,21 @@ const PlayerSingleAuction = () => {
       refetch();
     }
   }, [bidFeedData, bidFeedLoading, bidFeedError])
-  // TODO: done
+  // TODO: player select feed done
   useEffect(() => {
     if(selectedPlayerSubData && selectedPlayerSubData.auctionFeed && !selectedPlayerSubLoading && !selectedPlayerSubError && selectedPlayerSubData.auctionFeed.auctionId === currentAuction.auctionId) {
         console.log("selectedPlayerSubDataselectedPlayerSubDataselectedPlayerSubData", selectedPlayerSubData.auctionFeed)
         setSelectedPlayer(selectedPlayerSubData.auctionFeed.user)
+        toast.info('NEW PLAYER SELECTED FOR BIDDING', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
         refetch();
     }
 }, [selectedPlayerSubData, selectedPlayerSubLoading, selectedPlayerSubError])
@@ -92,19 +122,27 @@ const PlayerSingleAuction = () => {
   // 4. player bid action (done), 
   // 5. player moved to unallocated bucket action
 
+  const setDrawerSelectedPlayerb = (player) => {
+    console.log("PLAPLAPLA", player)
+    setDrawerSelectedPlayer(player);
+    setOpen(true)
+  }
+
   useEffect(() => {
-    console.log("AUCTIONDATA", data);
+    console.log("DHGVJBNKML", data);
     if (
       !loading &&
       !error &&
       data &&
-      data.getAuction &&
-      data.getAuction.auctionId
+      data.getAuctionDetailsForCaptain &&
+      data.getAuctionDetailsForCaptain.auctionData &&
+      data.getAuctionDetailsForCaptain.auctionData.auctionId
     ) {
-      setCurrentAuction(data.getAuction);
+      setCurrentAuction(data.getAuctionDetailsForCaptain.auctionData);
+      setSoldPlayers(data.getAuctionDetailsForCaptain.playersBought);
     }
   }, [data, error, loading]);
-  console.log("currewwwntAuction", currentAuction);
+  console.log("currewwwntAuction", drawerSelectedPlayer);
   return (
     <div className="home">
       {currentAuction ? (
@@ -123,17 +161,17 @@ const PlayerSingleAuction = () => {
                   <Item><AuctionDetailsStrip currentAuction={currentAuction} /></Item>
                 </Grid>
                 <Grid xs={4}>
+                  <h2 style={{display:"flex", justifyContent: "center"}}>Selected Player</h2>
                   <Item><PlayerProfileCard selectedPlayer={selectedPlayer}/></Item>
                 </Grid>
                 <Grid xs={4}>
+                  <h2 style={{display:"flex", justifyContent: "center"}}>Current Auction Details</h2>
                   <Item><CurrentBidDetails currentBid={currentBid} currentAuction={currentAuction}/></Item>
                 </Grid>
                 <Grid xs={4}>
+                  <h2 style={{display:"flex", justifyContent: "center"}}>Current Auction Data</h2>
                   <Item>
-                    <div>
-                      <h3>Auction Data</h3>
-                      <TableTabs />
-                    </div>
+                      <TableTabs setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} currentAuction={currentAuction} soldPlayers={soldPlayers}/>
                   </Item>
                 </Grid>
               </Grid>

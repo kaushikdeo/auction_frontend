@@ -19,6 +19,12 @@ subscription {
 }
 `
 
+export const PLAYER_RESET_FEED = gql`
+subscription Subscription {
+  playerResetFeed
+}
+`
+
 export const HANDLE_RESET_PLAYER_BUY = gql`
 subscription Subscription {
   playerResetFeed

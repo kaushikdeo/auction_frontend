@@ -141,14 +141,61 @@ query GetAuction($auctionId: String) {
 `
 
 export const GET_SINGLE_AUCTION_FOR_PLAYER = gql`
-query GetAuction($auctionId: String) {
-  getAuction(auctionId: $auctionId) {
-    auctionId
+query GetAuctionDetailsForCaptain($auctionId: String) {
+  getAuctionDetailsForCaptain(auctionId: $auctionId) {
+    auctionData {
+      auctionId
     auctionName
     bucketWalletBalance
     createdBy
     endTime
     minimumBid
+    auctionDetails {
+      auctionTeams {
+        team {
+          teamId
+          teamName
+        }
+        teamPlayers {
+          isbidded
+          role
+          soldFor
+          player {
+            lastName
+            firstName
+            userId
+            playerType
+          }
+        }
+      }
+    }
+    unallocatedPlayers {
+      age
+      email
+      battingHand
+      battingPref
+      bowlingHand
+      bowlingStyle
+      email
+      fieldingPref
+      firstName
+      gender
+      lastName
+      playerType
+      stats {
+        battingStats {
+          innings
+          runs
+          strikeRate
+        }
+        bowlingStats {
+          economy
+          overs
+          wickets
+        }
+      }
+      userId
+    }
     players {
       age
       email
@@ -210,6 +257,19 @@ query GetAuction($auctionId: String) {
       teamLogo
     }
     venue
+    }
+    playersBought {
+      player {
+        firstName
+        userId
+        lastName
+      }
+      team {
+        teamId
+        teamName
+        teamDescription
+      }
+    }
   }
 }
 `

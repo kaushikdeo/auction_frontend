@@ -1,4 +1,6 @@
 import React from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import './playerProfile.scss'
 
 const PlayerProfileCard = ({selectedPlayer}) => {
@@ -57,7 +59,12 @@ const PlayerProfileCard = ({selectedPlayer}) => {
             </div>
         )
     } else {
-        return (<>No Player Data</>)
+        return (<>
+            <Box sx={{ display: 'flex',margin: 'auto', alignSelf: 'center', justifyContent: 'center' }}>
+                <CircularProgress />
+            </Box>
+            <h3>No Player Selected For Bid</h3>
+        </>)
     }
 }
 

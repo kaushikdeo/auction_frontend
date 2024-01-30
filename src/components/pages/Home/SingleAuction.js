@@ -9,7 +9,7 @@ import PlayersWidget from '../BucketPlayersTable/PlayersWidget';
 import { useParams } from 'react-router-dom';
 import { GET_SINGLE_AUCTION } from '../../../graphql/queries/auctionQueries';
 import AuctionPlayerDrawer from '../../Dashbaord/AuctionPlayerDrawer';
-import { HANDLE_BUY_PLAYER, HANDLE_PLAYER_SELECT, HANDLE_RESET_BUY_PLAYER, HANDLE_SHIFT_PLAYER_TO_UNALLOCATED_BUCKET } from '../../../graphql/mutations/auctionMutations';
+import { HANDLE_BID_FOR_PLAYER, HANDLE_BUY_PLAYER, HANDLE_PLAYER_SELECT, HANDLE_RESET_BUY_PLAYER, HANDLE_SHIFT_PLAYER_TO_UNALLOCATED_BUCKET } from '../../../graphql/mutations/auctionMutations';
 import { HANDLE_PLAYER_SELECT_SUBSCRIPTION } from '../../../graphql/subscriptions/auctionSubscriptions';
 
 const SingleAuction = () => {
@@ -17,6 +17,7 @@ const SingleAuction = () => {
     console.log("PARAMS", params)
     const { data: selectedPlayerSubData, loading: selectedPlayerSubLoading, error: selectedPlayerSubError } = useSubscription(HANDLE_PLAYER_SELECT_SUBSCRIPTION);
     const [handlePlayerSelectMutation, { data: playerSelectData, loading: playerSelectLoading, error: playerSelectError }] = useMutation(HANDLE_PLAYER_SELECT);
+    const [handlePlayerIncreaseBidMutation, { data: handlePlayerIncreaseBidData, loading: handlePlayerIncreaseBidLoading, error: handlePlayerIncreaseBidError }] = useMutation(HANDLE_BID_FOR_PLAYER);
     const [handlePlayerShiftToUnAllocatedMutation, { data: handlePlayerShiftToUnAllocatedData, loading: handlePlayerShiftToUnAllocatedLoading, error: handlePlayerShiftToUnAllocatedError }] = useMutation(HANDLE_SHIFT_PLAYER_TO_UNALLOCATED_BUCKET);
     const [handleBuyPlayer, { data: playerBuyData, loading: playerBuyLoading, error: playerBuyError }] = useMutation(HANDLE_BUY_PLAYER);
     const [handleRevertBuyMutation, { data: handleRevertBuyMutationData, loading: handleRevertBuyMutationLoading, error: handleRevertBuyMutationError }] = useMutation(HANDLE_RESET_BUY_PLAYER);
@@ -171,7 +172,7 @@ const SingleAuction = () => {
                         <div className='homeContainer'>
                             <NavBar />
                             <div className="widgets">
-                                <PlayersWidget teamCalc={teamCalc} shiftPlayerToUnallocatedTable={shiftPlayerToUnallocatedTable} minBid={currentAuction.minimumBid} handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} showDrawer={showDrawer} currentBid={currentBid} setCurrentBid={setCurrentBid} currentAuction={currentAuction} selectPlayer={selectPlayer} setSelectedPlayer={setSelectedPlayer} selectedPlayer={selectedPlayer} setDrawerSelectedPlayer={setDrawerSelectedPlayer}/>
+                                <PlayersWidget teamCalc={teamCalc} shiftPlayerToUnallocatedTable={shiftPlayerToUnallocatedTable} minBid={currentAuction.minimumBid} handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} showDrawer={showDrawer} currentBid={currentBid} setCurrentBid={setCurrentBid} handlePlayerIncreaseBidMutation={handlePlayerIncreaseBidMutation} currentAuction={currentAuction} selectPlayer={selectPlayer} setSelectedPlayer={setSelectedPlayer} selectedPlayer={selectedPlayer} setDrawerSelectedPlayer={setDrawerSelectedPlayer}/>
                                 <RandomSelectButton boughtPlayers={boughtPlayers} selectPlayer={selectPlayer} currentAuction={currentAuction}/>
                                 <AuctionDetails handleRevertBuy={handleRevertBuy} teamCalc={teamCalc} currentBid={currentBid} boughtPlayers={boughtPlayers} currentAuction={currentAuction} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
                                 {/* <BucketPlayerTable /> */}

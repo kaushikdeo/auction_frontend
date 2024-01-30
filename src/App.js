@@ -1,5 +1,7 @@
 import Navigation from "./components/Routing/Navigation";
 import Modal from 'react-modal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const customStyles = {
   content: {
@@ -16,7 +18,10 @@ Modal.setAppElement('#root');
 
 function App() {
   return (
-    <Navigation />
+    <>
+      <Navigation />
+      <ToastContainer />
+    </>
   );
 }
 

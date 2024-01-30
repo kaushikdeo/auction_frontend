@@ -1,0 +1,38 @@
+.search-box{
+    width: 40%;
+    position: relative;
+    display: flex;
+  
+  }
+  .search-input{
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #111d5e;
+    border-radius:10px 0 0 10px ;
+    border-right: none;
+    outline: none;
+    font-size: 12px;
+    background: none;
+  }
+  .search-button{
+    text-align: center;
+  width: 40px;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #111d5e;
+   border-radius: 0 10px 10px 0 ;
+  border-left: none;
+  background: none;
+  font-size: 12px;
+  border-left: 1px solid #111d5e;
+  
+  
+  }
+  .container{
+    width: 35%;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    transform: translate(-50% , -50%);
+  }
+  

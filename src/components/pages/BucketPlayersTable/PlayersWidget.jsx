@@ -6,7 +6,7 @@ import PlayerProfileCard from "../../playerProfile/PlayerProfile";
 import AuctionCalc from "./AuctionCalc";
 import BoughtPlayersTable from "./BoughtPlayersTable";
 
-const PlayersWidget = ({ teamCalc, shiftPlayerToUnallocatedTable, minBid, handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setSelectedPlayer, setCurrentBid, currentBid }) => {
+const PlayersWidget = ({ teamCalc, shiftPlayerToUnallocatedTable, minBid, handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setSelectedPlayer, handlePlayerIncreaseBidMutation, setCurrentBid, currentBid }) => {
     // const [isAutoSelection, setIsAutoSelection] = useState(true);
 
     return (
@@ -24,7 +24,7 @@ const PlayersWidget = ({ teamCalc, shiftPlayerToUnallocatedTable, minBid, handle
                     />
                 </div>
                 <div className="featuredLeft">
-                    <AuctionCalc teamCalc={teamCalc} shiftPlayerToUnallocatedTable={shiftPlayerToUnallocatedTable} minBid={minBid} handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} currentAuction={currentAuction} selectedPlayer={selectedPlayer} setSelectedPlayer={setSelectedPlayer} setCurrentBid={setCurrentBid} currentBid={currentBid}/>
+                    <AuctionCalc teamCalc={teamCalc} shiftPlayerToUnallocatedTable={shiftPlayerToUnallocatedTable} minBid={minBid} handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} currentAuction={currentAuction} selectedPlayer={selectedPlayer} setSelectedPlayer={setSelectedPlayer} handlePlayerIncreaseBidMutation={handlePlayerIncreaseBidMutation} setCurrentBid={setCurrentBid} currentBid={currentBid}/>
                     <BoughtPlayersTable currentAuction={currentAuction} />
                 </div>
             </div>

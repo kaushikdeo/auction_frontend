@@ -21,8 +21,8 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
   let maxAmountAllowedForBid = (maxPlayersCanBuy - row.playersBought) * currentAuction.minimumBid
   let balAfterBid = row.balanceAmount - maxAmountAllowedForBid
   console.log("PROPS", balAfterBid <= currentBid - currentAuction.minimumBid || row.playersBought === maxPlayersCanBuy)
+  console.log("playerDataplayerDataplayerData", currentAuction.minimumBid);
   const handleResetBuy = (row, historyRow) => {
-    console.log("playerDataplayerDataplayerData", row, historyRow);
     
     handleRevertBuy(historyRow.playerId, row.teamId);
     // HANDLE_RESET_BUY_PLAYER

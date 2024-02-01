@@ -46,14 +46,14 @@ const PlayerDashboard = () => {
     }
 
     const renderCurrentAuctions = () => {
-        console.log("data.ajsxba", fetchedAuction && fetchedAuction.length)
+        console.log("data.ajsxba", fetchedAuction)
         if (fetchedAuction && fetchedAuction.length) {
             console.log("data.ajsxba", fetchedAuction, fetchedAuction.length)
-            return fetchedAuction.map((auc) => (
+            return fetchedAuction.map((auc) => auc && (
                 <div className="aucCard" onClick={() => { handleSingleAuction(auc.auctionId) }}>
                     <div className="card">
                         <header className="card-header">
-                            <p style={{ color: 'white' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p>
+                            {/* <p style={{ color: 'white' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p> */}
                             <span style={{ color: 'white' }} className="title">{auc.auctionName}</span>
                         </header>
                         <div className="card-author">

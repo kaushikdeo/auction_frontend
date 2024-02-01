@@ -55,22 +55,27 @@ const PlayerSingleAuction = () => {
 
   useEffect(() => {
     if (playerResetFeedData && !playerResetFeedLoading && !playerResetFeedDataError) {
-      setSelectedPlayer(null)
       refetch();
+      setSelectedPlayer(null)
+      setCurrentBid(bidFeedData.bidFeed.bidAmount)
     }
   }, [playerResetFeedData, playerResetFeedLoading, playerResetFeedDataError])
   
   useEffect(() => {
     if(moveToUnAllocatedFeedData && !moveToUnAllocatedFeedLoading && !moveToUnAllocatedFeedError) {
-      setSelectedPlayer(null)
       refetch();
+      setSelectedPlayer(null)
+      setCurrentBid(bidFeedData.bidFeed.bidAmount)
     }
   }, moveToUnAllocatedFeedData, moveToUnAllocatedFeedLoading, moveToUnAllocatedFeedError)
 
   useEffect(() => {
-    console.log("SUBSCRIPTION --- bid feed", buyFeedData);
-    refetch();
-    setSelectedPlayer(null)
+    if(buyFeedData && !buyFeedLoading && !buyFeedError) {
+      console.log("SUBSCRIPTION --- bid feed", buyFeedData);
+      refetch();
+      setCurrentBid(bidFeedData.bidFeed.bidAmount)
+      setSelectedPlayer(null)
+    }
   }, [buyFeedData, buyFeedLoading, buyFeedError])
 
   // TODO: increase bid feed done
@@ -78,14 +83,14 @@ const PlayerSingleAuction = () => {
     console.log("SUBSCRIPTION --- bid feed", bidFeedData);
     if (bidFeedData && bidFeedData.bidFeed && bidFeedData.bidFeed.auctionId && bidFeedData.bidFeed.auctionId === currentAuction.auctionId) {
       console.log("SUBSCRIPTION --- bid feed", bidFeedData.bidFeed);
-      setCurrentBid(bidFeedData.bidFeed.bidAmount)
       refetch();
+      setCurrentBid(bidFeedData.bidFeed.bidAmount)
     }
   }, [bidFeedData, bidFeedLoading, bidFeedError])
   // TODO: player select feed done
   useEffect(() => {
     if(selectedPlayerSubData && selectedPlayerSubData.auctionFeed && !selectedPlayerSubLoading && !selectedPlayerSubError && selectedPlayerSubData.auctionFeed.auctionId === currentAuction.auctionId) {
-        console.log("selectedPlayerSubDataselectedPlayerSubDataselectedPlayerSubData", selectedPlayerSubData.auctionFeed)
+        console.log("selectedPlayerSubDataselectedPlayerSubDataselectedPlayerSubData", selectedPlayerSubData)
         setSelectedPlayer(selectedPlayerSubData.auctionFeed.user)
         toast.info('NEW PLAYER SELECTED FOR BIDDING', {
           position: "top-center",

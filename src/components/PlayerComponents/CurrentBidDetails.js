@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const CurrentBidDetails = ({currentBid, currentAuction}) => {
     let maxPlayersCanBuy = Math.floor(currentAuction.players.length/currentAuction.teams.length)
     let playersBought = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.length - 1;
-    console.log("ajshbxcurrentAuction", maxPlayersCanBuy - playersBought);
+    console.log("ajshbxcurrentAuction", maxPlayersCanBuy - playersBought - 1);
     return (
         <Grid container spacing={2}>
         <Grid xs={4}>
@@ -41,7 +41,7 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
             </div>
         </Grid>
         <Grid xs={12}>
-            <Item><CurrentBidCalculations currentAuction={currentAuction} maxPlayersCanBuy={maxPlayersCanBuy} playersBought={playersBought}/></Item>
+            <Item><CurrentBidCalculations currentBid={currentBid} currentAuction={currentAuction} maxPlayersCanBuy={maxPlayersCanBuy} playersBought={playersBought}/></Item>
         </Grid>
         </Grid>
     )

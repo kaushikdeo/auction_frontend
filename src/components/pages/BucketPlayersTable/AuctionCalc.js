@@ -19,6 +19,7 @@ const AuctionCalc = ({
   const [selectedTeam, setSelectedteam] = useState(null);
   let items = [];
   let notAllowed = [];
+  console.log("currentBidcurrentBidcurrentBid", currentAuction);
   teamCalc.map((team, i) => {
     console.log("teamCalcteamCalc", team.players.canBuy);
     if (team.players.canBuy) {
@@ -47,10 +48,10 @@ const AuctionCalc = ({
 
   const handleIncreaseBid = async () => {
     console.log("akjsxjaksbxjhabsx", selectedPlayer);
-    setCurrentBid(currentBid + 100000);
+    setCurrentBid(currentBid + currentAuction.stepPrice);
     await handlePlayerIncreaseBidMutation({
       variables: {
-        bidAmount: currentBid + 100000,
+        bidAmount: currentBid + currentAuction.stepPrice,
         playerId: selectedPlayer.userId,
         auctionId: currentAuction.auctionId
       },
@@ -58,10 +59,10 @@ const AuctionCalc = ({
   };
 
   const handleDecreaseBid = () => {
-    console.log("minBidminBidminBidminBid", (Number(currentBid)-100000 ));
-    if ((Number(currentBid)-100000 ) >= minBid) {
-      console.log("akjsxjaksbxjhabsx", currentBid-100000);
-      setCurrentBid(currentBid-100000);
+    console.log("minBidminBidminBidminBid", (Number(currentBid)-currentAuction.stepPrice ));
+    if ((Number(currentBid)-currentAuction.stepPrice ) >= minBid) {
+      console.log("akjsxjaksbxjhabsx", currentBid-currentAuction.stepPrice);
+      setCurrentBid(currentBid-currentAuction.stepPrice);
     }
   };
 

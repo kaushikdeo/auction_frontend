@@ -29,6 +29,7 @@ query GetAuction($auctionId: String) {
     createdBy
     endTime
     minimumBid
+    stepPrice
     auctionDetails {
       auctionTeams {
         team {
@@ -150,6 +151,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
     createdBy
     endTime
     minimumBid
+    stepPrice
     auctionDetails {
       auctionTeams {
         team {

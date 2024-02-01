@@ -189,7 +189,8 @@ const NewAuction = () => {
   const [startDateTime, setStartDateTime] = useState(null);
   const [endDateTime, setEndDateTime] = useState(null);
   const [venueName, setVenueName] = useState("");
-  const [minimumBid, setMinimumBid] = useState(0)
+  const [minimumBid, setMinimumBid] = useState(0);
+  const [stepPrice, setStepPrice] = useState(0);
 
   const [teams, setTeams] = useState([]);
   const [teamName, setTeamName] = useState("");
@@ -288,11 +289,12 @@ const NewAuction = () => {
         sportName: sportsName,
         bucketWalletBalance: Number(bucketWalletBalance),
         walletBalDifference: Number(walletBalanceDifference),
+        stepPrice: Number(stepPrice),
         venue: venueName,
         players: formattedPlayers,
         teams: formattedTeams,
         numberOfBuckets: Number(buckets) || 0,
-        minimumBid: 200000,
+        minimumBid: minimumBid,
     }
     console.log("Received values:", newAuction);
     let addedAuction = await addNewAuction({
@@ -345,6 +347,10 @@ const NewAuction = () => {
               <div className="input-box">
                 <span className="details">Minimum Bid</span>
                 <input value={minimumBid} onChange={(e) => setMinimumBid(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
+              </div>
+              <div className="input-box">
+                <span className="details">Bid Step Price</span>
+                <input value={minimumBid} onChange={(e) => setStepPrice(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
               </div>
               <div className="input-box">
                 <span className="details">Sport Name</span>

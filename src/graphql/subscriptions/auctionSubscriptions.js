@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const HANDLE_BID_FEED = gql`
-subscription {
+subscription Subscription {
   bidFeed {
     auctionId
     bidAmount
@@ -11,7 +11,7 @@ subscription {
 `
 
 export const HANDLE_PLAYER_BUY_FEED = gql`
-subscription {
+subscription Subscription {
   buyFeed {
     auctionId
     auctionName
@@ -31,7 +31,7 @@ subscription Subscription {
 }`;
 
 export const HANDLE_PLAYER_SELECT_SUBSCRIPTION = gql`
-subscription Subscription {
+subscription auctionFeed {
   auctionFeed {
     auctionId
     user {

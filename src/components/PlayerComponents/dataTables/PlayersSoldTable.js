@@ -32,10 +32,10 @@ const [fetchedSoldPlayers, setFetchedSoldPlayers] = useState(soldPlayers);
 
     return (
     <TableContainer component={Paper}>
-        <div class="search-box">
-            <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" class="search-input" placeholder="Search By Player Name" />
-            <button class="search-button">
-                <i class="fas fa-search"></i>
+        <div className="search-box">
+            <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" className="search-input" placeholder="Search By Player Name" />
+            <button className="search-button">
+                <i className="fas fa-search"></i>
             </button>
         </div>
       <Table size="medium" aria-label="a dense table">

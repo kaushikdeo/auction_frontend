@@ -294,7 +294,7 @@ const NewAuction = () => {
         players: formattedPlayers,
         teams: formattedTeams,
         numberOfBuckets: Number(buckets) || 0,
-        minimumBid: minimumBid,
+        minimumBid: Number(minimumBid),
     }
     console.log("Received values:", newAuction);
     let addedAuction = await addNewAuction({
@@ -350,7 +350,7 @@ const NewAuction = () => {
               </div>
               <div className="input-box">
                 <span className="details">Bid Step Price</span>
-                <input value={minimumBid} onChange={(e) => setStepPrice(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
+                <input value={stepPrice} onChange={(e) => setStepPrice(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
               </div>
               <div className="input-box">
                 <span className="details">Sport Name</span>

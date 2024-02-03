@@ -53,29 +53,31 @@ const PlayerSingleAuction = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    if (playerResetFeedData && !playerResetFeedLoading && !playerResetFeedDataError) {
-      refetch();
-      setSelectedPlayer(null)
-      setCurrentBid(bidFeedData.bidFeed.bidAmount)
-    }
-  }, [playerResetFeedData, playerResetFeedLoading, playerResetFeedDataError])
+  // useEffect(() => {
+  //   if (playerResetFeedData && !playerResetFeedLoading && !playerResetFeedDataError) {
+  //     refetch();
+  //     setSelectedPlayer(null)
+  //     setCurrentBid(bidFeedData.bidFeed.bidAmount)
+  //   }
+  // }, [playerResetFeedData, playerResetFeedLoading, playerResetFeedDataError])
   
-  useEffect(() => {
-    if(moveToUnAllocatedFeedData && !moveToUnAllocatedFeedLoading && !moveToUnAllocatedFeedError) {
-      refetch();
-      setSelectedPlayer(null)
-      setCurrentBid(bidFeedData.bidFeed.bidAmount)
-    }
-  }, moveToUnAllocatedFeedData, moveToUnAllocatedFeedLoading, moveToUnAllocatedFeedError)
+  // useEffect(() => {
+  //   if(moveToUnAllocatedFeedData && !moveToUnAllocatedFeedLoading && !moveToUnAllocatedFeedError) {
+  //     refetch();
+  //     setSelectedPlayer(null)
+  //     setCurrentBid(bidFeedData.bidFeed.bidAmount)
+  //   }
+  // }, moveToUnAllocatedFeedData, moveToUnAllocatedFeedLoading, moveToUnAllocatedFeedError)
 
   useEffect(() => {
-    if(buyFeedData && !buyFeedLoading && !buyFeedError) {
-      console.log("SUBSCRIPTION --- bid feed", buyFeedData);
-      refetch();
-      setCurrentBid(bidFeedData.bidFeed.bidAmount)
-      setSelectedPlayer(null)
-    }
+      console.log("SUBSCRIPTION --- buy feed", currentAuction?.minimumBid, buyFeedData);
+      if (buyFeedData && !buyFeedLoading, !buyFeedError) {
+        if (currentAuction?.auctionId === buyFeedData?.buyFeed?.auctionId) {
+          refetch();
+          setCurrentBid(currentAuction?.minimumBid)
+          setSelectedPlayer(null)
+        }
+      }
   }, [buyFeedData, buyFeedLoading, buyFeedError])
 
   // TODO: increase bid feed done

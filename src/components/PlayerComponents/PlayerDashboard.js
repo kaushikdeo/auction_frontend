@@ -86,38 +86,38 @@ const PlayerDashboard = () => {
                 currentUserData ? (<>
                     {
                         auctionedPlayer && <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                        <div class="container">
+                        <div className="container">
                             <div style={{margin: "auto", textAlign:"center"}}><h2>Current Auctioned Player</h2></div>
-                            <div class="top">
-                                <div class="main">
+                            <div className="top">
+                                <div className="main">
                                     <ul>
-                                        {/* <li class="dorsal">Rank 1</li> */}
-                                        <li class="name">{`${auctionedPlayer.firstName} ${auctionedPlayer.lastName}`}</li>
-                                        <li class="bar"></li>
-                                        <li class="position">{auctionedPlayer.playerType}</li>
+                                        {/* <li className="dorsal">Rank 1</li> */}
+                                        <li className="name">{`${auctionedPlayer.firstName} ${auctionedPlayer.lastName}`}</li>
+                                        <li className="bar"></li>
+                                        <li className="position">{auctionedPlayer.playerType}</li>
                                     </ul>
                                 </div>
-                                <div class="photo"></div>
-                                <div class="info">
+                                <div className="photo"></div>
+                                <div className="info">
                                     <ul>
-                                        <li class="header"><b>Batting Stats</b></li>
-                                        <li class="header">{`${auctionedPlayer.battingHand} Hand - Bat`}</li>
-                                        <li class="bar"></li>
-                                        <li class="header">{`Innings : ${auctionedPlayer.stats.battingStats.innings}`}</li>
-                                        <li class="header">{`Runs : ${auctionedPlayer.stats.battingStats.runs}`}</li>
-                                        <li class="header">{`Strike Rate : ${Math.round(Number(auctionedPlayer.stats.battingStats.strikeRate))}`}</li>
-                                        <li class="bar"></li>
+                                        <li className="header"><b>Batting Stats</b></li>
+                                        <li className="header">{`${auctionedPlayer.battingHand} Hand - Bat`}</li>
+                                        <li className="bar"></li>
+                                        <li className="header">{`Innings : ${auctionedPlayer.stats.battingStats.innings}`}</li>
+                                        <li className="header">{`Runs : ${auctionedPlayer.stats.battingStats.runs}`}</li>
+                                        <li className="header">{`Strike Rate : ${Math.round(Number(auctionedPlayer.stats.battingStats.strikeRate))}`}</li>
+                                        <li className="bar"></li>
                                     </ul>
                                 </div>
-                                <div class="info">
+                                <div className="info">
                                     <ul>
-                                        <li class="header"><b>Bowling Stats</b></li>
-                                        <li class="header">{`${auctionedPlayer.bowlingHand} Hand - Bowl`}</li>
-                                        <li class="bar"></li>
-                                        <li class="header">{`Innings : ${auctionedPlayer.stats.bowlingStats.overs}`}</li>
-                                        <li class="header">{`Wickets : ${auctionedPlayer.stats.bowlingStats.wickets}`}</li>
-                                        <li class="header">{`Economy : ${Number(auctionedPlayer.stats.bowlingStats.economy).toFixed(2)}`}</li>
-                                        <li class="bar"></li>
+                                        <li className="header"><b>Bowling Stats</b></li>
+                                        <li className="header">{`${auctionedPlayer.bowlingHand} Hand - Bowl`}</li>
+                                        <li className="bar"></li>
+                                        <li className="header">{`Innings : ${auctionedPlayer.stats.bowlingStats.overs}`}</li>
+                                        <li className="header">{`Wickets : ${auctionedPlayer.stats.bowlingStats.wickets}`}</li>
+                                        <li className="header">{`Economy : ${Number(auctionedPlayer.stats.bowlingStats.economy).toFixed(2)}`}</li>
+                                        <li className="bar"></li>
                                     </ul>
                                 </div>
                             </div>

@@ -11,10 +11,12 @@ subscription Subscription {
 `
 
 export const HANDLE_PLAYER_BUY_FEED = gql`
-subscription Subscription {
+subscription buyFeed {
   buyFeed {
     auctionId
     auctionName
+    sportName
+    venue
   }
 }
 `

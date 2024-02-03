@@ -20,24 +20,24 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         <Grid container spacing={2}>
         <Grid xs={4}>
             {/* <Item>Initial Wallet Balance : {currentAuction.bucketWalletBalance}</Item> */}
-            <div class="number-card number-card-content1">
-                <h3 class="number-card-number">{currentAuction.bucketWalletBalance}</h3>
-                <div class="number-card-divider"></div>
-                <div class="number-card-dollars">Initial Wallet Balance</div>
+            <div className="number-card number-card-content1">
+                <h3 className="number-card-number">{currentAuction.bucketWalletBalance}</h3>
+                <div className="number-card-divider"></div>
+                <div className="number-card-dollars">Initial Wallet Balance</div>
             </div>
         </Grid>
         <Grid xs={4}>
-            <div class="number-card number-card-content1">
-                <h3 class="number-card-number">{currentBid}</h3>
-                <div class="number-card-divider"></div>
-                <div class="number-card-dollars">Current Player Bid</div>
+            <div className="number-card number-card-content1">
+                <h3 className="number-card-number">{currentBid}</h3>
+                <div className="number-card-divider"></div>
+                <div className="number-card-dollars">Current Player Bid</div>
             </div>
         </Grid>
         <Grid xs={4}>
-            <div class="number-card number-card-content1">
-                <h3 class="number-card-number">{maxPlayersCanBuy}</h3>
-                <div class="number-card-divider"></div>
-                <div class="number-card-dollars">Min. Players To Be Bought</div>
+            <div className="number-card number-card-content1">
+                <h3 className="number-card-number">{maxPlayersCanBuy}</h3>
+                <div className="number-card-divider"></div>
+                <div className="number-card-dollars">Min. Players To Be Bought</div>
             </div>
         </Grid>
         <Grid xs={12}>

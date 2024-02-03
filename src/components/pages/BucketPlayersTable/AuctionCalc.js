@@ -58,9 +58,18 @@ const AuctionCalc = ({
     });
   };
 
-  const handleDecreaseBid = () => {
+  const handleDecreaseBid = async () => {
     console.log("minBidminBidminBidminBid", (Number(currentBid)-currentAuction.stepPrice ));
     if ((Number(currentBid)-currentAuction.stepPrice ) >= minBid) {
+      console.log("akjsxjaksbxjhabsx", selectedPlayer);
+      setCurrentBid(currentBid - currentAuction.stepPrice);
+      await handlePlayerIncreaseBidMutation({
+        variables: {
+          bidAmount: currentBid - currentAuction.stepPrice,
+          playerId: selectedPlayer.userId,
+          auctionId: currentAuction.auctionId
+        },
+      });
       console.log("akjsxjaksbxjhabsx", currentBid-currentAuction.stepPrice);
       setCurrentBid(currentBid-currentAuction.stepPrice);
     }

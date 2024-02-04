@@ -3,14 +3,17 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import './playerProfile.scss'
 
+const bowlingImage = "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1707063350/auctions/xdlivgwq8udlncjnpv3p.png";
+const battingImage = "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1707063349/auctions/lrq4gchrvldhl2827o4d.png";
+
 const PlayerProfileCard = ({selectedPlayer}) => {
-    console.log("selectedPlayer", selectedPlayer)
+    console.log("selectedPlayer", selectedPlayer.playerType)
     if (selectedPlayer && selectedPlayer.stats) {
         return (
             <div className="cardwrapper">
                  <div className="profile-card js-profile-card">
                     <div className="profile-card__img">
-                        <p className="profileInitials"><b>{`${selectedPlayer.firstName[0]} ${selectedPlayer.lastName[0]}`}</b></p>
+                        <p className="profileInitials"><img src={selectedPlayer.playerType === "Batsman" ? battingImage : bowlingImage} alt="Lamp" width="32" height="32" /></p>
                     </div>
                     <div className="profile-card__cnt js-profile-cnt">
                         <div className="profile-card__name">{`${selectedPlayer.firstName} ${selectedPlayer.lastName}`}</div>

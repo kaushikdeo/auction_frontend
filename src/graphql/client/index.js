@@ -6,14 +6,14 @@ import { setContext } from '@apollo/client/link/context';
 import { getItem } from '../../utils/localStore';
 
 const httpLink = createHttpLink({
-    // uri: 'https://auction-backend-ol4q.onrender.com/graphql',
-    uri: 'http://localhost:4000/graphql',
+    uri: 'https://auction-backend-ol4q.onrender.com/graphql',
+    // uri: 'http://localhost:4000/graphql',
     // uri: 'https://smiling-similarly-ostrich.ngrok-free.app/grpahql'
   });
 
   const wsLink = new GraphQLWsLink(createClient({
-    // url: 'wss://auction-backend-ol4q.onrender.com/graphql',
-    url: 'ws://localhost:4000/graphql',
+    url: 'wss://auction-backend-ol4q.onrender.com/graphql',
+    // url: 'ws://localhost:4000/graphql',
     // url: 'wss://smiling-similarly-ostrich.ngrok-free.app/grpahql'
     options: {
       reconnect: true,

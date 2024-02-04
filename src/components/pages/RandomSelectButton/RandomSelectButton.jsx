@@ -15,7 +15,7 @@ const RandomSelectButton = ({boughtPlayers, currentAuction, selectPlayer}) => {
       let finalUniquePlayers = uniquePlayers.filter(({ playerId: id1 }) => !currentAuction.unallocatedPlayers.some(({userId: id2}) => id2 === id1));
       const selectRandomPlayer = () => {
          let min = 0;
-         let max = finalUniquePlayers.length - 1;
+         let max = finalUniquePlayers.length ? finalUniquePlayers.length - 1 : uniquePlayers.length - 1;
          let random = Math.round(Math.random() * (max - min) + min);
          console.log("randomrandomrandom1", uniquePlayers);
          console.log("randomrandomrandom1", uniquePlayers.length);
@@ -29,6 +29,8 @@ const RandomSelectButton = ({boughtPlayers, currentAuction, selectPlayer}) => {
          console.log("randomrandomrandom1", "-------------------------------------------------");
          if (finalUniquePlayers.length) {
             selectPlayer(finalUniquePlayers[random]);
+         } else {
+            selectPlayer(uniquePlayers[random]);
          }
       }
      return(

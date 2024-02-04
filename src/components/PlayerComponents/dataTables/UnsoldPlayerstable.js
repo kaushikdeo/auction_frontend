@@ -16,7 +16,6 @@ const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
       playerType: up.playerType,
     }
   })
-
   const handleCheckStats = (i) => {
     setDrawerSelectedPlayerb(unsoldPlayers[i])
   }

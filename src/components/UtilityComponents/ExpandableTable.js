@@ -100,8 +100,8 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
           <TableCell style={{fontSize: 13}} component="th" scope="row">{row.teamName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
-          <TableCell style={{fontSize: 13}} align="right">{row.balanceAmount}</TableCell>
-          <TableCell style={{fontSize: 13}} align="right">{row.amountSpent}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.balanceAmount)}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.amountSpent)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

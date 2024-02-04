@@ -35,6 +35,9 @@ const PlayerSingleAuction = () => {
   const [currentBid, setCurrentBid] = useState(0);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [soldPlayers, setSoldPlayers] = useState([]);
+  const [playerBucketCount, setPlayerBucketCount] = useState(0);
+  const [unallocatedPlayerBucketCount, setUnallocatedPlayerBucket] = useState(0);
+  const [playerSoldBucketCount, setPlayerSoldBucketCount] = useState(0);
   // player selected for bid
   const { data: selectedPlayerSubData, loading: selectedPlayerSubLoading, error: selectedPlayerSubError } = useSubscription(HANDLE_PLAYER_SELECT_SUBSCRIPTION);
   // bid update for a selected player
@@ -179,7 +182,16 @@ const PlayerSingleAuction = () => {
                 <Grid xs={4}>
                   <h2 style={{display:"flex", justifyContent: "center"}}>Current Auction Data</h2>
                   <Item>
-                      <TableTabs setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} currentAuction={currentAuction} soldPlayers={soldPlayers}/>
+                      <TableTabs
+                      playerSoldBucketCount={playerSoldBucketCount}
+                      setPlayerSoldBucketCount={setPlayerSoldBucketCount}
+                      unallocatedPlayerBucketCount={unallocatedPlayerBucketCount}
+                      setUnallocatedPlayerBucket={setUnallocatedPlayerBucket}
+                      playerBucketCount={playerBucketCount} 
+                      setPlayerBucketCount={setPlayerBucketCount}
+                      setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} 
+                      currentAuction={currentAuction} 
+                      soldPlayers={soldPlayers}/>
                   </Item>
                 </Grid>
               </Grid>

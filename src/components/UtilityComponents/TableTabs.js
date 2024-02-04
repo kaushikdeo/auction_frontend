@@ -38,7 +38,7 @@ function a11yProps(index) {
   };
 }
 
-const TableTabs = ({currentAuction, soldPlayers, setDrawerSelectedPlayerb}) => {
+const TableTabs = ({setUnallocatedPlayerBucket, unallocatedPlayerBucketCount, setPlayerBucketCount, playerBucketCount, currentAuction, soldPlayers, setDrawerSelectedPlayerb}) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -50,15 +50,15 @@ const TableTabs = ({currentAuction, soldPlayers, setDrawerSelectedPlayerb}) => {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Player Bucket" {...a11yProps(0)} />
-          <Tab label="Unallocated Players" {...a11yProps(1)} />
-          <Tab label="Players Sold" {...a11yProps(2)} />
-          <Tab label="Teams" {...a11yProps(3)} />
-          <Tab label="My Team" {...a11yProps(4)} />
+          <Tab label={`Player Bucket`} />
+          <Tab label="Unallocated Players" />
+          <Tab label="Players Sold" />
+          <Tab label="Teams" />
+          <Tab label="My Team" />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <PlayerBucket soldPlayers={soldPlayers} currentAuction={currentAuction} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb}/>
+        <PlayerBucket playerBucketCount={playerBucketCount} setPlayerBucketCount={setPlayerBucketCount} soldPlayers={soldPlayers} currentAuction={currentAuction} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <UnsoldPlayerstable unsoldPlayers={currentAuction.unallocatedPlayers} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb}/>

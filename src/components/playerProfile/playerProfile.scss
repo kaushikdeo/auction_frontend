@@ -12,11 +12,11 @@
   }
 
   .profileInitials {
-    font-size: 50px;
+    font-size: 30px;
       color: white;
       position: fixed;
-      left: 35px;
-      top: 36px;
+      left: 26px;
+      top: 30px;
   }
   
   .cardwrapper {
@@ -24,7 +24,7 @@
     width: 100%;
     height: auto;
     padding: 50px 20px;
-    padding-top: 100px;
+    padding-top: 50px;
     display: flex;
     background-image: linear-gradient(-20deg, #ff2846 0%, #6944ff 100%);
   
@@ -67,8 +67,8 @@
     }
   
     &__img {
-      width: 150px;
-      height: 150px;
+      width: 100px;
+      height: 100px;
       margin-left: auto;
       margin-right: auto;
       transform: translateY(-50%);
@@ -142,7 +142,7 @@
       justify-content: center;
       flex-wrap: wrap;
       align-items: flex-start;
-      margin-top: 35px;
+      // margin-top: 35px;
   
       &__item {
         padding: 10px 35px;

@@ -113,7 +113,7 @@ const AuctionCalc = ({
           <div>
             <input
               style={{ flex: 1, padding: 10, margin: 20 }}
-              type="number"
+              type="text"
               value={convertNumbers(currentBid)}
               disabled
             />

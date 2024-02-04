@@ -3,6 +3,7 @@ import './currentBidDetails.scss';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CurrentBidCalculations from "./CurrentBidCalculations";
+import { convertNumbers } from "../../utils/utility";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,14 +22,14 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         <Grid xs={4}>
             {/* <Item>Initial Wallet Balance : {currentAuction.bucketWalletBalance}</Item> */}
             <div className="number-card number-card-content1">
-                <h3 className="number-card-number">{currentAuction.bucketWalletBalance}</h3>
+                <h3 className="number-card-number">{convertNumbers(currentAuction.bucketWalletBalance)}</h3>
                 <div className="number-card-divider"></div>
                 <div className="number-card-dollars">Initial Wallet Balance</div>
             </div>
         </Grid>
         <Grid xs={4}>
             <div className="number-card number-card-content1">
-                <h3 className="number-card-number">{currentBid}</h3>
+                <h3 className="number-card-number">{convertNumbers(currentBid)}</h3>
                 <div className="number-card-divider"></div>
                 <div className="number-card-dollars">Current Player Bid</div>
             </div>

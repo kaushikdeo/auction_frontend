@@ -147,6 +147,7 @@ const PlayerSingleAuction = () => {
     ) {
       setCurrentAuction(data.getAuctionDetailsForCaptain.auctionData);
       setSoldPlayers(data.getAuctionDetailsForCaptain.playersBought);
+      setCurrentBid(data.getAuctionDetailsForCaptain.auctionData.minimumBid)
     }
   }, [data, error, loading]);
   console.log("currewwwntAuction", drawerSelectedPlayer);

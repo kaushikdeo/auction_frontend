@@ -4,6 +4,7 @@ import Dropdown from "react-dropdown";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import "react-dropdown/style.css";
+import { convertNumbers } from "../../../utils/utility";
 const AuctionCalc = ({
     teamCalc,
     shiftPlayerToUnallocatedTable,
@@ -76,8 +77,10 @@ const AuctionCalc = ({
   };
 
   const handleOnTeamSelect = (value) => {
-    console.log(value);
-    setSelectedteam(value.label);
+    if (value.label !== "Select Team") {
+      console.log(value);
+      setSelectedteam(value.label);
+    }
   };
 
   const handlePlayerAuction = () => {
@@ -91,6 +94,7 @@ const AuctionCalc = ({
         });
         setCurrentBid(minBid);
         setSelectedPlayer(null)
+        setSelectedteam(null);
     }
   };
 
@@ -110,7 +114,7 @@ const AuctionCalc = ({
             <input
               style={{ flex: 1, padding: 10, margin: 20 }}
               type="number"
-              value={currentBid}
+              value={convertNumbers(currentBid)}
               disabled
             />
             <Button
@@ -147,11 +151,12 @@ const AuctionCalc = ({
       {confirmSell && selectedPlayer &&  (
         <>
           <div>
-            <div style={{margin: 10, fontSize: 20}}><b>{`${selectedPlayer.firstName} ${selectedPlayer.lastName} Auctioned For ${currentBid} To`}</b></div>
+            <div style={{margin: 10, fontSize: 20}}><b>{`${selectedPlayer.firstName} ${selectedPlayer.lastName} Auctioned For ${convertNumbers(currentBid)} To`}</b></div>
             <div style={{paddingBottom: 10}}>
             <Dropdown
               options={items}
               onChange={handleOnTeamSelect}
+              defaultValue={{ label: "Select Team", value: 0 }}
               value={selectedTeam}
               placeholder="Select an option"
             />

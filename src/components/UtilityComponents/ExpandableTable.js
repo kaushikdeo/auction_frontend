@@ -14,6 +14,7 @@ import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { convertNumbers } from '../../utils/utility';
 
 const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) => {
   const [open, setOpen] = React.useState(false);
@@ -44,8 +45,8 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
           <TableCell style={{fontSize: 13}} component="th" scope="row">{row.teamName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
-          <TableCell style={{fontSize: 13}} align="right">{row.balanceAmount}</TableCell>
-          <TableCell style={{fontSize: 13}} align="right">{row.amountSpent}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.balanceAmount)}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.amountSpent)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -67,7 +68,7 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
                     {row.history.map((historyRow) => (
                       <TableRow key={historyRow.date}>
                         <TableCell style={{fontSize: 12}} component="th" scope="row">{historyRow.playerName}</TableCell>
-                        <TableCell style={{fontSize: 12}}><b>{historyRow.boughtFor}</b></TableCell>
+                        <TableCell style={{fontSize: 12}}><b>{convertNumbers(historyRow.boughtFor)}</b></TableCell>
                         <TableCell align="right"><Button onClick={() => handleResetBuy(row, historyRow)} variant="contained">Revert Buy</Button></TableCell>
                         {/* <TableCell align="right">
                           {Math.round(historyRow.amount * row.price * 100) / 100}

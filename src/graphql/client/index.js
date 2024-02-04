@@ -6,12 +6,12 @@ import { setContext } from '@apollo/client/link/context';
 import { getItem } from '../../utils/localStore';
 
 const httpLink = createHttpLink({
-    uri: 'https://smiling-similarly-ostrich.ngrok-free.app/graphql',
+    uri: 'https://auction-backend-ol4q.onrender.com/graphql',
     // uri: 'http://localhost:4000/graphql'
   });
 
   const wsLink = new GraphQLWsLink(createClient({
-    url: 'wss://smiling-similarly-ostrich.ngrok-free.app/graphql',
+    url: 'wss://auction-backend-ol4q.onrender.com/graphql',
     // url: 'ws://localhost:4000/graphql',
     options: {
       reconnect: true,

@@ -6,6 +6,7 @@ export const GET_LOGGED_IN_USER = gql`
     age
     email
     firstName
+    imageUrl
     gender
     lastName
     mobile
@@ -43,6 +44,7 @@ export const SEARCH_USERS_BY_EMAIL = gql`
     userId
     lastName
     firstName
+    imageUrl
     email
     role
   }
@@ -69,6 +71,7 @@ query GetPlayerAuctions {
           player {
             firstName
             lastName
+            imageUrl
             userId
           }
           isbidded

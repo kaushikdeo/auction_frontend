@@ -43,6 +43,7 @@ query GetAuction($auctionId: String) {
           player {
             lastName
             firstName
+            imageUrl
             userId
             playerType
           }
@@ -53,6 +54,7 @@ query GetAuction($auctionId: String) {
       age
       email
       battingHand
+      imageUrl
       battingPref
       bowlingHand
       bowlingStyle
@@ -88,6 +90,7 @@ query GetAuction($auctionId: String) {
       firstName
       gender
       lastName
+      imageUrl
       playerType
       stats {
         battingStats {
@@ -113,6 +116,7 @@ query GetAuction($auctionId: String) {
         firstName
         age
         battingHand
+        imageUrl
         battingPref
         bowlingHand
         bowlingStyle
@@ -167,6 +171,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
             firstName
             userId
             playerType
+            imageUrl
           }
         }
       }
@@ -181,6 +186,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
       email
       fieldingPref
       firstName
+      imageUrl
       gender
       lastName
       playerType
@@ -203,6 +209,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
       email
       battingHand
       battingPref
+      imageUrl
       bowlingHand
       bowlingStyle
       email
@@ -235,6 +242,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
         firstName
         age
         battingHand
+        imageUrl
         battingPref
         bowlingHand
         bowlingStyle

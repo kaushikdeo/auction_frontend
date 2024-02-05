@@ -7,7 +7,7 @@ const bowlingImage = "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1707063
 const battingImage = "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1707063349/auctions/lrq4gchrvldhl2827o4d.png";
 
 const PlayerProfileCard = ({selectedPlayer}) => {
-    console.log("selectedPlayer", selectedPlayer.playerType)
+    console.log("jasnxjjahhahaa", selectedPlayer);
     if (selectedPlayer && selectedPlayer.stats) {
         return (
             <div className="cardwrapper">

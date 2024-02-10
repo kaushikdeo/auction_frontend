@@ -180,6 +180,7 @@ const NewAuction = () => {
     data: loggedInUserData,
     loading: loggedInUserLoading,
     error: loggedInUserError,
+    refetch
   } = useQuery(GET_LOGGED_IN_USER);
   const [auctionName, setAuctionName] = useState("");
   const [bucketWalletBalance, setBucketWalletBalance] = useState(null);
@@ -225,6 +226,16 @@ const NewAuction = () => {
     console.log('Formatted Selected Time: ', dateString);
     setEndDateTime(dateString)
   };
+
+  const onStepChange = (value) => {
+    console.log('onChange:', value);
+    setCurrentStep(value);
+  };
+
+  const refetchConnections = () => {
+    refetch();
+  }
+
 
   const addNewTeam = () => {
     let initTeams = [...teams];
@@ -337,8 +348,8 @@ const NewAuction = () => {
                 <input value={auctionName} onChange={(e) => setAuctionName(e.target.value)} type="text" placeholder="Enter Auction Name" required />
               </div>
               <div className="input-box">
-                <span className="details">Bucket Wallet Balance</span>
-                <input value={bucketWalletBalance} onChange={(e) => setBucketWalletBalance(e.target.value)} type="number" placeholder="Enter Bucket Wallet Balance" required />
+                <span className="details">Initial Wallet Balance</span>
+                <input value={bucketWalletBalance} onChange={(e) => setBucketWalletBalance(e.target.value)} type="number" placeholder="Enter Initial Wallet Balance" required />
               </div>
               <div className="input-box">
                 <span className="details">Wallet Balance Difference</span>
@@ -349,7 +360,7 @@ const NewAuction = () => {
                 <input value={minimumBid} onChange={(e) => setMinimumBid(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
               </div>
               <div className="input-box">
-                <span className="details">Bid Step Price</span>
+                <span className="details">Bid Raise By</span>
                 <input value={stepPrice} onChange={(e) => setStepPrice(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
               </div>
               <div className="input-box">
@@ -365,11 +376,11 @@ const NewAuction = () => {
                 <input value={buckets} onChange={(e) => setBuckets(e.target.value)} type="text" placeholder="Enter comma seperated bucket names" required />
               </div>
               <div className="input-box">
-                <span className="details">Start Date Time</span>
+                <span className="details">Start Date & Time</span>
                 <DatePicker showTime onChange={onChangeStart} onOk={onOkStart} />
               </div>
               <div className="input-box">
-                <span className="details">End Date Time</span>
+                <span className="details">End Date & Time</span>
                 <DatePicker showTime onChange={onChangeEnd} onOk={onOkEnd} />
               </div>
               <div className="input-box">
@@ -410,7 +421,7 @@ const NewAuction = () => {
                 <span className="details">Team Description</span>
                 <input onChange={(e) => setTeamDescription(e.target.value)} value={teamDescription} type="text" placeholder="Enter Description" required />
               </div>
-              <div className="input-box">
+              {/* <div className="input-box">
                 <span className="details">Team Logo</span>
                 <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
                 {({getRootProps, getInputProps}) => (
@@ -422,10 +433,11 @@ const NewAuction = () => {
                   </section>
                 )}
               </Dropzone>
-              </div>
+              </div> */}
               <div className="button">
                 <input type="button" value='Add Team' onClick={() => addNewTeam() } />
               </div>
+              <div className="tableTitle">{`Teams Added (${teams.length})`}</div>
               <Table columns={teamsTableColumnsInit} dataSource={teams} />
               <div className="button">
               <input type="button" value='Next' onClick={() => setCurrentStep(2)}/>
@@ -438,15 +450,16 @@ const NewAuction = () => {
       return (
         <div className="formContainer">
           <div className="title">Players Bucket</div>
+          <input type="button" value='Refetch Connections' onClick={() => refetchConnections() } />
           {loggedInUser &&
           loggedInUser.connections &&
           loggedInUser.connections.length && (
             <div className="new-auction-table-container">
-              <div className="tableTitle">Connections</div>
+              <div className="tableTitle">{`Connections (${loggedInUser.connections.length})`}</div>
               <div>
                 <Table columns={tableColumnsInit} dataSource={selectedUsers} />
               </div>
-              <div className="tableTitle">Tournament Players</div>
+              <div className="tableTitle">{`Tournament Players (${playerBucket.length})`}</div>
               <div>
                 <Table columns={tableColumnsAuc} dataSource={playerBucket} />
               </div>
@@ -486,6 +499,7 @@ const NewAuction = () => {
   return (
     <div className="container">
       <Steps
+      onChange={onStepChange}
       items={[
         {
           title: 'Basic Details',

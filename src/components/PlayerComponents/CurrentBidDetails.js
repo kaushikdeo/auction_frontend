@@ -20,7 +20,7 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         return tot+=curr.soldFor
     }, 0)
     let currentWalletBalance = currentAuction.bucketWalletBalance - currentSpent
-    let allowedToSpend = currentWalletBalance - (currentAuction.minimumBid * (maxPlayersCanBuy-playersBought - 1))
+    let allowedToSpend = currentWalletBalance - (currentAuction.minimumBid * (maxPlayersCanBuy-playersBought - 2))
     console.log("ajshbxcurrentAuction", maxPlayersCanBuy - playersBought - 1);
     return (
         <>
@@ -68,20 +68,20 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         </Grid>
         <div className="number-card-divider"></div>
         <Grid container spacing={1}>
-        <Grid xs={6}>
+        <Grid xs={12}>
                     <div style={{margin: 17}} className="number-card number-card-content1">
                         <h3 className="number-card-number">{convertNumbers(currentAuction.bucketWalletBalance)}</h3>
                         <div className="number-card-divider"></div>
                         <div className="number-card-dollars">Initial Wallet Balance</div>
                     </div>
                 </Grid>
-                <Grid xs={6}>
+                {/* <Grid xs={6}>
                     <div style={{margin: 17}} className="number-card number-card-content1">
                         <h3 className="number-card-number">{maxPlayersCanBuy}</h3>
                         <div className="number-card-divider"></div>
                         <div className="number-card-dollars">Min. Players To Be Bought</div>
                     </div>
-                </Grid>
+                </Grid> */}
         </Grid>
         </>
 

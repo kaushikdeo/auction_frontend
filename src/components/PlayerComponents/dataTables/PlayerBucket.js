@@ -10,7 +10,8 @@ import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 
 const PlayerBucket = ({soldPlayers, currentAuction, setDrawerSelectedPlayerb}) => {
-    let uniquePlayers = currentAuction.players.filter(({ playerId: id1 }) => !soldPlayers.some((id2) => id2 === id1));
+  console.log("aksjnxkjansxkajnsxxxx", soldPlayers);
+    let uniquePlayers = currentAuction.players.filter(({ userId: id1 }) => !soldPlayers.some(({player}) => player.userId === id1));
     let finalUniquePlayers = uniquePlayers.filter(({ playerId: id1 }) => !currentAuction.unallocatedPlayers.some(({userId: id2}) => id2 === id1));
     const [searchInput, setSearchInput] = useState('');
     const [fetchedUnsoldPlayers, setFetchedUnsoldPlayers] = useState(finalUniquePlayers);
@@ -41,7 +42,7 @@ const PlayerBucket = ({soldPlayers, currentAuction, setDrawerSelectedPlayerb}) =
       <Table size="medium" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell style={{fontSize: 12}}><b>Player Name</b></TableCell>
+            <TableCell style={{fontSize: 12}}><b>{`Player Name (${rows.length})`}</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Action</b></TableCell>
           </TableRow>
         </TableHead>

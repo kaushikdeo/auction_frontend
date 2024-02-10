@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Avatar, Button } from "@mui/material";
 
-const UnallocatedplayerTable = ({currentAuction, boughtPlayers, showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
+const UnallocatedplayerTable = ({selectPlayer, isRandomSelection, currentAuction, boughtPlayers, showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
     let allPlayers = currentAuction.unallocatedPlayers.map(player => {
         return { 
             playerId: player.userId, 
@@ -18,9 +18,18 @@ const UnallocatedplayerTable = ({currentAuction, boughtPlayers, showDrawer, curr
             playerType: player.playerType
         }
     })
+
+    const handleManualSelectPlayer = (selected) => {
+        console.log("SELECTEDMANUALPLAYER", selected)
+        selectPlayer({
+            playerId: selected.playerId
+        })
+    }
+
     // let uniquePlayers = allPlayers.filter(({ playerId: id1 }) => !boughtPlayers.some((id2) => id2 === id1));
     return (
         <div>
+            <span className="title">{`Unsold Player Bucket (${allPlayers.length})`}</span>
              <div style={{overflowY: "scroll"}} className="playertableContainer">
             <TableContainer component={Paper}>
                 <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
@@ -43,7 +52,7 @@ const UnallocatedplayerTable = ({currentAuction, boughtPlayers, showDrawer, curr
                         <TableCell className="tableCellStyle" align="left"><b>{row.playerName}</b></TableCell>
                         <TableCell className="tableCellStyle" align="left">{row.playerType}</TableCell>
                         <TableCell className="tableCellStyle" onClick={() => handleDrawerSelectedPlayer(row)} align="right"><Button variant="contained">Check Stats</Button></TableCell>
-                        <TableCell className="tableCellStyle" onClick={() => console.log('Hello')} align="right"><Button variant="contained">Select Player</Button></TableCell>
+                        {isRandomSelection ? <></> : <TableCell className="tableCellStyle" onClick={() => handleManualSelectPlayer(row)} align="right"><Button variant="contained">Select Player</Button></TableCell>}
                         </TableRow>
                     ))}
                     </TableBody>

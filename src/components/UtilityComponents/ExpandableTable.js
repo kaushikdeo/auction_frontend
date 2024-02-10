@@ -58,8 +58,8 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
                 <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
-                      <TableCell style={{fontSize: 12}}>Player Name</TableCell>
-                      <TableCell style={{fontSize: 12}}>Bought For</TableCell>
+                      <TableCell style={{fontSize: 12}}><b>Player Name</b></TableCell>
+                      <TableCell style={{fontSize: 12}}><b>Purchase Price</b></TableCell>
                       <TableCell align="right"></TableCell>
                       {/* <TableCell align="right">Total price ($)</TableCell> */}
                     </TableRow>
@@ -67,8 +67,8 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
                   <TableBody>
                     {row.history.map((historyRow) => (
                       <TableRow key={historyRow.date}>
-                        <TableCell style={{fontSize: 12}} component="th" scope="row">{historyRow.playerName}</TableCell>
-                        <TableCell style={{fontSize: 12}}><b>{convertNumbers(historyRow.boughtFor)}</b></TableCell>
+                        <TableCell style={{fontSize: 13}} component="th" scope="row">{historyRow.playerName}</TableCell>
+                        <TableCell style={{fontSize: 13}}>{convertNumbers(historyRow.boughtFor)}</TableCell>
                         <TableCell align="right"><Button onClick={() => handleResetBuy(row, historyRow)} variant="contained">Revert Buy</Button></TableCell>
                         {/* <TableCell align="right">
                           {Math.round(historyRow.amount * row.price * 100) / 100}
@@ -113,8 +113,8 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
                 <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Player Name</TableCell>
-                      <TableCell>Bought For</TableCell>
+                    <TableCell style={{fontSize: 12}}><b>Player Name</b></TableCell>
+                      <TableCell style={{fontSize: 12}}><b>Purchase Price</b></TableCell>
                       <TableCell align="right"></TableCell> 
                       {/*<TableCell align="right">Total price ($)</TableCell> */}
                     </TableRow>
@@ -123,7 +123,7 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
                     {row.history.map((historyRow) => (
                       <TableRow key={historyRow.date}>
                         <TableCell style={{fontSize: 12}} component="th" scope="row">{historyRow.playerName}</TableCell>
-                        <TableCell style={{fontSize: 12}}>{historyRow.boughtFor}</TableCell>
+                        <TableCell style={{fontSize: 12}}>{convertNumbers(historyRow.boughtFor)}</TableCell>
                         <TableCell align="right"><Button onClick={() => handleResetBuy(row, historyRow)} variant="contained">Revert Buy</Button></TableCell>
                         {/*<TableCell align="right">
                           {Math.round(historyRow.amount * row.price * 100) / 100}

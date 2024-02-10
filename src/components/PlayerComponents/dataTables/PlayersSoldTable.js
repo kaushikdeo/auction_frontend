@@ -41,7 +41,7 @@ const [fetchedSoldPlayers, setFetchedSoldPlayers] = useState(soldPlayers);
       <Table size="medium" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell style={{fontSize: 12}}><b>Player Name</b></TableCell>
+            <TableCell style={{fontSize: 12}}><b>{`Player Name (${rows.length})`}</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Team</b></TableCell>
             {/* <TableCell align="right">Action</TableCell> */}
           </TableRow>

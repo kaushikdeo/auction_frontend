@@ -98,6 +98,12 @@ const AuctionCalc = ({
     }
   };
 
+  const handleResetBuyPlayer = () => {
+        setCurrentBid(minBid);
+        setSelectedPlayer(null)
+        setSelectedteam(null);
+  };
+
   const renderChips = () => {
     return notAllowed.map(team => {
         return (<Stack direction="column" spacing={1}>
@@ -137,14 +143,14 @@ const AuctionCalc = ({
             variant="contained"
             onClick={() => setConfirmSell(true)}
           >
-            Confirm Sell
+            Sell
           </Button>
           <Button
             style={{ flex: 1, padding: 10, margin: 20 }}
             variant="contained"
             onClick={() => shiftPlayerToUnallocatedTable()}
           >
-            Shift Player To Unallocated
+            Shift Player To Unsold
           </Button>
         </div>
       )}
@@ -163,9 +169,9 @@ const AuctionCalc = ({
             </div>
             <div style={{paddingTop: 10, flex: 1}}>
             <Button style={{paddingTop: 10, margin: 10}} variant="contained" onClick={() => handlePlayerAuction()}>
-              Confirm Buy player
+              Confirm Sell
             </Button>
-            <Button style={{paddingTop: 10, margin: 10}} variant="contained" onClick={() => handlePlayerAuction()}>
+            <Button style={{paddingTop: 10, margin: 10}} variant="contained" onClick={() => handleResetBuyPlayer()}>
               Reset Buy
             </Button>
             </div>
@@ -173,7 +179,7 @@ const AuctionCalc = ({
         </>
       )}
       {
-        notAllowed.length && <h4>Teams Not Allowed To Bid Anymore</h4>
+        notAllowed.length ? <h4>Teams Not Allowed To Bid Anymore</h4> : <></>
       }
       {renderChips()}
     </div>

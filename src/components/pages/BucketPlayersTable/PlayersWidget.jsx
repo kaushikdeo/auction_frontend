@@ -6,18 +6,18 @@ import PlayerProfileCard from "../../playerProfile/PlayerProfile";
 import AuctionCalc from "./AuctionCalc";
 import BoughtPlayersTable from "./BoughtPlayersTable";
 
-const PlayersWidget = ({ teamCalc, shiftPlayerToUnallocatedTable, minBid, handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setSelectedPlayer, handlePlayerIncreaseBidMutation, setCurrentBid, currentBid }) => {
+const PlayersWidget = ({ setIsRandomSelection, isRandomSelection, teamCalc, shiftPlayerToUnallocatedTable, minBid, handleConfirmAuctionPlayer, showDrawer, currentAuction, selectPlayer, selectedPlayer, setDrawerSelectedPlayer, setSelectedPlayer, handlePlayerIncreaseBidMutation, setCurrentBid, currentBid }) => {
     // const [isAutoSelection, setIsAutoSelection] = useState(true);
 
     return (
         <div className="playerDetailsWidget">
             <div className="left">
                 <div className="playertoggle">
-                    <span className="title">Auction</span>
+                    <span className="title">{currentAuction.auctionName}</span>
                     <span className="sliderTextAfter">Auto Selection</span>
                     <Switch
-                        checked
-                        onChange={(checked, event) => console.log(checked, event)}
+                        checked={isRandomSelection}
+                        onChange={(checked, event) => setIsRandomSelection(!isRandomSelection)}
                         checkedChildren={<CheckOutlined />}
                         unCheckedChildren={<CloseOutlined />}
                         defaultChecked

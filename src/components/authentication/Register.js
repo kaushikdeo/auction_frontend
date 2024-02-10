@@ -49,42 +49,41 @@ const Register = () => {
             >
               <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Register</h2>
               <Form.Item
-                label="Email"
                 name="email"
                 rules={[
                   { required: true, message: 'Please input your email!' },
                   { type: 'email', message: 'Please input a valid email!' },
                 ]}
               >
-                <Input value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
               </Form.Item>
               <Form.Item
-                label="Password"
                 name="password"
                 rules={[{ required: true, message: 'Please input your password!' }]}
               >
-                <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input.Password 
+                placeholder="Password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+              />
               </Form.Item>
               <Form.Item
-                label="Mobile Number"
                 name="mobile"
                 rules={[{ required: true, message: 'Please input your mobile number!' }]}
               >
-                <Input value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} />
+                <Input placeholder="Mobile Number" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} />
               </Form.Item>
               <Form.Item
-                label="First Name"
                 name="firstName"
                 rules={[{ required: true, message: 'Please input your first name!' }]}
               >
-                <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                <Input placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
               </Form.Item>
               <Form.Item
-                label="Last Name"
                 name="lastName"
                 rules={[{ required: true, message: 'Please input your last name!' }]}
               >
-                <Input value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                <Input placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
               </Form.Item>
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                 <Button type="primary" htmlType="submit">

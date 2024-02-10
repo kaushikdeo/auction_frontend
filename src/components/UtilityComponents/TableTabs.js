@@ -49,9 +49,9 @@ const TableTabs = ({setUnallocatedPlayerBucket, unallocatedPlayerBucketCount, se
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="basic tabs example">
           <Tab label={`Player Bucket`} />
-          <Tab label="Unallocated Players" />
+          <Tab label="Unsold Players" />
           <Tab label="Players Sold" />
           <Tab label="Teams" />
           <Tab label="My Team" />

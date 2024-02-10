@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone  } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Layout, Row } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { LOGIN } from "../../graphql/mutations/userMutations";
@@ -50,13 +50,14 @@ const Login = () => {
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
+          iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
         />
       </Form.Item>
-      <Form.Item>
+      {/* <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
@@ -64,13 +65,13 @@ const Login = () => {
         <a className="login-form-forgot">
           Forgot password
         </a>
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        <Link to="/register">register now!</Link>
+        <Link style={{marginLeft:20}} to="/register">register now!</Link>
       </Form.Item>
     </Form>
     </Row>

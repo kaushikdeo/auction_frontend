@@ -15,9 +15,9 @@ const NavBar = () => {
     return (
         <div className="navbar">
             <div className="wrapper">
-                <div className="search">
-                    <input type="text" placeholder="Search..." />
-                    <SearchIcon className="icon"/>
+                <div>
+                    {/* <input type="text" placeholder="Search..." />
+                    <SearchIcon className="icon"/> */}
                 </div>
                 <div className="items">
                 <div className="item">

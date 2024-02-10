@@ -164,7 +164,7 @@ const PlayerDashboard = () => {
                                 </div>
                                 <div className="row">
                                     <div className="col-sm-12">
-                                        <div style={{display: "flex"}} className="well">
+                                        <div style={{display: "flex", overflowX: "scroll"}} className="well">
                                         {renderCurrentAuctions()}
                                         </div>
                                     </div>

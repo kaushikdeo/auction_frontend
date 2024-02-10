@@ -4,7 +4,7 @@ import TeamsTable from "../TeamsTable/TeamsTable";
 import BucketPlayerTable from "../BucketPlayersTable/BucketPlayerTable";
 import UnallocatedplayerTable from "../BucketPlayersTable/UnallocatedplayerTable";
 
-const AuctionDetails = ({handleRevertBuy, teamCalc, currentBid, boughtPlayers, currentAuction,showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
+const AuctionDetails = ({selectPlayer, isRandomSelection, handleRevertBuy, teamCalc, currentBid, boughtPlayers, currentAuction,showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
     console.log("askjxnakjsnxkjasx", currentAuction.teams.length);
     return (
         <div className="auctionDetailsWidget">
@@ -15,13 +15,11 @@ const AuctionDetails = ({handleRevertBuy, teamCalc, currentBid, boughtPlayers, c
             </div>
         </div> */}
         <div className="right">
-            <span className="title">Player Bucket</span>
             <div className="featuredRight">
-            <BucketPlayerTable currentAuction={currentAuction} boughtPlayers={boughtPlayers} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
+            <BucketPlayerTable selectPlayer={selectPlayer} isRandomSelection={isRandomSelection} currentAuction={currentAuction} boughtPlayers={boughtPlayers} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
             </div>
-            <span className="title">Unallocated Player Bucket</span>
             <div className="featuredRight">
-            <UnallocatedplayerTable currentAuction={currentAuction} boughtPlayers={boughtPlayers} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
+            <UnallocatedplayerTable selectPlayer={selectPlayer} isRandomSelection={isRandomSelection} currentAuction={currentAuction} boughtPlayers={boughtPlayers} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
             </div>
         </div>
         <div className="right">

@@ -56,21 +56,16 @@ const PlayerSingleAuction = () => {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   if (playerResetFeedData && !playerResetFeedLoading && !playerResetFeedDataError) {
-  //     refetch();
-  //     setSelectedPlayer(null)
-  //     setCurrentBid(bidFeedData.bidFeed.bidAmount)
-  //   }
-  // }, [playerResetFeedData, playerResetFeedLoading, playerResetFeedDataError])
+  useEffect(() => {
+    console.log("TESRTINF UNALOCATED", moveToUnAllocatedFeedData);
+    if (moveToUnAllocatedFeedData && moveToUnAllocatedFeedData.playerMovedToUnallocatedFeed && !moveToUnAllocatedFeedLoading && !moveToUnAllocatedFeedError) {
+      refetch();
+      setSelectedPlayer(null)
+      setCurrentBid(currentAuction?.minimumBid)
+    }
+  }, [moveToUnAllocatedFeedData, moveToUnAllocatedFeedLoading, moveToUnAllocatedFeedError])
   
-  // useEffect(() => {
-  //   if(moveToUnAllocatedFeedData && !moveToUnAllocatedFeedLoading && !moveToUnAllocatedFeedError) {
-  //     refetch();
-  //     setSelectedPlayer(null)
-  //     setCurrentBid(bidFeedData.bidFeed.bidAmount)
-  //   }
-  // }, moveToUnAllocatedFeedData, moveToUnAllocatedFeedLoading, moveToUnAllocatedFeedError)
+
 
   useEffect(() => {
       console.log("SUBSCRIPTION --- buy feed", currentAuction?.minimumBid, buyFeedData);

@@ -7,7 +7,7 @@ const CurrentBidCalculations = ({currentBid, playersBought, maxPlayersCanBuy, cu
         return tot+=curr.soldFor
     }, 0)
     let currentWalletBalance = currentAuction.bucketWalletBalance - currentSpent
-    let allowedToSpend = currentWalletBalance - (currentAuction.minimumBid * (maxPlayersCanBuy-playersBought - 1))
+    let allowedToSpend = currentWalletBalance - (currentAuction.minimumBid * (maxPlayersCanBuy-playersBought - 2))
     console.log("currentSpentcurrentSpent", currentWalletBalance - (currentAuction.minimumBid * (maxPlayersCanBuy-playersBought)))
     return (
         <div>

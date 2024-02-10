@@ -25,7 +25,7 @@ let row = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.map(tp=> {
       <Table size="medium" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell style={{fontSize: 12}}><b>Player Name</b></TableCell>
+            <TableCell style={{fontSize: 12}}><b>{`Player Name (${row.length})`}</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Players Type</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Bought For</b></TableCell>
           </TableRow>

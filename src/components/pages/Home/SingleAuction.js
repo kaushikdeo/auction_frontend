@@ -32,12 +32,13 @@ const SingleAuction = () => {
     const [currentBid, setCurrentBid] = useState(null);
     const [boughtPlayers, setBoughtPlayers] = useState([]);
     const [biddablePlayers, setBiddablePlayers] = useState([]);
+    const [isRandomSelection, setIsRandomSelection] = useState(true);
 
-    // useEffect(() => {
-    //     if(selectedPlayerSubData && selectedPlayerSubData.auctionFeed && !selectedPlayerSubLoading && !selectedPlayerSubError) {
-    //         console.log("selectedPlayerSubDataselectedPlayerSubDataselectedPlayerSubData", selectedPlayerSubData.auctionFeed)
-    //     }
-    // }, [playerBuyData, playerBuyLoading, playerBuyError])
+    useEffect(() => {
+        if(handleRevertBuyMutationData && !handleRevertBuyMutationLoading && !selectedPlayerSubError) {
+            console.log("selectedPlayerSubDataselectedPlayerSubDataselectedPlayerSubData", handleRevertBuyMutationData)
+        }
+    }, [handleRevertBuyMutationData, handleRevertBuyMutationLoading, handleRevertBuyMutationError])
 
     useEffect(() => {
         if(selectedPlayerSubData && selectedPlayerSubData.auctionFeed && !selectedPlayerSubLoading && !selectedPlayerSubError) {
@@ -142,7 +143,7 @@ const SingleAuction = () => {
                     return total += num.soldFor
                   }, 0)
                 let maxPlayersCanBuy = Math.floor(currentAuction.players.length/currentAuction.teams.length)
-                let maxAmountAllowedForBid = ((maxPlayersCanBuy - team.teamPlayers.length) * currentAuction.minimumBid) + currentAuction.minimumBid 
+                let maxAmountAllowedForBid = ((maxPlayersCanBuy - team.teamPlayers.length - 1) * currentAuction.minimumBid) + currentAuction.minimumBid 
                 let balAfterBid = currentAuction.bucketWalletBalance - amountSpent - maxAmountAllowedForBid
                 console.log("PROPS 1", balAfterBid <= currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy , team.team.teamName)
                 return {
@@ -151,7 +152,8 @@ const SingleAuction = () => {
                     players: {
                         playersBought: team.teamPlayers.length,
                         amountSpent,
-                        canBuy: balAfterBid <= currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true
+                        canBuy: balAfterBid <= currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true,
+                        isAllowedToBuyForThisBid: balAfterBid < currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true
                     }
                 }
             })
@@ -172,9 +174,9 @@ const SingleAuction = () => {
                         <div className='homeContainer'>
                             <NavBar />
                             <div className="widgets">
-                                <PlayersWidget teamCalc={teamCalc} shiftPlayerToUnallocatedTable={shiftPlayerToUnallocatedTable} minBid={currentAuction.minimumBid} handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} showDrawer={showDrawer} currentBid={currentBid} setCurrentBid={setCurrentBid} handlePlayerIncreaseBidMutation={handlePlayerIncreaseBidMutation} currentAuction={currentAuction} selectPlayer={selectPlayer} setSelectedPlayer={setSelectedPlayer} selectedPlayer={selectedPlayer} setDrawerSelectedPlayer={setDrawerSelectedPlayer}/>
-                                <RandomSelectButton boughtPlayers={boughtPlayers} selectPlayer={selectPlayer} currentAuction={currentAuction}/>
-                                <AuctionDetails handleRevertBuy={handleRevertBuy} teamCalc={teamCalc} currentBid={currentBid} boughtPlayers={boughtPlayers} currentAuction={currentAuction} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
+                                <PlayersWidget isRandomSelection={isRandomSelection} setIsRandomSelection={setIsRandomSelection} teamCalc={teamCalc} shiftPlayerToUnallocatedTable={shiftPlayerToUnallocatedTable} minBid={currentAuction.minimumBid} handleConfirmAuctionPlayer={handleConfirmAuctionPlayer} showDrawer={showDrawer} currentBid={currentBid} setCurrentBid={setCurrentBid} handlePlayerIncreaseBidMutation={handlePlayerIncreaseBidMutation} currentAuction={currentAuction} selectPlayer={selectPlayer} setSelectedPlayer={setSelectedPlayer} selectedPlayer={selectedPlayer} setDrawerSelectedPlayer={setDrawerSelectedPlayer}/>
+                                {isRandomSelection && <RandomSelectButton boughtPlayers={boughtPlayers} selectPlayer={selectPlayer} currentAuction={currentAuction}/>}
+                                <AuctionDetails selectPlayer={selectPlayer} isRandomSelection={isRandomSelection} handleRevertBuy={handleRevertBuy} teamCalc={teamCalc} currentBid={currentBid} boughtPlayers={boughtPlayers} currentAuction={currentAuction} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
                                 {/* <BucketPlayerTable /> */}
                             </div>
                         </div>

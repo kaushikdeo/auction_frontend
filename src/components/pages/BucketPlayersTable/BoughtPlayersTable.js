@@ -26,8 +26,8 @@ const BoughtPlayersTable = ({currentAuction}) => {
     })
     return (
         <div>
+            <span style={{fontWeight: 'bold', fontSize: 25, color: "gray", paddingRight: 100}} className="title">{`Players Sold (${tableData.length})`}</span>
              <div style={{overflowY: "scroll"}} className="playertableContainer">
-                <h4>Bought players</h4>
             <TableContainer component={Paper}>
                 <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>

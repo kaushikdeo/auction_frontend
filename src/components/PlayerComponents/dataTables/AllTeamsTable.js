@@ -34,7 +34,7 @@ let allTeamArrays = allKeys.map(t => {
       <Table size="medium" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell style={{fontSize: 12}}><b>Team Name</b></TableCell>
+            <TableCell style={{fontSize: 12}}><b>{`Team Name (${allTeamArrays.length})`}</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Players Bought</b></TableCell>
           </TableRow>
         </TableHead>

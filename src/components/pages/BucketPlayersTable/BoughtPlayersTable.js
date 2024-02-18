@@ -14,12 +14,13 @@ const BoughtPlayersTable = ({currentAuction}) => {
     let tableData = [];
     currentAuction.auctionDetails.auctionTeams.map(team => {
         team.teamPlayers.map(player => {
-            console.log("asjxbxbbbx", player.player);
+            console.log("asjxbxbbbx", player.soldFor);
             let ii = {
                 teamId: team.team.teamId,
                 teamName: team.team.teamName,
                 playerid: player.player.playerId,
-                playerName: `${player.player.firstName} ${player.player.lastName}`
+                playerName: `${player.player.firstName} ${player.player.lastName}`,
+                soldFor: player.soldFor
             }
             tableData.push(ii);
         })
@@ -34,6 +35,7 @@ const BoughtPlayersTable = ({currentAuction}) => {
                     <TableRow>
                         <TableCell style={{fontSize: 17}}><h4><b>Player Name</b></h4></TableCell>
                         <TableCell style={{fontSize: 17}} align="left"><h4><b>Team Name</b></h4></TableCell>
+                        <TableCell style={{fontSize: 17}} align="left"><h4><b>Purchase Price</b></h4></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -44,6 +46,7 @@ const BoughtPlayersTable = ({currentAuction}) => {
                         >
                         <TableCell style={{fontSize: 17}} className="tableCellStyle" align="left">{row.playerName}</TableCell>
                         <TableCell style={{fontSize: 17}} className="tableCellStyle" align="left">{row.teamName}</TableCell>
+                        <TableCell style={{fontSize: 17}} className="tableCellStyle" align="left">{row.soldFor}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

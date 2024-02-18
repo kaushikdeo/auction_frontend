@@ -145,7 +145,7 @@ const SingleAuction = () => {
                 let maxPlayersCanBuy = Math.floor(currentAuction.players.length/currentAuction.teams.length)
                 let maxAmountAllowedForBid = ((maxPlayersCanBuy - team.teamPlayers.length - 1) * currentAuction.minimumBid) + currentAuction.minimumBid 
                 let balAfterBid = currentAuction.bucketWalletBalance - amountSpent - maxAmountAllowedForBid
-                console.log("PROPS 1", balAfterBid <= currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy , team.team.teamName)
+                console.log("PROPS 1",team.team.teamName, balAfterBid <= currentBid - currentAuction.minimumBid, balAfterBid < currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy)
                 return {
                     teamId: team.team.teamId,
                     teamName: team.team.teamName,
@@ -153,7 +153,7 @@ const SingleAuction = () => {
                         playersBought: team.teamPlayers.length,
                         amountSpent,
                         canBuy: balAfterBid <= currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true,
-                        isAllowedToBuyForThisBid: balAfterBid < currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true
+                        isAllowedToBuyForThisBid: balAfterBid + 1 <= (currentBid - currentAuction.minimumBid) || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true
                     }
                 }
             })

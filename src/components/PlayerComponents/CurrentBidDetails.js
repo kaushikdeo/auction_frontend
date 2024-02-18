@@ -52,8 +52,8 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         <Grid container spacing={1}>
         <Grid xs={6}>
             {/* <Item>Initial Wallet Balance : {currentAuction.bucketWalletBalance}</Item> */}
-            <div className={allowedToSpend <= currentBid ? "number-card number-card-content2" : "number-card number-card-content1" }>
-                <h3 className="number-card-number">{convertNumbers(allowedToSpend)}</h3>
+            <div className="number-card number-card-content1">
+                <h3 className="number-card-number">{currentWalletBalance === 0 ? 0 : convertNumbers(allowedToSpend)}</h3>
                 <div className="number-card-divider"></div>
                 <div className="number-card-dollars">Allowed To Bid</div>
             </div>
@@ -65,6 +65,12 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
                 <div className="number-card-dollars">Current Player Bid</div>
             </div>
         </Grid>
+        {allowedToSpend <= currentBid && 
+        <Grid xs={12}>
+            <div style={{margin: 17}} className="number-card number-card-content2">
+                <h3 className="number-card-number">{`You cannot bid for ${convertNumbers(currentBid+1)}`}</h3>
+            </div>
+        </Grid>}
         </Grid>
         <div className="number-card-divider"></div>
         <Grid container spacing={1}>

@@ -28,7 +28,9 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
     handleRevertBuy(historyRow.playerId, row.teamId);
     // HANDLE_RESET_BUY_PLAYER
   }
-  if (balAfterBid <= currentBid - currentAuction.minimumBid || row.playersBought === maxPlayersCanBuy) {
+  // TODO: removed condition to check max players can buy
+  // if (balAfterBid <= currentBid - currentAuction.minimumBid || row.playersBought === maxPlayersCanBuy) {s
+    if (currentBid > balAfterBid) {
     console.log("ISALLOWED", row.balanceAmount, false)
     return (
       <React.Fragment>
@@ -45,15 +47,15 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
           <TableCell style={{fontSize: 13}} component="th" scope="row">{row.teamName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{maxPlayersCanBuy - row.playersBought - 1}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.balanceAmount)}</TableCell>
-          <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.amountSpent)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h4" gutterBottom component="div">
-                  Team Members
+                  {`Team Members (${row.history.length})`}
                 </Typography>
                 <Table size="small" aria-label="purchases">
                   <TableHead>
@@ -100,15 +102,15 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
           <TableCell style={{fontSize: 13}} component="th" scope="row">{row.teamName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{maxPlayersCanBuy - row.playersBought -1}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.balanceAmount)}</TableCell>
-          <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.amountSpent)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
-                <Typography variant="h6" gutterBottom component="div">
-                  Players
+                <Typography variant="h4" gutterBottom component="div">
+                {`Team Members (${row.history.length})`}
                 </Typography>
                 <Table size="small" aria-label="purchases">
                   <TableHead>
@@ -163,8 +165,8 @@ const ExpandableTable = ({handleRevertBuy, teamCalc, intialRows, currentAuction,
             <TableCell style={{fontSize: 15}}>Team Name</TableCell>
             <TableCell style={{fontSize: 15}} align="right">Captain</TableCell>
             <TableCell style={{fontSize: 15}} align="right">Players Bought</TableCell>
+            <TableCell style={{fontSize: 15}} align="right">Players To Be Bought</TableCell>
             <TableCell style={{fontSize: 15}} align="right">Balance Amount</TableCell>
-            <TableCell style={{fontSize: 15}} align="right">Spent Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

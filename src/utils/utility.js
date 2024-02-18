@@ -15,3 +15,9 @@ export const convertNumbers = (number) => {
         return number
     }
 }
+
+export const bidCalculation = (currentBal, minBid, playersToBeBought) => {
+    console.log("currentBalfff", currentBal, minBid, playersToBeBought)
+    let canBuy = currentBal - ((playersToBeBought-1)*minBid); //dropdown
+    return canBuy;
+}

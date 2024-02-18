@@ -212,6 +212,7 @@ const NewAuction = () => {
   const [playerBucket, setPlayerBucket] = useState([]);
   const [buckets, setBuckets] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   console.log("selectedUsersselectedUsers", playerBucket);
 
@@ -252,6 +253,7 @@ const NewAuction = () => {
     setTeamCaptain("")
     setTeams(initTeams);
     setTeamDescription("");
+    setSearchInput("");
   }
    
   const onOkStart = (value) => {
@@ -407,7 +409,7 @@ const NewAuction = () => {
               <div className="input-box">
                 <span className="details">Team Captain</span>
                 {/* <input type="text" placeholder="Enter Team Captain" required /> */}
-                <AddPlayers addTeamCaptain={addTeamCaptain} />
+                <AddPlayers searchInput={searchInput} setSearchInput={setSearchInput} addTeamCaptain={addTeamCaptain} />
               </div>
               {/* <div className="input-box">
                 <span className="details">Team Vice Captain</span>

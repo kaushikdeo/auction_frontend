@@ -2,6 +2,7 @@ import BucketPlayerTable from "../../BucketPlayersTable/BucketPlayerTable";
 import TeamsTable from "../../TeamsTable/TeamsTable";
 
 const PlayerAuctionDetails = ({currentAuction,showDrawer, currentPlayers, handleDrawerSelectedPlayer}) => {
+    console.log("akjsnxnnsyya", currentAuction);
     <div className="auctionDetailsWidget">
         <div className="right">
             <span className="title">Player Bucket</span>

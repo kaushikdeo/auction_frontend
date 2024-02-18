@@ -4,7 +4,10 @@ import Dropdown from "react-dropdown";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import "react-dropdown/style.css";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { convertNumbers } from "../../../utils/utility";
+
 const AuctionCalc = ({
     teamCalc,
     shiftPlayerToUnallocatedTable,
@@ -22,13 +25,42 @@ const AuctionCalc = ({
   let notAllowed = [];
   console.log("currentBidcurrentBidcurrentBid", currentAuction);
   teamCalc.map((team, i) => {
-    console.log("teamCalcteamCalc", team.players.canBuy);
-    if (team.players.canBuy) {
+    console.log("teamCalcteamCalc", team.teamName, team.players);
+    if (team.players.isAllowedToBuyForThisBid) {
       items.push({ value: i + 1, label: team.teamName })
+      if (!team.players.canBuy) {
+        notAllowed.push({ value: i + 1, label: team.teamName })
+      }
     } else {
       notAllowed.push({ value: i + 1, label: team.teamName })
     }
   });
+
+  const confirmShiftPlayerToUnsold = () => {
+    confirmAlert({
+      title: 'Attention',
+      message: 'Are you sure you want to move this player to unsold ?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {shiftPlayerToUnallocatedTable()}
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+      keyCodeForClose: [8, 32],
+      willUnmount: () => {},
+      afterClose: () => {},
+      onClickOutside: () => {},
+      onKeypress: () => {},
+      onKeypressEscape: () => {},
+      overlayClassName: "overlay-custom-class-name"
+    })
+  }
 
   const detectKeyDown = (e) => {
     console.log("akjsxjaksbxjhabsx", e.key === "i" || e.key === "o");
@@ -148,7 +180,7 @@ const AuctionCalc = ({
           <Button
             style={{ flex: 1, padding: 10, margin: 20 }}
             variant="contained"
-            onClick={() => shiftPlayerToUnallocatedTable()}
+            onClick={() => confirmShiftPlayerToUnsold()}
           >
             Shift Player To Unsold
           </Button>

@@ -6,7 +6,7 @@ import { SEARCH_USERS_BY_EMAIL } from "../../graphql/queries/userQueries";
 import { useMutation} from '@apollo/client';
 import { ADD_CONNECTIONS } from "../../graphql/mutations/userMutations";
 
-const AddPlayers = ({addTeamCaptain}) => {
+const AddPlayers = ({searchInput, setSearchInput, addTeamCaptain}) => {
 const tableColumns = [
     {
         title: "Name",
@@ -53,7 +53,6 @@ const tableColumns = [
     SEARCH_USERS_BY_EMAIL
   );
   const [addNewConnections, { data: addConnData, loading: addConnLoading, error: addConnError }] = useMutation(ADD_CONNECTIONS);
-  const [searchInput, setSearchInput] = useState("");
   const [fetchedUsers, setFetchedUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
@@ -76,7 +75,7 @@ const tableColumns = [
   }, [addConnData, addConnLoading, addConnError])
 
   useEffect(() => {
-    if (searchInput.length > 5) {
+    if (searchInput.length > 3) {
       console.log("Am i being called", searchInput);
       searchUsers({ variables: { email: searchInput } }).then((res) => {
         if (
@@ -106,7 +105,7 @@ const tableColumns = [
     addTeamCaptain(addedCaptain);
     console.log("initialUsers", initialUsers);
     setSelectedUsers(initialUsers);
-    setSearchInput("");
+    setSearchInput(`${addedCaptain.name} - ${addedCaptain.email}`);
     setFetchedUsers([]);
   };
 

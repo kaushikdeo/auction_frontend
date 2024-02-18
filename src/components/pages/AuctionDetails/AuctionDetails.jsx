@@ -23,7 +23,7 @@ const AuctionDetails = ({selectPlayer, isRandomSelection, handleRevertBuy, teamC
             </div>
         </div>
         <div className="right">
-            <span className="title">Team Details</span>
+            <span className="title">{`Team Details (${currentAuction.teams.length})`}</span>
             <div className="featuredRight">
                 <TeamsTable handleRevertBuy={handleRevertBuy} teamCalc={teamCalc} currentBid={currentBid} currentAuction={currentAuction}/>
             </div>

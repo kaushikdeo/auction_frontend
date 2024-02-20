@@ -16,14 +16,17 @@ const PlayerBucket = ({soldPlayers, currentAuction, setDrawerSelectedPlayerb}) =
     const [searchInput, setSearchInput] = useState('');
     const [fetchedUnsoldPlayers, setFetchedUnsoldPlayers] = useState(finalUniquePlayers);
     let rows = fetchedUnsoldPlayers.map(up => {
+      console.log("jansxnnnx", up);
         return {
-        playerName: `${up.firstName} ${up.lastName}`,
+          playerName: `${up.firstName} ${up.lastName}`,
+          userId: up.userId,
         }
     })
     console.log("uniquePlayers", rows)
     const handleCheckStats = (i) => {
-        console.log("betterr", finalUniquePlayers[i]);
-        setDrawerSelectedPlayerb(finalUniquePlayers[i])
+      let selectedPlayer = finalUniquePlayers.find(e => e.userId === i.userId);
+      console.log("betterr", i.userId, selectedPlayer);
+      setDrawerSelectedPlayerb(selectedPlayer)
     }
 
     useEffect(() => {
@@ -55,7 +58,7 @@ const PlayerBucket = ({soldPlayers, currentAuction, setDrawerSelectedPlayerb}) =
               <TableCell style={{fontSize: 12}} component="th" scope="row">
                 {row.playerName}
               </TableCell>
-              <TableCell align="right"><Button onClick={() => handleCheckStats(i)} variant="contained">Check Stats</Button></TableCell>
+              <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

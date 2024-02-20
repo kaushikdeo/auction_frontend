@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,18 +9,33 @@ import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 
 const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
+  const [searchInput, setSearchInput] = useState('');
+  const [unsoldPlayersBucket, setFetchedUnsoldPlayersBucket] = useState(unsoldPlayers);
   console.log("unsoldPlayersunsoldPlayers", unsoldPlayers);
-  let rows = unsoldPlayers.map(up => {
+  let rows = unsoldPlayersBucket.map(up => {
     return {
       playerName: `${up.firstName} ${up.lastName}`,
       playerType: up.playerType,
+      userId: up.userId,
     }
   })
   const handleCheckStats = (i) => {
-    setDrawerSelectedPlayerb(unsoldPlayers[i])
+    let selectedPlayer = unsoldPlayers.find(e => e.userId === i.userId);
+      console.log("betterr", i);
+      setDrawerSelectedPlayerb(selectedPlayer)
   }
+  useEffect(() => {
+    let filtered = unsoldPlayersBucket.filter(ele => ele.firstName?.toLowerCase().includes(searchInput.toLowerCase()))
+    setFetchedUnsoldPlayersBucket(filtered);
+}, [searchInput])
     return (
         <TableContainer component={Paper}>
+          <div class="search-box">
+            <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" class="search-input" placeholder="Search By Player Name" />
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
       <Table size="medium" aria-label="a dense table">
         <TableHead>
           <TableRow>
@@ -39,7 +54,7 @@ const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
                 {row.playerName}
               </TableCell>
               <TableCell style={{fontSize: 12}} align="right">{row.playerType}</TableCell>
-              <TableCell align="right"><Button onClick={() => handleCheckStats(i)} variant="contained">Check Stats</Button></TableCell>
+              <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

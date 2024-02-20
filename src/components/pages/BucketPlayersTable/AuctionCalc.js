@@ -23,9 +23,13 @@ const AuctionCalc = ({
   const [selectedTeam, setSelectedteam] = useState(null);
   let items = [];
   let notAllowed = [];
-  console.log("currentBidcurrentBidcurrentBid", currentAuction);
+  let zeroBalTeams = [];
+  console.log("currentBidcurrentBidcurrentBid", teamCalc);
   teamCalc.map((team, i) => {
     console.log("teamCalcteamCalc", team.teamName, team.players);
+    if (team.players.isBalanceZero) {
+      zeroBalTeams.push({ value: i + 1, label: team.teamName });
+    }
     if (team.players.isAllowedToBuyForThisBid) {
       items.push({ value: i + 1, label: team.teamName })
       if (!team.players.canBuy) {
@@ -143,6 +147,14 @@ const AuctionCalc = ({
       </Stack>)
     })
   }
+
+  const renderZeroBalChips = () => {
+    return zeroBalTeams.map(team => {
+        return (<Stack direction="column" spacing={1}>
+        <Chip style={{fontSize: 20, backgroundColor: '#023970', color: 'white'}} label={team.label} variant="outlined" />
+      </Stack>)
+    })
+  }
   console.log("SELECTED PLAYER", selectedPlayer)
   return (
     <div>
@@ -211,9 +223,22 @@ const AuctionCalc = ({
         </>
       )}
       {
-        notAllowed.length ? <h4>Teams Not Allowed To Bid Anymore</h4> : <></>
+        notAllowed.length && zeroBalTeams.length && <hr class="solid"></hr>
+      }
+      {
+        notAllowed.length ? <h4 style={{color: 'red'}}>Teams Not Allowed To Bid Anymore</h4> : <></>
       }
       {renderChips()}
+      {
+        notAllowed.length && zeroBalTeams.length && <hr class="solid"></hr>
+      }
+      {
+        zeroBalTeams.length ? <h4 style={{color: '#023970'}}>Teams With 0 Balance</h4> : <></>
+      }
+      {renderZeroBalChips()}
+      {
+        notAllowed.length && zeroBalTeams.length && <hr class="solid"></hr>
+      }
     </div>
   );
 };

@@ -44,7 +44,7 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
-          <TableCell style={{fontSize: 13}} component="th" scope="row">{row.teamName}</TableCell>
+          <TableCell style={{fontSize: 13}} component="th" scope="row">{`${row.teamName}(${row.history.length})`}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{maxPlayersCanBuy - row.playersBought - 1}</TableCell>
@@ -99,7 +99,7 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
-          <TableCell style={{fontSize: 13}} component="th" scope="row">{row.teamName}</TableCell>
+          <TableCell style={{fontSize: 13}} component="th" scope="row">{`${row.teamName}(${row.history.length})`}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{maxPlayersCanBuy - row.playersBought -1}</TableCell>

@@ -30,7 +30,7 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
             <div className="number-card number-card-content1">
                 <h3 className="number-card-number">{convertNumbers(currentWalletBalance)}</h3>
                 <div className="number-card-divider"></div>
-                <div className="number-card-dollars">Wallet Balance</div>
+                <div className="number-card-dollars">Current Wallet Balance</div>
             </div>
         </Grid>
         <Grid xs={4}>

@@ -153,7 +153,8 @@ const SingleAuction = () => {
                         playersBought: team.teamPlayers.length,
                         amountSpent,
                         canBuy: balAfterBid <= currentBid - currentAuction.minimumBid || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true,
-                        isAllowedToBuyForThisBid: balAfterBid + 1 <= (currentBid - currentAuction.minimumBid) || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true
+                        isAllowedToBuyForThisBid: balAfterBid + 1 <= (currentBid - currentAuction.minimumBid) || team.teamPlayers.length - 1 === maxPlayersCanBuy ? false : true,
+                        isBalanceZero: amountSpent >= currentAuction.bucketWalletBalance ? true: false
                     }
                 }
             })

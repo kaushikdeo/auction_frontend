@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import './singleAuction.scss';
 import SideBar from '../Sidebar/Sidebar';
 import NavBar from '../Navbar/Navbar';
+import ExcelJS from 'exceljs';
+import {saveAs} from 'file-saver'
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import AuctionDetails from '../AuctionDetails/AuctionDetails';
 import RandomSelectButton from '../RandomSelectButton/RandomSelectButton';
 import PlayersWidget from '../BucketPlayersTable/PlayersWidget';
 import { useParams } from 'react-router-dom';
 import { GET_SINGLE_AUCTION } from '../../../graphql/queries/auctionQueries';
+import Button from '@mui/material/Button';
 import AuctionPlayerDrawer from '../../Dashbaord/AuctionPlayerDrawer';
 import { HANDLE_BID_FOR_PLAYER, HANDLE_BUY_PLAYER, HANDLE_PLAYER_SELECT, HANDLE_RESET_BUY_PLAYER, HANDLE_SHIFT_PLAYER_TO_UNALLOCATED_BUCKET } from '../../../graphql/mutations/auctionMutations';
 import { HANDLE_PLAYER_SELECT_SUBSCRIPTION } from '../../../graphql/subscriptions/auctionSubscriptions';
+import dayjs from 'dayjs';
 
 const SingleAuction = () => {
     const params = useParams();
@@ -135,6 +139,45 @@ const SingleAuction = () => {
         refetch();
     }
 
+    const downloadAuctionDetails = () => {
+        if (currentAuction) {
+            console.log("curremnt", currentAuction);
+            let headers = [
+                {header: "Player Name", key: "playerName", width: 40, height: 7},
+                {header: "Player Type", key: "playerType", width: 40, height: 7},
+                {header: "Auctioned For", key: "auctionFor", width: 40, height: 7},
+                {header: "Team Name", key: "teamName", width: 40, height: 7},
+            ]
+            let rowsData = [];
+            currentAuction?.auctionDetails?.auctionTeams.map(team => {
+                let teamName = team.team.teamName;
+                team.teamPlayers.map(player => {
+                    rowsData.push({
+                        playerName: `${player.player.firstName} ${player.player.lastName} ${player.soldFor === 0 ? "(C)" : ""}`,
+                        teamName,
+                        playerType: player.player.playerType,
+                        auctionFor: player.soldFor
+                    })
+                })
+            })
+            console.log("rowsDatarowsData", rowsData);
+            const workBook = new ExcelJS.Workbook();
+            workBook.creator = 'Auctions App';
+            const workSheet = workBook.addWorksheet("AuctionData", {properties: {tabColor: {argb: 'FF00FF00'}}, views:[{showGridLines: true}]})
+            workSheet.columns = headers;
+            workSheet.addRows(rowsData);
+            workSheet.getRow(1).font = {size: 20, bold: true};
+    
+            const ext = '.xlsx';
+            const fileType = 'application/vnd.ms-excel';
+            workBook.xlsx.writeBuffer().then((buffer) => {
+                const blobn = new Blob([buffer], {type: 'vdn.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'});
+                const fileName =  `${currentAuction.auctionName}-${dayjs(new Date()).format("DD/MM/YYY_HH:mm:ss")}.xlsx`;
+                saveAs(blobn, fileName);
+            })
+        }
+    }
+
     useEffect(() => {
         let allTeamsData = currentAuction?.auctionDetails?.auctionTeams;
         if (allTeamsData && allTeamsData.length) {
@@ -179,6 +222,7 @@ const SingleAuction = () => {
                                 {isRandomSelection && <RandomSelectButton boughtPlayers={boughtPlayers} selectPlayer={selectPlayer} currentAuction={currentAuction}/>}
                                 <AuctionDetails selectPlayer={selectPlayer} isRandomSelection={isRandomSelection} handleRevertBuy={handleRevertBuy} teamCalc={teamCalc} currentBid={currentBid} boughtPlayers={boughtPlayers} currentAuction={currentAuction} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
                                 {/* <BucketPlayerTable /> */}
+                                <Button variant="outlined" onClick={downloadAuctionDetails}>Export Auction Details</Button>
                             </div>
                         </div>
                     </>

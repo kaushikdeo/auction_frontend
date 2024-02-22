@@ -68,7 +68,7 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         {allowedToSpend <= currentBid && 
         <Grid xs={12}>
             <div style={{margin: 17}} className="number-card number-card-content2">
-                <h3 className="number-card-number">{`You cannot bid for ${convertNumbers(currentBid+1)}`}</h3>
+                <h3 className="number-card-number">{`You cannot bid for ${convertNumbers(currentBid+currentAuction.stepPrice)}`}</h3>
             </div>
         </Grid>}
         </Grid>

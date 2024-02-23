@@ -12,6 +12,8 @@ import NewAuction from "../Auctions/NewAuction";
 import SingleAuction from "../pages/Home/SingleAuction";
 import PlayerSingleAuction from "../PlayerComponents/PlayerSingleAuction";
 import PlayerDashboard from "../PlayerComponents/PlayerDashboard";
+import ViewerAuctionList from "../ViewerComponents/ViewerAuctionList";
+import ViewerSingleAuction from "../ViewerComponents/ViewerSingleAuction";
 const Navigation = () => {
   return (
     <Routes>
@@ -31,6 +33,8 @@ const Navigation = () => {
         <Route path="/playerDashboard" element={<PlayerDashboard />} />
         <Route path="/role" element={<UserRole />} />
         <Route path="/newAuction" element={<NewAuction />} />
+        <Route path="/viewerAuctionList" element={<ViewerAuctionList />} />
+        <Route path="/viewerAuction/:auctionId" element={<ViewerSingleAuction />} />
       </Route>
     </Routes>
   );

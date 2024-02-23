@@ -9,10 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 
-const PlayerBucket = ({soldPlayers, currentAuction, setDrawerSelectedPlayerb}) => {
-  console.log("aksjnxkjansxkajnsxxxx", soldPlayers);
-    let uniquePlayers = currentAuction.players.filter(({ userId: id1 }) => !soldPlayers.some(({player}) => player.userId === id1));
-    let finalUniquePlayers = uniquePlayers.filter(({ playerId: id1 }) => !currentAuction.unallocatedPlayers.some(({userId: id2}) => id2 === id1));
+const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSelectedPlayerb}) => {
+  console.log("aksjnxkjansxkajnsxxxx", currentAuction.players);
+  let uniquePlayers = currentAuction.players.filter(({ userId: id1 }) => !soldPlayers.some(({player}) => player.userId === id1));
+  let finalUniquePlayers = uniquePlayers.filter(({ userId: id1 }) => !currentAuction.unallocatedPlayers.some(({userId: id2}) => id2 === id1));
     const [searchInput, setSearchInput] = useState('');
     const [fetchedUnsoldPlayers, setFetchedUnsoldPlayers] = useState(finalUniquePlayers);
     let rows = fetchedUnsoldPlayers.map(up => {

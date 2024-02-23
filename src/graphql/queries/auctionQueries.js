@@ -283,3 +283,13 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
   }
 }
 `
+
+export const GET_SINGLE_AUCTION_FOR_VIEWER = gql`
+query GetAuctionDetailsForViewer($auctionId: String) {
+  getAuctionDetailsForViewer(auctionId: $auctionId) {
+    auctionName
+    auctionId
+    minimumBid
+  }
+}
+`

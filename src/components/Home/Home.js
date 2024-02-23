@@ -21,7 +21,10 @@ const Home = () => {
         } else if (loggedInUser && loggedInUser.currentRole === Constants.Player) {
           console.log("I am in player")
           navigate('/playerDashboard');
-        }
+        } else if (loggedInUser && loggedInUser.currentRole === Constants.Viewer) {
+          console.log("I am in Viewer")
+          navigate('/viewerAuctionList');
+        } 
       } else {
         navigate('/role');
       }

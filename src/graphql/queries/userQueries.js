@@ -83,3 +83,13 @@ query GetPlayerAuctions {
   }
 }
 `
+
+export const GET_VIEWER_AUCTIONS = gql`
+query GetViewerAuctions {
+  getViewerAuctions {
+    auctionId
+    auctionName
+    venue
+  }
+}
+`

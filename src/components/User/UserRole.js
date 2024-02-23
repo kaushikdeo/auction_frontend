@@ -18,6 +18,9 @@ const UserRole = () => {
     if (i === 0) {
       dispatch({type: 'UPDATEROLE', payload: Constants.Auctioneer})
       navigate("/");
+    } else if(i === 2) {
+      dispatch({type: 'UPDATEROLE', payload: Constants.Viewer})
+      navigate("/");
     } else {
       dispatch({type: 'UPDATEROLE', payload: Constants.Player})
       navigate("/");
@@ -32,10 +35,10 @@ const UserRole = () => {
             <h1>Auctioneer</h1>
           <p className="body-text">Select this role if you want to conduct auctions</p> 
         </div>
-        {/* <div className="card" onClick={() => handleRoleSelect(0)}>
-            <h1>Captain</h1>
-          <p className="body-text">Select this role if you want to participate in a auction as a captain</p> 
-        </div> */}
+        <div className="card" onClick={() => handleRoleSelect(2)}>
+            <h1>Viewer</h1>
+          <p className="body-text">Select this role if you want to view in a auction as a player</p> 
+        </div>
         <div className="card" onClick={() => handleRoleSelect(1)}>
             <h1>Bidder</h1>
           <p className="body-text">Select this role if you want to login as a Captain or a Bidder in the Auction</p> 

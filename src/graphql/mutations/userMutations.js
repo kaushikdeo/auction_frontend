@@ -39,10 +39,13 @@ export const REGISTER = gql`
         auctionName
       }
       connections {
-        userId
-        firstName
-        lastName
-        email
+        user {
+          userId
+          firstName
+          lastName
+          email
+        }
+        connectionBucket
       }
       email
       firstName

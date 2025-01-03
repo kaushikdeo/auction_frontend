@@ -505,13 +505,13 @@ h4 {
 }
 
 .ant-list-item-meta-title > a {
-  color: rgba(0, 0, 0, 0.65);
+  /* color: rgba(0, 0, 0, 0.65); */
   transition: all 0.3s;
 }
 
 .ant-list-item-meta-title {
   margin-bottom: 4px;
-  color: rgba(0, 0, 0, 0.65);
+  /* color: rgba(0, 0, 0, 0.65); */
   font-size: 14px;
   line-height: 22px;
 }
@@ -3114,7 +3114,6 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   flex-direction: column;
   box-shadow: 0px 0px 8px #ddd;
   border-radius: 10px;
-  margin-top: 1rem;
   max-height: 300px;
   overflow-y: scroll;
 }

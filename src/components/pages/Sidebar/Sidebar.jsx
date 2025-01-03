@@ -28,7 +28,7 @@ const SideBar = () => {
                         <AddIcon className="icon"/>
                         <span>New Auction</span>
                     </li>
-                    <p className="title">ACCOUNT</p>
+
                     <li>
                         <AccountCircleIcon className="icon"/>
                         <span>Profile</span>
@@ -42,10 +42,6 @@ const SideBar = () => {
                         <span>Logout</span>
                     </li>
                 </ul>
-            </div>
-            <div className="bottom">
-                <div className="colorOption"></div>
-                <div className="colorOption"></div>
             </div>
         </div>
     )

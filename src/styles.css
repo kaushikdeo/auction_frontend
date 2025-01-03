@@ -660,7 +660,7 @@ body.light-mode .video-bg:before {
  }
 }
 
-.dropdown.is-active {
+/* .dropdown.is-active {
  ul {
   opacity: 1;
   pointer-events: all;
@@ -669,7 +669,7 @@ body.light-mode .video-bg:before {
    background-color: var(--dropdown-hover);
   }
  }
-}
+} */
 
 .button-wrapper {
  display: flex;

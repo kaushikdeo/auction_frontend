@@ -17,6 +17,7 @@ import PlayerProfileCard from "../playerProfile/PlayerProfile";
 import CurrentBidDetails from "./CurrentBidDetails";
 import { HANDLE_BID_FEED, HANDLE_MOVE_PLAYER_TO_UNALLOCATED, HANDLE_PLAYER_BUY_FEED, HANDLE_PLAYER_SELECT_SUBSCRIPTION, PLAYER_RESET_FEED } from "../../graphql/subscriptions/auctionSubscriptions";
 import TableTabs from "../UtilityComponents/TableTabs";
+import LoadingPage from "../UtilityComponents/LoadingPage";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -65,8 +66,6 @@ const PlayerSingleAuction = () => {
     }
   }, [moveToUnAllocatedFeedData, moveToUnAllocatedFeedLoading, moveToUnAllocatedFeedError])
   
-
-
   useEffect(() => {
       console.log("SUBSCRIPTION --- buy feed", currentAuction?.minimumBid, buyFeedData);
       if (buyFeedData && !buyFeedLoading, !buyFeedError) {
@@ -145,7 +144,8 @@ const PlayerSingleAuction = () => {
     ) {
       setCurrentAuction(data.getAuctionDetailsForCaptain.auctionData);
       setSoldPlayers(data.getAuctionDetailsForCaptain.playersBought);
-      setCurrentBid(data.getAuctionDetailsForCaptain.auctionData.minimumBid)
+      setCurrentBid(data.getAuctionDetailsForCaptain.currentPlayerBid)
+      setSelectedPlayer(data.getAuctionDetailsForCaptain.selectedPlayer)
     }
   }, [data, error, loading]);
   console.log("currewwwntAuction", drawerSelectedPlayer);
@@ -194,9 +194,7 @@ const PlayerSingleAuction = () => {
           </div>
         </>
       ) : (
-        <>
-          <h1>LOADING .. . . .. </h1>
-        </>
+        <LoadingPage />
       )}
     </div>
   );

@@ -70,6 +70,10 @@ const AuctionnerDashboard = () => {
         navigate("/newAuction");
     }
 
+    const handleConnections = () => {
+        navigate("/connections");
+    }
+
     const renderPastAuctions = () => {
         if (data && data.auctions && data.auctions.length) {
             console.log("data.auctions", data.auctions)
@@ -156,7 +160,7 @@ const AuctionnerDashboard = () => {
 
             <div className="container-fluid">
                 <div className="row content">
-                    <DashSideBar handleNewAuction={handleNewAuction} handleLogout={handleLogout} />
+                    <DashSideBar handleNewAuction={handleNewAuction} handleLogout={handleLogout} handleConnections={handleConnections}/>
                     <br />
                     <div className="col-sm-10">
                         <DashHeader type={"Auctioneer"} useName={user && user.user && user.user && user.user.firstName && user.user.lastName ? `${user.user.firstName} ${user.user.lastName}` : ""} />

@@ -6,6 +6,7 @@ import { GET_SINGLE_AUCTION_FOR_VIEWER } from '../../graphql/queries/auctionQuer
 import { HANDLE_BID_FEED, HANDLE_PLAYER_BUY_FEED, HANDLE_PLAYER_SELECT_SUBSCRIPTION } from '../../graphql/subscriptions/auctionSubscriptions';
 import PlayerProfileCard from '../playerProfile/PlayerProfile';
 import { convertNumbers } from '../../utils/utility';
+import LoadingPage from '../UtilityComponents/LoadingPage';
 
 const ViewerSingleAuction = () => {
     const [fetchedAuction, setFetchedAuction] = useState();
@@ -58,7 +59,7 @@ const ViewerSingleAuction = () => {
             </div>
           )
     } else {
-        <div>LOADING......</div>
+        <LoadingPage />
     }
 }
 

@@ -5,70 +5,6 @@
     font-family: "Poppins", sans-serif;
 }
 
-.container {
-    max-width: 1000px;
-    width: 100%;
-    background: #fff;
-    padding: 25px 30px;
-    border: 1px solid black;
-    border-radius: 10px;
-        .formContainer {
-            max-width: 1000px;
-            width: 100%;
-            background: #fff;
-            padding: 25px 30px;
-            border: 1px solid black;
-            border-radius: 10px;
-        }
-        .title {
-            font-size: 25px;
-            font-weight: bold;
-        }
-        form {
-            .user-details {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                margin: 20px 0 12px 0;
-                .input-box {
-                    width: 100%;
-                    margin-bottom: 15px;
-                    .details {
-                        display: block;
-                        margin-bottom: 5px;
-                        font-weight: 700;
-                    }
-                    input {
-                        height: 45px;
-                        width: 100%;
-                        outline: none;
-                        border-radius: 5px;
-                        border: 1px solid #ccc;
-                        padding-left: 15px;
-                        font-size: 16px;
-                        border-bottom-width: 2px;
-                        transition: all 0.3s ease;
-                    }
-                }
-            }
-            .button {
-                height: 45px;
-                margin: 45px 0;
-                input {
-                    height: 100%;
-                    width: 100%;
-                    outline: none;
-                    color: #fff;
-                    font-size: 18px;
-                    font-weight: 600;
-                    letter-spacing: 1px;
-                    border-radius: 5px;
-                    background: linear-gradient(135deg, #71b7e6, #9b59);
-                }
-            }
-        }
-}
-
 .dropzoneSection {
     border: 1px dashed red;
 }
@@ -86,7 +22,6 @@
 
 .button {
     height: 45px;
-    margin: 45px 0;
     input {
         height: 100%;
         width: 100%;
@@ -97,5 +32,64 @@
         letter-spacing: 1px;
         border-radius: 5px;
         background: linear-gradient(135deg, #71b7e6, #9b59);
+    }
+}
+
+input {
+    width: 20%;
+}
+.newAuctionContainer {
+    background: white;
+    padding: 10px;
+    .innterAuctionContainer {
+        background: radial-gradient(circle, #ff6b6b, #3a1c71);
+        transition: 0.8s ease-out, box-shadow 0.5s ease-out;
+        box-shadow: 0 0 10px rgba(255, 107, 107, 0.5); /* Glow effect */
+        color: #bebebf;
+        display: flex;
+        padding: 3em;
+        border-radius: 20px;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        position: relative;
+        flex-direction: column;
+        text-align: start;
+        .auctionDetailsContainer{
+            display: flex;
+            padding-top: 20px;
+            flex-direction: column;
+            .title {
+                align-self: flex-start;
+            }
+            .inputContainerStyles {
+                border: 1px solid white;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 20px;
+                h4 {
+                    color: #bebebf;
+                }
+                .inputLineStyles {
+                    display: flex;
+                    flex-direction: row;
+                    padding: 10px;
+                    .datetimeInputStyles {
+                        flex: 1;
+                        margin: 2px;
+                        height: 50px;
+                    }
+                    .inputStyles {
+                        margin-right: 2%;
+                    }
+                }
+            }
+        }
+    }
+    .newInputs {
+        display: flex;
+        flex-direction: column;
     }
 }

@@ -9,12 +9,13 @@ import {
   Tag, 
   Button, 
   Steps,
+  Tooltip,
   DatePicker,
   DatePickerProps,
   Dropdown 
  } from "antd";
  import Dropzone from 'react-dropzone'
-import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_NEW_AUCTION } from "../../graphql/mutations/auctionMutations";
@@ -101,26 +102,26 @@ const NewAuction = () => {
       dataIndex: "email",
       key: "email",
     },
-    {
-      title: "Select Bucket",
-      key: "selectBucket",
-      dataIndex: "selectBucket",
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-                <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
-                  <Button>bottom</Button>
-                </Dropdown>
-            );
-          })}
-        </>
-      ),
-    },
+    // {
+    //   title: "Select Bucket",
+    //   key: "selectBucket",
+    //   dataIndex: "selectBucket",
+    //   render: (_, { tags }) => (
+    //     <>
+    //       {tags.map((tag) => {
+    //         let color = tag.length > 5 ? "geekblue" : "green";
+    //         if (tag === "loser") {
+    //           color = "volcano";
+    //         }
+    //         return (
+    //             <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
+    //               <Button>bottom</Button>
+    //             </Dropdown>
+    //         );
+    //       })}
+    //     </>
+    //   ),
+    // },
     {
       title: "Action",
       key: "action",
@@ -214,7 +215,7 @@ const NewAuction = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  console.log("selectedUsersselectedUsers", playerBucket);
+  console.log("selectedUsersselectedUsers", sportsName);
 
   const onChangeStart = (value,dateString) => {
     console.log('Selected Time: ', value);
@@ -294,7 +295,7 @@ const NewAuction = () => {
       }
     })
     let formattedPlayers = playerBucket.map(player => player.userId)
-    console.log("playerBucketplayerBucketplayerBucketplayerBucket", playerBucket)
+    console.log("playerBucketplayerBucketplayerBucketplayerBucket", values)
     let newAuction = {
         auctionName,
         startTime: startDateTime,
@@ -308,6 +309,7 @@ const NewAuction = () => {
         teams: formattedTeams,
         numberOfBuckets: Number(buckets) || 0,
         minimumBid: Number(minimumBid),
+        showPlayerStats: true,
     }
     console.log("Received values:", newAuction);
     let addedAuction = await addNewAuction({
@@ -341,59 +343,150 @@ const NewAuction = () => {
     console.log("Hello", currentStep)
     if (currentStep === 0) {
       return (
-        <div className="formContainer">
-          <div className="title">Basic Auction Details</div>
-          <form action="#">
-            <div className="user-details">
-              <div className="input-box">
-                <span className="details">Auction Name</span>
-                <input value={auctionName} onChange={(e) => setAuctionName(e.target.value)} type="text" placeholder="Enter Auction Name" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Initial Wallet Balance</span>
-                <input value={bucketWalletBalance} onChange={(e) => setBucketWalletBalance(e.target.value)} type="number" placeholder="Enter Initial Wallet Balance" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Wallet Balance Difference</span>
-                <input value={walletBalanceDifference} onChange={(e) => setWalletBalanceDifference(e.target.value)} type="number" placeholder="Enter Wallet Balance Difference" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Minimum Bid</span>
-                <input value={minimumBid} onChange={(e) => setMinimumBid(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Bid Raise By</span>
-                <input value={stepPrice} onChange={(e) => setStepPrice(e.target.value)} type="number" placeholder="Enter Minimum Bid" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Sport Name</span>
-                <input value={sportsName} onChange={(e) => setSportsName(e.target.value)} type="text" placeholder="Enter Sports Name" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Number of Teams</span>
-                <input value={numberOfTeams} onChange={(e) => setNumberOfTeams(e.target.value)} type="number" placeholder="Enter Number of Teams" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Buckets</span>
-                <input value={buckets} onChange={(e) => setBuckets(e.target.value)} type="text" placeholder="Enter comma seperated bucket names" required />
-              </div>
-              <div className="input-box">
-                <span className="details">Start Date & Time</span>
-                <DatePicker showTime onChange={onChangeStart} onOk={onOkStart} />
-              </div>
-              <div className="input-box">
-                <span className="details">End Date & Time</span>
-                <DatePicker showTime onChange={onChangeEnd} onOk={onOkEnd} />
-              </div>
-              <div className="input-box">
-                <span className="details">Venue</span>
-                <input value={venueName} onChange={(e) => setVenueName(e.target.value)} type="text" placeholder="Enter Venue" required />
-              </div>
-              <div className="button">
-                <input type="button" value='Next' onClick={() => setCurrentStep(1)}/>
-              </div>
-            </div>
-          </form>
+        <div className="auctionDetailsContainer">
+          <div className="title"><h2>New Auction Form</h2></div>
+          <div className="inputContainerStyles">
+          <div className="innerTitle"><h4>Basic Auction Details</h4></div>
+          <div className="inputLineStyles">
+            <Input
+              className="inputStyles"
+              placeholder="Auction Name"
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              onChange={(e) => setAuctionName(e.target.value)}
+              value={auctionName}
+              suffix={
+                <Tooltip title="Enter the Auction Name">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+            <Input
+              placeholder="Venue"
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              onChange={(e) => setVenueName(e.target.value)}
+              value={venueName}
+              suffix={
+                <Tooltip title="Enter the Venue">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+          </div>
+          <div className="inputLineStyles">
+            <Input
+              className="inputStyles"
+              placeholder="Sport Name"
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              onChange={(e) => setSportsName(e.target.value)}
+              value={sportsName}
+              suffix={
+                <Tooltip title="Enter the Sport Name">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+            <Input
+              placeholder="Buckets"
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              onChange={(e) => setBuckets(e.target.value)}
+              value={buckets}
+              suffix={
+                <Tooltip title="Enter the Bucket Names seperated by commas">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+          </div>
+          </div>
+          <div className="inputContainerStyles">
+          <div className="innerTitle"><h4>Auction Calculation Details</h4></div>
+          <div className="inputLineStyles">
+            <Input
+              className="inputStyles"
+              type="number"
+              placeholder="Initial Wallet Balance"
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              allowClear
+              onChange={(e) => setBucketWalletBalance(e.target.value)}
+              value={bucketWalletBalance}
+              suffix={
+                <Tooltip title="Enter Initial Wallet Balance">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+            <Input
+              type="number"
+              placeholder="Wallet Balance Difference"
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              onChange={(e) => setWalletBalanceDifference(e.target.value)}
+              value={walletBalanceDifference}
+              allowClear
+              suffix={
+                <Tooltip title="Enter Wallet Balance Difference">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+          </div>
+          <div className="inputLineStyles">
+            <Input
+            type="number"
+              className="inputStyles"
+              placeholder="Minimum Bid"
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              onChange={(e) => setMinimumBid(e.target.value)}
+              value={minimumBid}
+              suffix={
+                <Tooltip title="Enter Minimum Bid">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+            <Input
+              type="number"
+              placeholder="Bid Raise By"
+              onChange={(e) => setStepPrice(e.target.value)}
+              value={stepPrice}
+              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              suffix={
+                <Tooltip title="Enter Bid Raise By">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+            <br />
+            <br />
+          </div>
+          </div>
+          <div className="inputContainerStyles">
+          <div className="innerTitle"><h4>Auction Duration Details</h4></div>
+          <div className="inputLineStyles">
+            <DatePicker className="datetimeInputStyles" placeholder="Start Date and Time" showTime onChange={onChangeStart} onOk={onOkStart} />
+            <br />
+            <br />
+            <DatePicker className="datetimeInputStyles" placeholder="End Date and Time" showTime onChange={onChangeStart} onOk={onOkStart} />
+            <br />
+            <br />
+          </div>
+          </div>
+          <div className="button">
+            <input type="button" value='Next' onClick={() => setCurrentStep(1)}/>
+          </div>
         </div>
       )
     } else if (currentStep === 1) {
@@ -402,28 +495,28 @@ const NewAuction = () => {
           <div className="title">Team Details</div>
           <form action="#">
             <div className="user-details">
-              <div className="input-box">
+              <div className="input-box newInputs">
                 <span className="details">Team Name</span>
                 <input onChange={(e) => setTeamName(e.target.value)} value={teamName} type="text" placeholder="Enter Team Name" required />
               </div>
-              <div className="input-box">
+              <div className="input-box newInputs">
                 <span className="details">Team Captain</span>
                 {/* <input type="text" placeholder="Enter Team Captain" required /> */}
                 <AddPlayers searchInput={searchInput} setSearchInput={setSearchInput} addTeamCaptain={addTeamCaptain} />
               </div>
-              {/* <div className="input-box">
+              {/* <div className="input-box newInputs">
                 <span className="details">Team Vice Captain</span>
                 <input type="text" placeholder="Enter Vice Team Captain" required />
               </div>
-              <div className="input-box">
+              <div className="input-box newInputs">
                 <span className="details">Retained Players</span>
                 <input type="text" placeholder="Retained Players" required />
               </div> */}
-              <div className="input-box">
+              <div className="input-box newInputs">
                 <span className="details">Team Description</span>
                 <input onChange={(e) => setTeamDescription(e.target.value)} value={teamDescription} type="text" placeholder="Enter Description" required />
               </div>
-              {/* <div className="input-box">
+              {/* <div className="input-box newInputs">
                 <span className="details">Team Logo</span>
                 <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
                 {({getRootProps, getInputProps}) => (
@@ -485,12 +578,13 @@ const NewAuction = () => {
     ) {
       let initialUsers = [];
       loggedInUserData.getMe.connections.map((conn, i) => {
+        console.log("PHODNI", conn)
         initialUsers.push({
           key: i + 1,
-          userId: conn.userId,
-          name: `${conn.firstName} ${conn.lastName}`,
-          email: `${conn.email}`,
-          tags: conn.role,
+          userId: conn?.user?.userId,
+          name: `${conn?.user?.firstName} ${conn?.user?.lastName}`,
+          email: `${conn?.user?.email}`,
+          tags: conn?.user?.role,
         });
       })
       setSelectedUsers(initialUsers);
@@ -498,6 +592,35 @@ const NewAuction = () => {
     }
   }, [loggedInUserData, loggedInUserLoading, loggedInUserError]);
   console.log("loggedInUserloggedInUser", loggedInUser);
+  return (
+    <div className="newAuctionContainer">
+      <div className="innterAuctionContainer">
+        <Steps
+          current={currentStep}
+          className="stepsStyles"
+          onChange={onStepChange}
+          items={[
+            {
+              title: 'Basic Details',
+              status: currentStep > 0 ? 'finish' : 'progress',
+              icon: <SolutionOutlined />,
+            },
+            {
+              title: 'Teams',
+              status: currentStep > 1 ? 'finish' : 'progress',
+              icon: <BarsOutlined />,
+            },
+            {
+              title: 'Players',
+              status: currentStep > 2 ? 'finish' : 'progress',
+              icon: <TeamOutlined />,
+            },
+          ]}
+        />
+        {renderStepsForms()}
+      </div>
+    </div>
+  )
   return (
     <div className="container">
       <Steps
@@ -523,131 +646,6 @@ const NewAuction = () => {
       {renderStepsForms()}
     </div>
   )
-   return (
-     <Layout style={{ minHeight: "100vh" }}>
-       <Content
-        style={{
-          backgroundSize: "cover",
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "400px",
-            padding: "40px",
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "8px",
-            boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.3)",
-            animation: "slideIn 0.6s ease-in-out forwards",
-          }}
-        >
-          <Form
-            name="advanced_form"
-            onFinish={handleCreateNewAuction}
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-          >
-            <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
-              New Auction
-            </h2>
-            <Form.Item
-              label="Auction Name"
-              name="auctionName"
-              rules={[
-                { required: true, message: "Please input the auction name!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Bucket Wallet Balance"
-              name="bucketWalletBalance"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input the bucket wallet balance!",
-                },
-              ]}
-            >
-              <Input type="number" />
-            </Form.Item>
-            <Form.Item
-              label="End Time"
-              name="endTime"
-              rules={[
-                { required: true, message: "Please input the end time!" },
-              ]}
-            >
-              <Input type="datetime-local" />
-            </Form.Item>
-            <Form.Item
-              label="Sport Name"
-              name="sportName"
-              rules={[
-                { required: true, message: "Please input the sport name!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Start Time"
-              name="startTime"
-              rules={[
-                { required: true, message: "Please input the start time!" },
-              ]}
-            >
-              <Input type="datetime-local" />
-            </Form.Item>
-            <Form.Item
-              label="Venue"
-              name="venue"
-              rules={[
-                {
-                  required: true,
-                  message: "A value must be entered",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Wallet Balance Difference"
-              name="walletBalDifference"
-              rules={[
-                {
-                  required: true,
-                  message: "A value must be entered",
-                  pattern: new RegExp(/^[0-9]+$/),
-                },
-              ]}
-            >
-              <Input type="number" />
-            </Form.Item>
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-        {loggedInUser &&
-          loggedInUser.connections &&
-          loggedInUser.connections.length && (
-            <div className="new-auction-table-container">
-              <div>Connections</div>
-              <div>
-                <Table columns={tableColumnsInit} dataSource={selectedUsers} />
-              </div>
-              <div>
-                <Table columns={tableColumnsAuc} dataSource={playerBucket} />
-              </div>
-            </div>
-          )}
-      </Content>
-    </Layout>
-  );
 };
 
 export default NewAuction;

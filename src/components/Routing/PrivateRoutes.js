@@ -1,6 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { getItem } from "../../utils/localStore";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import LoadingPage from "../UtilityComponents/LoadingPage";
 
 const PrivateRoutes = () => {
   const { user, dispatch } = useAuthContext();
@@ -11,7 +12,7 @@ const PrivateRoutes = () => {
         auth ? <Outlet/> : <Navigate to='/login'/>
       )
   } else {
-    <div>LOADING</div>
+    <LoadingPage />
   }
 };
 

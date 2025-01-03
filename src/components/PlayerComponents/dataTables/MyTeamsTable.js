@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
+import { convertNumbers } from '../../../utils/utility';
 
 const MyTeamsTable = ({currentAuction}) => {
 console.log("currentAuctionggg", currentAuction.auctionDetails.auctionTeams[0].teamPlayers);
@@ -40,7 +41,7 @@ let row = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.map(tp=> {
                 {row.playerName}
               </TableCell>
               <TableCell style={{fontSize: 12}} align="right">{row.playerType}</TableCell>
-              <TableCell style={{fontSize: 12}} align="right">{row.boughtFor}</TableCell>
+              <TableCell style={{fontSize: 12}} align="right">{convertNumbers(row.boughtFor)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.8.8",
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.2",

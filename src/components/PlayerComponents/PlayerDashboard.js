@@ -8,6 +8,7 @@ import Modal from '../UtilityComponents/ModalComponent';
 import { GET_LOGGED_IN_USER, LOGGEDINPLAYERAUCTION } from '../../graphql/queries/userQueries';
 import PlayerProfileCard from '../playerProfile/PlayerProfile';
 import dayjs from 'dayjs';
+import LoadingPage from '../UtilityComponents/LoadingPage';
 // ----------------------------------------------- THIS IS THE DASHBOARD FOR THE PLAYER LOGIN --------------------------------------------------------------------------
 const { Content } = Layout;
 
@@ -179,7 +180,7 @@ const PlayerDashboard = () => {
                             </div>
                         </div>
                     </div>
-                </>) : <div>LOADING . . . .. . </div>
+                </>) : <LoadingPage />
             }
         </Content>
     )

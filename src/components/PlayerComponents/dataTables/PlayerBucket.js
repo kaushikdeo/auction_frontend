@@ -16,10 +16,10 @@ const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSele
     const [searchInput, setSearchInput] = useState('');
     const [fetchedUnsoldPlayers, setFetchedUnsoldPlayers] = useState(finalUniquePlayers);
     let rows = fetchedUnsoldPlayers.map(up => {
-      console.log("jansxnnnx", up);
         return {
           playerName: `${up.firstName} ${up.lastName}`,
           userId: up.userId,
+          playerType: up.playerType,
         }
     })
     console.log("uniquePlayers", rows)
@@ -46,6 +46,7 @@ const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSele
         <TableHead>
           <TableRow>
             <TableCell style={{fontSize: 12}}><b>{`Player Name (${rows.length})`}</b></TableCell>
+            <TableCell style={{fontSize: 12}}><b>{`Player Type`}</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Action</b></TableCell>
           </TableRow>
         </TableHead>
@@ -57,6 +58,9 @@ const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSele
             >
               <TableCell style={{fontSize: 12}} component="th" scope="row">
                 {row.playerName}
+              </TableCell>
+              <TableCell style={{fontSize: 12}} component="th" scope="row">
+                {row.playerType}
               </TableCell>
               <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>
             </TableRow>

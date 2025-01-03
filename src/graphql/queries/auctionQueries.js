@@ -280,6 +280,32 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
         teamDescription
       }
     }
+    selectedPlayer{
+      age
+     battingHand
+     battingPref
+     bowlingHand
+     bowlingStyle
+     email
+     fieldingPref
+     firstName
+     gender
+     lastName
+     playerType
+     stats {
+       battingStats {
+         innings
+         runs
+         strikeRate
+       }
+       bowlingStats {
+         economy
+         overs
+         wickets
+       }
+     }
+    }
+    currentPlayerBid
   }
 }
 `

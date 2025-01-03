@@ -75,7 +75,7 @@ const tableColumns = [
   }, [addConnData, addConnLoading, addConnError])
 
   useEffect(() => {
-    if (searchInput.length > 3) {
+    if (searchInput.length > 2) {
       console.log("Am i being called", searchInput);
       searchUsers({ variables: { email: searchInput } }).then((res) => {
         if (
@@ -84,6 +84,7 @@ const tableColumns = [
           res.data.searchUsers &&
           res.data.searchUsers.length
         ) {
+          console.log("res.data.searchUsersres.data.searchUsers", res.data.searchUsers);
           let filteredUsers = res.data.searchUsers.filter(
             (obj) => !selectedUsers.some(({ email }) => obj.email === email)
           );

@@ -36,7 +36,6 @@
                 align-items: center;
                 padding: 5px;
                 cursor: pointer;
-
                 &:hover {
                     background-color: #ece8ff;
                 }
@@ -76,5 +75,10 @@
                 background-color: #333;
             }
         }
+    }
+    a {
+        line-height: 10px;
+        min-width: 0;
+        background: none
     }
 }

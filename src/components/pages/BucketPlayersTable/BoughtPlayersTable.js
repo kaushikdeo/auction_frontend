@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Avatar, Button } from "@mui/material";
+import { convertNumbers } from "../../../utils/utility";
 
 const BoughtPlayersTable = ({currentAuction}) => {
     console.log("akjsnxkajsnxsss", currentAuction.auctionDetails.auctionTeams);
@@ -46,7 +47,7 @@ const BoughtPlayersTable = ({currentAuction}) => {
                         >
                         <TableCell style={{fontSize: 17}} className="tableCellStyle" align="left">{row.playerName}</TableCell>
                         <TableCell style={{fontSize: 17}} className="tableCellStyle" align="left">{row.teamName}</TableCell>
-                        <TableCell style={{fontSize: 17}} className="tableCellStyle" align="left">{row.soldFor}</TableCell>
+                        <TableCell style={{fontSize: 17}} className="tableCellStyle" align="left">{convertNumbers(row.soldFor)}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

@@ -25,11 +25,14 @@ export const GET_LOGGED_IN_USER = gql`
   }
 }
     connections {
-      userId
-      firstName
-      lastName
-      email
-      role
+      user {
+        userId
+        firstName
+        lastName
+        email
+        role
+      }
+      connectionBucket
     }
     auctions {
         auctionId

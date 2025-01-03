@@ -223,21 +223,21 @@ const AuctionCalc = ({
         </>
       )}
       {
-        notAllowed.length && zeroBalTeams.length && <hr class="solid"></hr>
+        notAllowed.length !== 0 && zeroBalTeams.length && <hr class="solid"></hr>
       }
       {
-        notAllowed.length ? <h4 style={{color: 'red'}}>Teams Not Allowed To Bid Anymore</h4> : <></>
+        notAllowed.length !== 0 ? <h4 style={{color: 'red'}}>Teams Not Allowed To Bid Anymore</h4> : <></>
       }
       {renderChips()}
       {
-        notAllowed.length && zeroBalTeams.length && <hr class="solid"></hr>
+        notAllowed.length !== 0 && zeroBalTeams.length && <hr class="solid"></hr>
       }
       {
-        zeroBalTeams.length ? <h4 style={{color: '#023970'}}>Teams With 0 Balance</h4> : <></>
+        zeroBalTeams.length !==0 ? <h4 style={{color: '#023970'}}>Teams With 0 Balance</h4> : <></>
       }
       {renderZeroBalChips()}
       {
-        notAllowed.length && zeroBalTeams.length && <hr class="solid"></hr>
+        notAllowed.length !== 0 && zeroBalTeams.length && <hr class="solid"></hr>
       }
     </div>
   );

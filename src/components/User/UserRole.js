@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Constants from "../../Constants";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import AddConnections from "./AddConnections";
+import UploadWidget from "../../utils/UploadWidget";
 
 const { Meta } = Card;
 
@@ -44,6 +45,7 @@ const UserRole = () => {
           <p className="body-text">Select this role if you want to login as a Captain or a Bidder in the Auction</p> 
         </div>
       </div>
+      <UploadWidget />
       {/* <h1 className="connectionHeader">Add Connections</h1> */}
       {/* <div className="connectionsContainer">
         <AddConnections />

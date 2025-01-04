@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import './navbar.scss';
 import SearchIcon from '@mui/icons-material/Search';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -6,8 +6,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ChatIcon from '@mui/icons-material/Chat';
+import { AuthContext } from "../../../Context/AuthContext";
 
 const NavBar = () => {
+    const {user: {user}} = useContext(AuthContext);
+    console.log("USERUSER", user);
     const onHandleLogout = () => {
 
     }
@@ -21,7 +24,7 @@ const NavBar = () => {
                 </div>
                 <div className="items">
                 <div className="item">
-                        <p>Welcome Kaushik</p>
+                        <p>{`Welcome ${user?.firstName ? user?.firstName : "Auctioneer" }`}</p>
                     </div>
                     <div className="item">
                         <LanguageIcon className="icon"/>

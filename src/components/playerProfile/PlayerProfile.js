@@ -13,7 +13,7 @@ const PlayerProfileCard = ({selectedPlayer}) => {
             <div className="cardwrapper">
                  <div className="profile-card js-profile-card">
                     <div className="profile-card__img">
-                        <p className="profileInitials"><img src={selectedPlayer.playerType === "Batsman" ? battingImage : bowlingImage} alt="Lamp" width="32" height="32" /></p>
+                        <p className="profileInitials"><img src={selectedPlayer?.imageUrl ? selectedPlayer?.imageUrl : selectedPlayer.playerType === "Batsman" ? battingImage : bowlingImage} alt="Lamp" width="32" height="32" /></p>
                     </div>
                     <div className="profile-card__cnt js-profile-cnt">
                         <div className="profile-card__name">{`${selectedPlayer.firstName} ${selectedPlayer.lastName}`}</div>

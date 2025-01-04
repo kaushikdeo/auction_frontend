@@ -29,6 +29,12 @@ mutation AddConnections($userIds: [String]) {
 }
 `
 
+export const UPLOAD_USER_IMAGE = gql`
+mutation UploadUserImage($imageUrl: String) {
+  uploadUserImage(imageUrl: $imageUrl)
+}
+`
+
 export const REGISTER = gql`
   mutation($email: String!, $password: String!, $mobile: String!, $firstName: String!, $lastName: String!) {
   registerUser(email: $email, password: $password, mobile: $mobile, firstName: $firstName, lastName: $lastName) {

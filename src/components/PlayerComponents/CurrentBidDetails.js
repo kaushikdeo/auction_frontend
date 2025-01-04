@@ -1,3 +1,4 @@
+import React, {memo} from "react";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import './currentBidDetails.scss';
 import { styled } from '@mui/material/styles';
@@ -94,4 +95,4 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
     )
 }
 
-export default CurrentBidDetails;
+export default memo(CurrentBidDetails);

@@ -1,11 +1,11 @@
-import React from "react";
+import React, {memo} from "react";
 import { Card } from "antd";
 import './userStyles.scss'
 import { useNavigate } from 'react-router-dom';
 import Constants from "../../Constants";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import AddConnections from "./AddConnections";
-import UploadWidget from "../../utils/UploadWidget";
+import UploadWidget from "../UtilityComponents/UploadWidget";
 
 const { Meta } = Card;
 
@@ -45,7 +45,9 @@ const UserRole = () => {
           <p className="body-text">Select this role if you want to login as a Captain or a Bidder in the Auction</p> 
         </div>
       </div>
+      <div className="upload widget">
       <UploadWidget />
+      </div>
       {/* <h1 className="connectionHeader">Add Connections</h1> */}
       {/* <div className="connectionsContainer">
         <AddConnections />
@@ -54,4 +56,4 @@ const UserRole = () => {
   )
 };
 
-export default UserRole;
+export default memo(UserRole);

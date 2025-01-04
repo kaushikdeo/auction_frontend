@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import './playerDashboard.scss';
 import { useQuery, useSubscription } from '@apollo/client';
 import { Layout } from 'antd';
@@ -186,4 +186,4 @@ const PlayerDashboard = () => {
     )
 }
 
-export default PlayerDashboard
+export default memo(PlayerDashboard)

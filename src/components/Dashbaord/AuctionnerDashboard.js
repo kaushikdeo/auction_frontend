@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Layout, Card, Col, Tabs, Avatar } from 'antd';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
@@ -190,4 +190,4 @@ const AuctionnerDashboard = () => {
     );
 };
 
-export default AuctionnerDashboard;
+export default memo(AuctionnerDashboard);

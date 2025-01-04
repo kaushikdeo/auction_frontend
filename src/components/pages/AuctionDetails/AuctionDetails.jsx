@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import './auctionDetails.scss'
 import TeamsTable from "../TeamsTable/TeamsTable";
 import BucketPlayerTable from "../BucketPlayersTable/BucketPlayerTable";
@@ -32,4 +32,4 @@ const AuctionDetails = ({selectPlayer, isRandomSelection, handleRevertBuy, teamC
     )
 }
 
-export default AuctionDetails
+export default memo(AuctionDetails)

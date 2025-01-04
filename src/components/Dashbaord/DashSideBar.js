@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 
 const DashSideBar = ({handleLogout, handleNewAuction, handleConnections}) => {
   return (
@@ -15,4 +15,4 @@ const DashSideBar = ({handleLogout, handleNewAuction, handleConnections}) => {
   )
 }
 
-export default DashSideBar
+export default memo(DashSideBar)

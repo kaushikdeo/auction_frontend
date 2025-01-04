@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Switch } from 'antd';
 import './playerwidget.scss'
@@ -42,4 +42,4 @@ const PlayersWidget = ({ setIsRandomSelection, isRandomSelection, teamCalc, shif
     )
 }
 
-export default PlayersWidget
+export default memo(PlayersWidget)

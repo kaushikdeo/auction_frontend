@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import { Button, Drawer } from 'antd';
 import PlayerProfileCard from '../playerProfile/PlayerProfile';
 
@@ -14,4 +14,4 @@ const AuctionPlayerDrawer = ({drawerSelectedPlayer, onClose, open}) => {
     )
 }
 
-export default AuctionPlayerDrawer;
+export default memo(AuctionPlayerDrawer);

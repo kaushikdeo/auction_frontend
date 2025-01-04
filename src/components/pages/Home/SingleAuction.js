@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import "./singleAuction.scss";
 import SideBar from "../Sidebar/Sidebar";
 import NavBar from "../Navbar/Navbar";
@@ -442,4 +442,4 @@ const SingleAuction = () => {
   );
 };
 
-export default SingleAuction;
+export default memo(SingleAuction);

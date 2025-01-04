@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import './playerProfile.scss'
@@ -94,4 +94,4 @@ const PlayerProfileCard = ({selectedPlayer}) => {
     }
 }
 
-export default PlayerProfileCard;
+export default memo(PlayerProfileCard);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 
 const DashHeader = ({type, useName}) => {
     console.log("useName", useName);
@@ -10,4 +10,4 @@ const DashHeader = ({type, useName}) => {
   )
 }
 
-export default DashHeader
+export default memo(DashHeader)

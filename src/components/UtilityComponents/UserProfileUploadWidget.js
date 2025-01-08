@@ -1,32 +1,29 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
-import { UPLOAD_USER_IMAGE } from "../../graphql/mutations/userMutations";
+import { UPLOAD_CUSTOM_USER_IMAGE } from "../../graphql/mutations/userMutations";
 import { Button, Image } from "antd";
-import "./userUploadWidget.scss";
-import { AuthContext } from "../../Context/AuthContext";
+import "./userProfileUploadWidgetStyles.scss";
 
-
-const UploadWidget = () => {
-	const {user: {user}} = useContext(AuthContext)
-
-	const cloudinaryRef = useRef();
-	const widgetRef = useRef();
+const UserProfileUploadWidget = (inputUser) => {
+console.log("CUSTOMUSER", inputUser)
+	const cloudinaryRefCustom = useRef();
+	const widgetRefCustom = useRef();
 
 	const [uploadedImage, setUploadedImage] = useState(null);
 
 	const [
-		uploadUserImage,
+		uploadCustomUserImage,
 		{
 			data: uploadUserImageData,
 			loading: uploadUserImageLoading,
 			error: uploadUserImageError,
 		},
-	] = useMutation(UPLOAD_USER_IMAGE);
+	] = useMutation(UPLOAD_CUSTOM_USER_IMAGE);
 
   useEffect(() => {
-    cloudinaryRef.current = window.cloudinary;
-    console.log(cloudinaryRef.current);
-    widgetRef.current = cloudinaryRef.current.createUploadWidget(
+    cloudinaryRefCustom.current = window.cloudinary;
+    console.log(cloudinaryRefCustom.current);
+    widgetRefCustom.current = cloudinaryRefCustom.current.createUploadWidget(
       {
         cloudName: "dfrmnqtwi",
         cropping: true,
@@ -40,37 +37,40 @@ const UploadWidget = () => {
         uploadPreset: "auctions_app_preset",
       },
       (error, result) => {
-        console.log(result?.data?.info?.files);
-        if (result?.data?.info?.files && result?.data?.info?.files?.length) {
+          
+          if (result?.data?.info?.files && result?.data?.info?.files?.length) {
+            let vars = {
+                userId: inputUser?.inputUser?.userId,
+                imageUrl: result?.data?.info?.files[0]?.uploadInfo.url,
+            }
+            console.log("varsvarsvars", vars);
           console.log(result?.data?.info?.files[0]?.uploadInfo.secure_url);
           setUploadedImage(result?.data?.info?.files[0]?.uploadInfo.url);
-          uploadUserImage({
-            variables: {
-              imageUrl: result?.data?.info?.files[0]?.uploadInfo.url,
-            },
+          uploadCustomUserImage({
+            variables: vars,
           });
         }
       }
     );
-  }, [user]);
+  }, [inputUser]);
 
-	useEffect(() => {
-		if (user?.imageUrl) {
-			setUploadedImage(user.imageUrl)
-		}
-	}, [user])
+    useEffect(() => {
+        if (inputUser?.imageUrl) {
+            setUploadedImage(inputUser.imageUrl)
+        }
+    }, [inputUser])
 
   if (uploadedImage) {
     return (
       <div className="uploadWidgetStyles">
-        <Image width={200} src={uploadedImage} />
+        <Image width={inputUser?.width ? inputUser?.width : 50} height={inputUser?.height ? inputUser?.height : 50} src={uploadedImage} />
       </div>
     );
   } else {
     return (
       <div
         className="uploadWidgetStyles"
-        onClick={() => widgetRef.current.open()}
+        onClick={() => widgetRefCustom.current.open()}
       >
         <div className="file-upload-wrapper">
           <label for="avatar" className="file-upload-label">
@@ -89,4 +89,4 @@ const UploadWidget = () => {
   }
 };
 
-export default UploadWidget;
+export default UserProfileUploadWidget

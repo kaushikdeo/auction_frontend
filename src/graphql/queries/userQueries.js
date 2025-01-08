@@ -31,6 +31,7 @@ export const GET_LOGGED_IN_USER = gql`
         lastName
         email
         role
+        imageUrl
       }
       connectionBucket
     }

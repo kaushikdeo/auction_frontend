@@ -22,6 +22,7 @@ import { ADD_NEW_AUCTION } from "../../graphql/mutations/auctionMutations";
 import { GET_LOGGED_IN_USER } from "../../graphql/queries/userQueries";
 import AddConnections from "../User/AddConnections";
 import AddPlayers from "./AddPlayers";
+import UserProfileUploadWidget from "../UtilityComponents/UserProfileUploadWidget";
 
 const { Content } = Layout;
 
@@ -102,26 +103,26 @@ const NewAuction = () => {
       dataIndex: "email",
       key: "email",
     },
-    // {
-    //   title: "Select Bucket",
-    //   key: "selectBucket",
-    //   dataIndex: "selectBucket",
-    //   render: (_, { tags }) => (
-    //     <>
-    //       {tags.map((tag) => {
-    //         let color = tag.length > 5 ? "geekblue" : "green";
-    //         if (tag === "loser") {
-    //           color = "volcano";
-    //         }
-    //         return (
-    //             <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
-    //               <Button>bottom</Button>
-    //             </Dropdown>
-    //         );
-    //       })}
-    //     </>
-    //   ),
-    // },
+    {
+      title: "Select Bucket",
+      key: "selectBucket",
+      dataIndex: "selectBucket",
+      render: (_, { tags }) => (
+        <>
+          {tags.map((tag) => {
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "loser") {
+              color = "volcano";
+            }
+            return (
+                <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
+                  <Button>bottom</Button>
+                </Dropdown>
+            );
+          })}
+        </>
+      ),
+    },
     {
       title: "Action",
       key: "action",
@@ -173,6 +174,18 @@ const NewAuction = () => {
         </Space>
       ),
     },
+    {
+      title: "Profile Image",
+      dataIndex: "profileImage",
+      key: "profileImage",
+      render: (theImageURL, record) => {
+        if (theImageURL) {
+          return <img style={{alignSelf: "center"}} alt={theImageURL} src={theImageURL} width={50} height={50} />
+        } else {
+          return <UserProfileUploadWidget inputUser = {record} width={50} height={50}/>
+        }
+    },
+    },
   ];
   const navigate = useNavigate();
   const [addNewAuction, { data, loading, error }] =
@@ -215,7 +228,7 @@ const NewAuction = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  console.log("selectedUsersselectedUsers", sportsName);
+  console.log("selectedUsersselectedUsers", selectedUsers);
 
   const onChangeStart = (value,dateString) => {
     console.log('Selected Time: ', value);
@@ -585,8 +598,10 @@ const NewAuction = () => {
           name: `${conn?.user?.firstName} ${conn?.user?.lastName}`,
           email: `${conn?.user?.email}`,
           tags: conn?.user?.role,
+          profileImage: conn?.user?.imageUrl
         });
       })
+      console.log("INITIALUSERS", initialUsers)
       setSelectedUsers(initialUsers);
       setLoggedInUser(loggedInUserData.getMe);
     }
@@ -619,31 +634,6 @@ const NewAuction = () => {
         />
         {renderStepsForms()}
       </div>
-    </div>
-  )
-  return (
-    <div className="container">
-      <Steps
-      onChange={onStepChange}
-      items={[
-        {
-          title: 'Basic Details',
-          status: currentStep > 0 ? 'finish' : 'progress',
-          icon: <SolutionOutlined />,
-        },
-        {
-          title: 'Teams',
-          status: currentStep > 1 ? 'finish' : 'progress',
-          icon: <BarsOutlined />,
-        },
-        {
-          title: 'Players',
-          status: currentStep > 2 ? 'finish' : 'progress',
-          icon: <TeamOutlined />,
-        },
-      ]}
-      />
-      {renderStepsForms()}
     </div>
   )
 };

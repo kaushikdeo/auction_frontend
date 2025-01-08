@@ -30,8 +30,18 @@ mutation AddConnections($userIds: [String]) {
 `
 
 export const UPLOAD_USER_IMAGE = gql`
-mutation UploadUserImage($imageUrl: String) {
+mutation UploadUserImage($imageUrl: String!) {
   uploadUserImage(imageUrl: $imageUrl)
+}
+`
+export const UPLOAD_CUSTOM_USER_IMAGE = gql`
+mutation UploadCustomUserImage($imageUrl: String!, $userId: String!) {
+  uploadCustomUserImage(imageUrl: $imageUrl, userId: $userId){
+      email
+      firstName
+      lastName
+      userId
+  }
 }
 `
 

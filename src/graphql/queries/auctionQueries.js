@@ -32,7 +32,11 @@ query GetAuction($auctionId: String) {
     auctionId
     auctionName
     bucketWalletBalance
-    createdBy
+    createdBy {
+      firstName
+      lastName
+      email
+    }
     endTime
     minimumBid
     stepPrice
@@ -158,6 +162,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
       auctionId
       createdBy{
         firstName
+        lastName
       }
       auctionName
       bucketWalletBalance

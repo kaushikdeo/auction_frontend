@@ -3157,7 +3157,8 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   display: grid;
   grid-template-columns: 75px 1fr;
   align-items: center;
-  margin: 3rem 0 0;
+  margin: 3rem 0 3rem;
+  text-align: center;
 }
 
 .author-name {

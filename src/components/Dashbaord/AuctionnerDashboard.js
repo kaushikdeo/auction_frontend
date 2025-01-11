@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo } from 'react';
-import { Layout, Card, Col, Tabs, Avatar } from 'antd';
+import { Layout, Card, Col, Tabs, Avatar, Divider } from 'antd';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { clearItem, setItem } from '../../utils/localStore'
@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import DashHeader from '../LayoutComponents/DashHeader';
 import DashSideBar from './DashSideBar';
+import './AuctioneerDashboard.scss'
 
 const { Content } = Layout;
 const { Meta } = Card;
@@ -21,7 +22,7 @@ const AuctionnerDashboard = () => {
     const { user, dispatch } = useAuthContext();
     const { data, loading, error } = useQuery(GET_AUCTIONS);
 
-    console.log("I AM IN AUCTIONEER DASH", user)
+    console.log("I AM IN AUCTIONEER DASH", data, user)
     const handleLogout = () => {
         console.log("AM I CALLLDE", user);
         clearItem("auth_token")
@@ -104,25 +105,28 @@ const AuctionnerDashboard = () => {
                 <div className="aucCard" onClick={() => { handleSingleAuction(auc.auctionId) }}>
                     <div className="card">
                         <header className="card-header">
-                            <p style={{ color: 'white' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p>
-                            <span style={{ color: 'white' }} className="title">{auc.auctionName}</span>
-                        </header>
-                        <div className="card-author">
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '20px' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p>
+                            <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed />
+                            <div className="card-author">
                             <a className="author-avatar" href="#">
-                                <span><img
+                                <img
+                                    height={50}
+                                    width={50}
+                                    className='auc_avt_img'
                                     alt="example"
-                                    src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                                /></span>
+                                    src={auc.sportName === "Cricket" ? "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1735954806/ol3wjmj7k9oexbgql1hj.jpg" : ""}
+                                />
                             </a>
-                            <svg className="half-circle" viewBox="0 0 106 57">
-                                <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-                            </svg>
                             <div className="author-name">
-                                <div className="author-name-prefix">Creator</div> Kaushik Deo
+                                <span className='creatorNameStyle'>{auc.auctionName}</span>
                             </div>
                         </div>
+                            <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed />
+                        </header>
                         <div className="tags">
-                            <p style={{ color: 'white' }} className='card-bottom-p'>Sport : {auc.sportName}</p>
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Creator : {auc?.createdBy?.firstName} {auc?.createdBy?.lastName}</p>
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Sport : {auc.sportName}</p>
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Venue : {auc.venue}</p>
                         </div>
                     </div>
                 </div>

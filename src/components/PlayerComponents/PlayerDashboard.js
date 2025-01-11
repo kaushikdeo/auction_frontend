@@ -1,7 +1,7 @@
 import React, { useEffect, useState, memo } from 'react';
 import './playerDashboard.scss';
 import { useQuery, useSubscription } from '@apollo/client';
-import { Layout } from 'antd';
+import { Divider, Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { HANDLE_PLAYER_SELECT_SUBSCRIPTION } from '../../graphql/subscriptions/auctionSubscriptions';
 import Modal from '../UtilityComponents/ModalComponent';
@@ -54,28 +54,56 @@ const PlayerDashboard = () => {
                 <div className="aucCard" onClick={() => { handleSingleAuction(auc.auctionId) }}>
                     <div className="card">
                         <header className="card-header">
-                            {/* <p style={{ color: 'white' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p> */}
-                            <span style={{ color: 'white' }} className="title">{auc.auctionName}</span>
-                        </header>
-                        <div className="card-author">
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '20px' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p>
+                            <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed />
+                            <div className="card-author">
                             <a className="author-avatar" href="#">
-                                <span><img
+                                <img
+                                    height={50}
+                                    width={50}
+                                    className='auc_avt_img'
                                     alt="example"
-                                    src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                                /></span>
+                                    src={auc.sportName === "Cricket" ? "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1735954806/ol3wjmj7k9oexbgql1hj.jpg" : ""}
+                                />
                             </a>
-                            <svg className="half-circle" viewBox="0 0 106 57">
-                                <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-                            </svg>
                             <div className="author-name">
-                                <div className="author-name-prefix">Creator</div> Kaushik Deo
+                                <span className='creatorNameStyle'>{auc.auctionName}</span>
                             </div>
                         </div>
+                            <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed />
+                        </header>
                         <div className="tags">
-                            <p style={{ color: 'white' }} className='card-bottom-p'>Sport : {auc.sportName}</p>
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Creator : {auc?.createdBy?.firstName} {auc?.createdBy?.lastName}</p>
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Sport : {auc.sportName}</p>
+                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Venue : {auc.venue}</p>
                         </div>
                     </div>
                 </div>
+                // <div className="aucCard" onClick={() => { handleSingleAuction(auc.auctionId) }}>
+                //     <div className="card">
+                //         <header className="card-header">
+                //             {/* <p style={{ color: 'white' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p> */}
+                //             <span style={{ color: 'white' }} className="title">{auc.auctionName}</span>
+                //         </header>
+                //         <div className="card-author">
+                //             <a className="author-avatar" href="#">
+                //                 <span><img
+                //                     alt="example"
+                //                     src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                //                 /></span>
+                //             </a>
+                //             <svg className="half-circle" viewBox="0 0 106 57">
+                //                 <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
+                //             </svg>
+                //             <div className="author-name">
+                //                 <div className="author-name-prefix">Creator</div> Kaushik Deo
+                //             </div>
+                //         </div>
+                //         <div className="tags">
+                //             <p style={{ color: 'white' }} className='card-bottom-p'>Sport : {auc.sportName}</p>
+                //         </div>
+                //     </div>
+                // </div>
             ))
         }
     }
@@ -148,7 +176,7 @@ const PlayerDashboard = () => {
                     <div className="container-fluid">
                         <div className="row content">
                             {/* Sidebar */}
-                            <div className="col-sm-1 sidenav hidden-xs">
+                            <div className="col-sm-2 sidenav hidden-xs">
                                 <h2>Logo</h2>
                                 <ul className="nav nav-pills nav-stacked">
                                     <li className="active"><a href="#section1">Auctions</a></li>
@@ -158,7 +186,7 @@ const PlayerDashboard = () => {
                             </div>
                             <br />
                             {/* Content */}
-                            <div className="col-sm-11">
+                            <div className="col-sm-10">
                                 <div className="well">
                                     <div className='d-flex justify-content-start'><h4>Player Dashboard</h4></div>
                                     <div className='d-flex justify-content-end'><h4>Welcome {currentUserData.firstName} {currentUserData.lastName}</h4></div>

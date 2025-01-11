@@ -64,6 +64,12 @@ query GetPlayerAuctions {
     endTime
     minimumBid
     sportName
+    venue
+    createdBy {
+      firstName
+      lastName
+      email
+    }
     auctionDetails {
       auctionTeams {
         team {

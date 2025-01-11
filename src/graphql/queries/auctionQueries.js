@@ -13,9 +13,15 @@ export const GET_AUCTIONS = gql`
       lastBid
       playerRole
     }
+    venue
     sportName
     startTime
     walletBalDifference
+    createdBy {
+      firstName
+      lastName
+      email
+    }
   }
 }
 `;
@@ -150,13 +156,15 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
   getAuctionDetailsForCaptain(auctionId: $auctionId) {
     auctionData {
       auctionId
-    auctionName
-    bucketWalletBalance
-    createdBy
-    endTime
-    minimumBid
-    stepPrice
-    auctionDetails {
+      createdBy{
+        firstName
+      }
+      auctionName
+      bucketWalletBalance
+      endTime
+      minimumBid
+      stepPrice
+      auctionDetails {
       auctionTeams {
         team {
           teamId

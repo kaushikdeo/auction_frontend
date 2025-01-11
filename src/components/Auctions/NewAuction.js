@@ -15,7 +15,7 @@ import {
   Dropdown 
  } from "antd";
  import Dropzone from 'react-dropzone'
-import { InfoCircleOutlined, LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined, DownOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_NEW_AUCTION } from "../../graphql/mutations/auctionMutations";
@@ -250,7 +250,6 @@ const NewAuction = () => {
   const refetchConnections = () => {
     refetch();
   }
-
 
   const addNewTeam = () => {
     let initTeams = [...teams];
@@ -559,6 +558,14 @@ const NewAuction = () => {
         <div className="formContainer">
           <div className="title">Players Bucket</div>
           <input type="button" value='Refetch Connections' onClick={() => refetchConnections() } />
+          <Dropdown menu={{ items }}>
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                Hover me
+                <DownOutlined />
+              </Space>
+            </a>
+          </Dropdown>
           {loggedInUser &&
           loggedInUser.connections &&
           loggedInUser.connections.length && (

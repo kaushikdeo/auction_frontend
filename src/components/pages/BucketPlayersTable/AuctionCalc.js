@@ -84,31 +84,35 @@ const AuctionCalc = ({
   const [confirmSell, setConfirmSell] = useState(false);
 
   const handleIncreaseBid = async () => {
-    console.log("akjsxjaksbxjhabsx", selectedPlayer);
-    setCurrentBid(currentBid + currentAuction.stepPrice);
-    await handlePlayerIncreaseBidMutation({
-      variables: {
-        bidAmount: currentBid + currentAuction.stepPrice,
-        playerId: selectedPlayer.userId,
-        auctionId: currentAuction.auctionId
-      },
-    });
-  };
-
-  const handleDecreaseBid = async () => {
-    console.log("minBidminBidminBidminBid", (Number(currentBid)-currentAuction.stepPrice ));
-    if ((Number(currentBid)-currentAuction.stepPrice ) >= minBid) {
+    if (selectedPlayer && currentBid && currentAuction) {
       console.log("akjsxjaksbxjhabsx", selectedPlayer);
-      setCurrentBid(currentBid - currentAuction.stepPrice);
+      setCurrentBid(currentBid + currentAuction.stepPrice);
       await handlePlayerIncreaseBidMutation({
         variables: {
-          bidAmount: currentBid - currentAuction.stepPrice,
+          bidAmount: currentBid + currentAuction.stepPrice,
           playerId: selectedPlayer.userId,
           auctionId: currentAuction.auctionId
         },
       });
-      console.log("akjsxjaksbxjhabsx", currentBid-currentAuction.stepPrice);
-      setCurrentBid(currentBid-currentAuction.stepPrice);
+    }
+  };
+
+  const handleDecreaseBid = async () => {
+    if (selectedPlayer && currentBid && currentAuction) {
+      console.log("minBidminBidminBidminBid", (Number(currentBid)-currentAuction.stepPrice ));
+      if ((Number(currentBid)-currentAuction.stepPrice ) >= minBid) {
+        console.log("akjsxjaksbxjhabsx", selectedPlayer);
+        setCurrentBid(currentBid - currentAuction.stepPrice);
+        await handlePlayerIncreaseBidMutation({
+          variables: {
+            bidAmount: currentBid - currentAuction.stepPrice,
+            playerId: selectedPlayer.userId,
+            auctionId: currentAuction.auctionId
+          },
+        });
+        console.log("akjsxjaksbxjhabsx", currentBid-currentAuction.stepPrice);
+        setCurrentBid(currentBid-currentAuction.stepPrice);
+      }
     }
   };
 
@@ -223,21 +227,21 @@ const AuctionCalc = ({
         </>
       )}
       {
-        notAllowed.length !== 0 && zeroBalTeams.length && <hr class="solid"></hr>
+        notAllowed.length !== 0 && zeroBalTeams.length ? <hr class="solid"></hr> : <></>
       }
       {
         notAllowed.length !== 0 ? <h4 style={{color: 'red'}}>Teams Not Allowed To Bid Anymore</h4> : <></>
       }
       {renderChips()}
       {
-        notAllowed.length !== 0 && zeroBalTeams.length && <hr class="solid"></hr>
+        notAllowed.length !== 0 && zeroBalTeams.length ? <hr class="solid"></hr> : <></>
       }
       {
         zeroBalTeams.length !==0 ? <h4 style={{color: '#023970'}}>Teams With 0 Balance</h4> : <></>
       }
       {renderZeroBalChips()}
       {
-        notAllowed.length !== 0 && zeroBalTeams.length && <hr class="solid"></hr>
+        notAllowed.length !== 0 && zeroBalTeams.length ? <hr class="solid"></hr> : <></>
       }
     </div>
   );

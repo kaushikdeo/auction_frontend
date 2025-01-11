@@ -12,8 +12,8 @@ const { Meta } = Card;
 const UserRole = () => {
 
   const navigate = useNavigate();
-  const { dispatch } = useAuthContext();
-
+  const { user, dispatch } = useAuthContext();
+console.log("USERROLEDATA", user);
   const handleRoleSelect = (i) => {
     console.log("IIIII", i);
     if (i === 0) {

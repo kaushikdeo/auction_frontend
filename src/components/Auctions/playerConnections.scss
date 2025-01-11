@@ -1,6 +1,7 @@
-.connectionsContainer {
-    display: flex;
-    .title {
-        align-self: flex-start;
-    }
-}
+.profile-image--cover {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;  
+    object-fit: cover;
+    object-position: center right;
+  }

@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 const Login = () => {
   const navigate = useNavigate();
-  const { dispatch } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
   const [loginUser, { data, loading, error }] = useMutation(LOGIN);
 
   const handleLogin = (values) => {
@@ -23,6 +23,12 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (user?.user) {
+      navigate("/");
+    }
+  }, [user])
+
+  useEffect(() => {
     if (!error && !loading && data && data.loginUser && data.loginUser.token) {
       console.log("DATAuoo", data.loginUser.token)
       setItem(data.loginUser.token, "auth_token")
@@ -30,7 +36,7 @@ const Login = () => {
       navigate("/");
     }
   }, [data])
-
+console.log("USERFROMLOGIN", user);
   return (
     <Content>
       <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>

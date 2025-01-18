@@ -10,24 +10,36 @@ import { Button } from "@mui/material";
 
 const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
   const [searchInput, setSearchInput] = useState('');
-  const [unsoldPlayersBucket, setFetchedUnsoldPlayersBucket] = useState(unsoldPlayers);
-  console.log("unsoldPlayersunsoldPlayers", unsoldPlayers);
-  let rows = unsoldPlayersBucket.map(up => {
-    return {
-      playerName: `${up.firstName} ${up.lastName}`,
-      playerType: up.playerType,
-      userId: up.userId,
-    }
-  })
+  const [unsoldPlayersBucket, setFetchedUnsoldPlayersBucket] = useState([]);
+  const [intialUnsoldBucket, setInitialUnsoldBucket] = useState([]);
+  useEffect(() => {
+    console.log("unsoldPlayersunsoldPlayers", unsoldPlayers);
+    let rows = unsoldPlayers.map(up => {
+      return {
+        playerName: `${up.firstName} ${up.lastName}`,
+        playerType: up.playerType,
+        userId: up.userId,
+      }
+    })
+    console.log("rowsrowsrows", rows)
+    setFetchedUnsoldPlayersBucket(rows);
+    setInitialUnsoldBucket(rows);
+  }, [unsoldPlayers])
+
   const handleCheckStats = (i) => {
-    let selectedPlayer = unsoldPlayers.find(e => e.userId === i.userId);
+    let selectedPlayer = intialUnsoldBucket.find(e => e.userId === i.userId);
       console.log("betterr", i);
       setDrawerSelectedPlayerb(selectedPlayer)
   }
+
   useEffect(() => {
-    let filtered = unsoldPlayersBucket.filter(ele => ele.firstName?.toLowerCase().includes(searchInput.toLowerCase()))
-    setFetchedUnsoldPlayersBucket(filtered);
-}, [searchInput])
+    if (searchInput && searchInput.length) {
+      let filtered = intialUnsoldBucket.filter(ele => ele.playerName?.toLowerCase().includes(searchInput.toLowerCase()))
+      setFetchedUnsoldPlayersBucket(filtered);
+    }
+  }, [searchInput])
+
+  console.log("CURRENTDATA", unsoldPlayersBucket, intialUnsoldBucket)
     return (
         <TableContainer component={Paper}>
           <div class="search-box">
@@ -39,13 +51,13 @@ const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
       <Table size="medium" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell style={{fontSize: 12}}><b>{`Player Name (${rows.length})`}</b></TableCell>
+            <TableCell style={{fontSize: 12}}><b>{`Player Name (${unsoldPlayersBucket.length})`}</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Player Type</b></TableCell>
             <TableCell align="right">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, i) => (
+          {unsoldPlayersBucket.map((row, i) => (
             <TableRow
               key={row.playerName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -2,6 +2,7 @@ import React, {memo} from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import './playerProfile.scss'
+import { Image } from "antd";
 
 const bowlingImage = "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1707063350/auctions/xdlivgwq8udlncjnpv3p.png";
 const battingImage = "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1707063349/auctions/lrq4gchrvldhl2827o4d.png";
@@ -14,7 +15,9 @@ const PlayerProfileCard = ({selectedPlayer}) => {
             <div className="cardwrapper">
                  <div className="profile-card js-profile-card">
                     <div className="profile-card__img">
-                        <p className="profileInitials"><img src={selectedPlayer?.imageUrl ? selectedPlayer?.imageUrl : selectedPlayer.playerType === "Batsman" ? battingImage : bowlingImage} alt="Lamp" width="32" height="32" /></p>
+                        <p className="profileInitials">
+                            <Image src={selectedPlayer?.imageUrl ? selectedPlayer?.imageUrl : selectedPlayer.playerType === "Batsman" ? battingImage : bowlingImage} alt="Lamp" width="32" height="32" />
+                        </p>
                     </div>
                     <div className="profile-card__cnt js-profile-cnt">
                         <div className="profile-card__name">{`${selectedPlayer.firstName} ${selectedPlayer.lastName}`}</div>

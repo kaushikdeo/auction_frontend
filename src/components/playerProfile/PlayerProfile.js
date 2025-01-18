@@ -9,6 +9,7 @@ const battingImage = "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1707063
 const PlayerProfileCard = ({selectedPlayer}) => {
     console.log("jasnxjjahhahaa", selectedPlayer);
     if (selectedPlayer && selectedPlayer.stats) {
+        console.log("SELECTEDPLATERIMG", selectedPlayer)
         return (
             <div className="cardwrapper">
                  <div className="profile-card js-profile-card">

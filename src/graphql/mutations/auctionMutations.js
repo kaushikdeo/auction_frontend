@@ -25,6 +25,7 @@ mutation($playerId: ID!, $auctionId: ID!) {
       fieldingPref
       firstName
       gender
+      imageUrl
       lastName
       playerType
       stats {

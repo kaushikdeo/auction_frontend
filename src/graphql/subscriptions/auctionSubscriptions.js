@@ -47,6 +47,7 @@ subscription auctionFeed {
      firstName
      gender
      lastName
+     imageUrl
      playerType
      stats {
        battingStats {

@@ -305,6 +305,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
      gender
      lastName
      playerType
+     imageUrl
      stats {
        battingStats {
          innings

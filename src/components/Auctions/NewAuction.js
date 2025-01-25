@@ -281,10 +281,20 @@ const NewAuction = () => {
   const addToBucket = (rec) => {
     let initialPlayerBucket = [...playerBucket];
     let initialSelectedUsers = [...selectedUsers];
+    console.log("ADDALLLOGIC", rec, initialPlayerBucket, initialSelectedUsers)
     initialPlayerBucket.push(rec);
     setPlayerBucket(initialPlayerBucket);
     let ans = initialSelectedUsers.filter(us => us.userId !== rec.userId);
     setSelectedUsers(ans)
+  }
+
+  const addAllToBucket = () => {
+    let initialPlayerBucket = [...playerBucket];
+    let initialSelectedUsers = [...selectedUsers];
+    if (initialSelectedUsers?.length !== 0) {
+      setPlayerBucket(initialSelectedUsers);
+      setSelectedUsers([])
+    }
   }
 
   const removeFromBucket = (rec) => {
@@ -569,6 +579,7 @@ const NewAuction = () => {
         <div className="formContainer">
           <div className="title">Players Bucket</div>
           <input type="button" value='Refetch Connections' onClick={() => refetchConnections() } />
+          <Button type="primary" onClick={addAllToBucket}>Add All Players To Auctions</Button>
           <Dropdown menu={{ items }}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>

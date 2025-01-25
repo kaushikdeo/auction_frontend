@@ -55,7 +55,7 @@ const ViewerSingleAuction = () => {
                 <div style={{margin: 17}} className="number-card number-card-content1">
                     <h3 className="number-card-number">{`Current Bid ${currentBid}`}</h3>
                 </div>
-                <div><PlayerProfileCard selectedPlayer={selectedPlayer}/></div>
+                <div><PlayerProfileCard selectedPlayer={selectedPlayer} showStats={fetchedAuction?.showPlayerStats}/></div>
             </div>
           )
     } else {

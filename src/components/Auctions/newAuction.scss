@@ -64,6 +64,11 @@ input {
             .title {
                 align-self: flex-start;
             }
+            .newAuctionHeading{
+                display: flex;
+                flex-direction: row;
+                vertical-align: middle;
+            }
             .inputContainerStyles {
                 border: 1px solid white;
                 padding: 20px;
@@ -92,4 +97,7 @@ input {
         display: flex;
         flex-direction: column;
     }
+}
+.sliderTextAfter {
+    margin-right: 20px;
 }

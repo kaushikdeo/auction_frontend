@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 
-const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
+const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb, currentAuction}) => {
   const [searchInput, setSearchInput] = useState('');
   const [unsoldPlayersBucket, setFetchedUnsoldPlayersBucket] = useState([]);
   const [intialUnsoldBucket, setInitialUnsoldBucket] = useState([]);
@@ -27,7 +27,7 @@ const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
   }, [unsoldPlayers])
 
   const handleCheckStats = (i) => {
-    let selectedPlayer = intialUnsoldBucket.find(e => e.userId === i.userId);
+    let selectedPlayer = unsoldPlayers.find(e => e.userId === i.userId);
       console.log("betterr", i);
       setDrawerSelectedPlayerb(selectedPlayer)
   }
@@ -53,7 +53,7 @@ const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
           <TableRow>
             <TableCell style={{fontSize: 12}}><b>{`Player Name (${unsoldPlayersBucket.length})`}</b></TableCell>
             <TableCell style={{fontSize: 12}} align="right"><b>Player Type</b></TableCell>
-            <TableCell align="right">Action</TableCell>
+            {currentAuction?.showPlayerStats &&<TableCell align="right">Action</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,7 +66,7 @@ const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb}) => {
                 {row.playerName}
               </TableCell>
               <TableCell style={{fontSize: 12}} align="right">{row.playerType}</TableCell>
-              <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>
+              {currentAuction?.showPlayerStats && <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>}
             </TableRow>
           ))}
         </TableBody>

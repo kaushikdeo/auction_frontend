@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { HANDLE_PLAYER_SELECT_SUBSCRIPTION } from '../../graphql/subscriptions/auctionSubscriptions';
 import Modal from '../UtilityComponents/ModalComponent';
 import { GET_LOGGED_IN_USER, LOGGEDINPLAYERAUCTION } from '../../graphql/queries/userQueries';
-import PlayerProfileCard from '../playerProfile/PlayerProfile';
 import dayjs from 'dayjs';
 import LoadingPage from '../UtilityComponents/LoadingPage';
 // ----------------------------------------------- THIS IS THE DASHBOARD FOR THE PLAYER LOGIN --------------------------------------------------------------------------
@@ -198,13 +197,6 @@ const PlayerDashboard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="row">
-                                    <div className="col-sm-12">
-                                        <div className="well">
-                                        <PlayerProfileCard selectedPlayer={currentUserData}/>
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ export const GET_AUCTIONS = gql`
   auctions {
     auctionId
     auctionName
+    showPlayerStats
     bucketWalletBalance
     endTime
     participants {
@@ -31,6 +32,7 @@ query GetAuction($auctionId: String) {
   getAuction(auctionId: $auctionId) {
     auctionId
     auctionName
+    showPlayerStats
     bucketWalletBalance
     createdBy {
       firstName
@@ -160,6 +162,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
   getAuctionDetailsForCaptain(auctionId: $auctionId) {
     auctionData {
       auctionId
+      showPlayerStats
       createdBy{
         firstName
         lastName
@@ -330,6 +333,7 @@ query GetAuctionDetailsForViewer($auctionId: String) {
     auctionName
     auctionId
     minimumBid
+    showPlayerStats
   }
 }
 `

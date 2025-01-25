@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 
 const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSelectedPlayerb}) => {
-  console.log("aksjnxkjansxkajnsxxxx", currentAuction.players);
+  console.log("aksjnxkjansxkajnsxxxx", currentAuction);
   let uniquePlayers = currentAuction.players.filter(({ userId: id1 }) => !soldPlayers.some(({player}) => player.userId === id1));
   let finalUniquePlayers = uniquePlayers.filter(({ userId: id1 }) => !currentAuction.unallocatedPlayers.some(({userId: id2}) => id2 === id1));
     const [searchInput, setSearchInput] = useState('');
@@ -47,7 +47,7 @@ const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSele
           <TableRow>
             <TableCell style={{fontSize: 12}}><b>{`Player Name (${rows.length})`}</b></TableCell>
             <TableCell style={{fontSize: 12}}><b>{`Player Type`}</b></TableCell>
-            <TableCell style={{fontSize: 12}} align="right"><b>Action</b></TableCell>
+            {currentAuction?.showPlayerStats &&<TableCell style={{fontSize: 12}} align="right"><b>Action</b></TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -62,7 +62,7 @@ const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSele
               <TableCell style={{fontSize: 12}} component="th" scope="row">
                 {row.playerType}
               </TableCell>
-              <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>
+              {currentAuction?.showPlayerStats && <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>}
             </TableRow>
           ))}
         </TableBody>

@@ -33,7 +33,7 @@ const PlayersWidget = ({ setIsRandomSelection, isRandomSelection, teamCalc, shif
                     selectedPlayer ? (<>
                         <span className="title">Current Player</span>
                         <div className="featuredRight">
-                            <PlayerProfileCard selectedPlayer={selectedPlayer}/>
+                            <PlayerProfileCard selectedPlayer={selectedPlayer} showStats={currentAuction?.showPlayerStats}/>
                         </div>
                     </>) : (<div style={{margin: "auto"}} ><h1>SELECT PLAYER TO POPULATE</h1></div>)
                 }

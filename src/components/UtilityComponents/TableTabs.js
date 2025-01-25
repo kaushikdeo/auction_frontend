@@ -61,7 +61,7 @@ const TableTabs = ({setUnallocatedPlayerBucket, unallocatedPlayerBucketCount, se
         <PlayerBucket unsoldPlayers={currentAuction.unallocatedPlayers} playerBucketCount={playerBucketCount} setPlayerBucketCount={setPlayerBucketCount} soldPlayers={soldPlayers} currentAuction={currentAuction} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <UnsoldPlayerstable unsoldPlayers={currentAuction.unallocatedPlayers} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb}/>
+        <UnsoldPlayerstable unsoldPlayers={currentAuction.unallocatedPlayers} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} currentAuction={currentAuction}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <PlayersSoldTable setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} soldPlayers={soldPlayers}/>

@@ -12,10 +12,11 @@ import {
   Tooltip,
   DatePicker,
   DatePickerProps,
-  Dropdown 
+  Dropdown,
+  Switch
  } from "antd";
  import Dropzone from 'react-dropzone'
-import { InfoCircleOutlined, LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined, DownOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined, TeamOutlined, BarsOutlined, DownOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_NEW_AUCTION } from "../../graphql/mutations/auctionMutations";
@@ -206,7 +207,7 @@ const NewAuction = () => {
   const [venueName, setVenueName] = useState("");
   const [minimumBid, setMinimumBid] = useState(0);
   const [stepPrice, setStepPrice] = useState(0);
-
+  const [shouldShowStats, setShouldShowStats] = useState(true)
   const [teams, setTeams] = useState([]);
   const [teamName, setTeamName] = useState("");
   const [teamCaptain, setTeamCaptain] = useState({
@@ -321,7 +322,7 @@ const NewAuction = () => {
         teams: formattedTeams,
         numberOfBuckets: Number(buckets) || 0,
         minimumBid: Number(minimumBid),
-        showPlayerStats: true,
+        showPlayerStats: shouldShowStats,
     }
     console.log("Received values:", newAuction);
     let addedAuction = await addNewAuction({
@@ -356,7 +357,17 @@ const NewAuction = () => {
     if (currentStep === 0) {
       return (
         <div className="auctionDetailsContainer">
-          <div className="title"><h2>New Auction Form</h2></div>
+          <div className="title">
+            <h2>New Auction Form</h2>
+            <span className="sliderTextAfter">Show Player Stats</span>
+            <Switch
+                        checked={shouldShowStats}
+                        onChange={(checked, event) => setShouldShowStats(!shouldShowStats)}
+                        checkedChildren={<CheckOutlined />}
+                        unCheckedChildren={<CloseOutlined />}
+                        defaultChecked
+                    />
+          </div>
           <div className="inputContainerStyles">
           <div className="innerTitle"><h4>Basic Auction Details</h4></div>
           <div className="inputLineStyles">
@@ -587,7 +598,7 @@ const NewAuction = () => {
       )
     }
   }
-  console.log("Hello", teams)
+  console.log("Hello", shouldShowStats)
   useEffect(() => {
     if (
       loggedInUserData &&

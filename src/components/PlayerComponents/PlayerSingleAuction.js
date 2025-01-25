@@ -151,7 +151,7 @@ const PlayerSingleAuction = () => {
   console.log("currewwwntAuction", drawerSelectedPlayer);
   return (
     <div className="home">
-      {currentAuction ? (
+      {currentAuction && !loading ? (
         <>
           <AuctionPlayerDrawer
             drawerSelectedPlayer={drawerSelectedPlayer}
@@ -168,7 +168,7 @@ const PlayerSingleAuction = () => {
                 </Grid>
                 <Grid xs={4}>
                   <h2 style={{display:"flex", justifyContent: "center"}}>Selected Player</h2>
-                  <Item><PlayerProfileCard selectedPlayer={selectedPlayer}/></Item>
+                  <Item><PlayerProfileCard selectedPlayer={selectedPlayer} showStats={currentAuction?.showPlayerStats}/></Item>
                 </Grid>
                 <Grid xs={4}>
                   <h2 style={{display:"flex", justifyContent: "center"}}>Current Auction Details</h2>

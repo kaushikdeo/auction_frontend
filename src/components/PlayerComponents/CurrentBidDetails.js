@@ -68,7 +68,7 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         </Grid>
         {allowedToSpend <= currentBid && 
         <Grid xs={12}>
-            <div style={{margin: 17}} className="number-card number-card-content2">
+            <div className="number-card number-card-content2">
                 <h3 className="number-card-number">{`You cannot bid for ${convertNumbers(currentBid+currentAuction.stepPrice)}`}</h3>
             </div>
         </Grid>}
@@ -76,7 +76,7 @@ const CurrentBidDetails = ({currentBid, currentAuction}) => {
         <div className="number-card-divider"></div>
         <Grid container spacing={1}>
         <Grid xs={12}>
-                    <div style={{margin: 17}} className="number-card number-card-content1">
+                    <div className="number-card number-card-content1">
                         <h3 className="number-card-number">{convertNumbers(currentAuction.bucketWalletBalance)}</h3>
                         <div className="number-card-divider"></div>
                         <div className="number-card-dollars">Initial Wallet Balance</div>

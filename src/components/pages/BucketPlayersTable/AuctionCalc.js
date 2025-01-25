@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Button } from "@mui/material";
 import Dropdown from "react-dropdown";
 import Chip from '@mui/material/Chip';
@@ -247,4 +247,4 @@ const AuctionCalc = ({
   );
 };
 
-export default AuctionCalc;
+export default memo(AuctionCalc);

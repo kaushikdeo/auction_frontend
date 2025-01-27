@@ -13,6 +13,7 @@ import { Avatar } from "@mui/material";
 import "./playerConnections.scss";
 
 const PlayerConnections = () => {
+  const [filteredConnection, setFilteredConnection] = useState([]);
   const [userConnections, setUserConnections] = useState([]);
   const { user, dispatch } = useAuthContext();
   console.log("USEFFROM AUTH", user);
@@ -29,10 +30,12 @@ const PlayerConnections = () => {
   };
   //TODO: reduce the connections array to display unique connection buckets
   console.log("userConnectionsuserConnections", userConnections);
-  let allBuckets = userConnections.map(
-    (entry, index) => entry.connectionBucket
+  let allBuckets=[];
+  userConnections.map((entry, index) => {
+      allBuckets.push(entry.connectionBucket)
+    }
   );
-  const uniqueBuckets = [...new Set(allBuckets)];
+  const uniqueBuckets = [...new Set(allBuckets.flat())];
   console.log("ajxnjsn", uniqueBuckets);
   const items =
     uniqueBuckets && uniqueBuckets.length
@@ -67,7 +70,7 @@ const PlayerConnections = () => {
           onClick={handleButtonClick}
         >
           <Space>
-            Select Connection Bucket
+            {uniqueBuckets && uniqueBuckets.length ? uniqueBuckets[0] : "Select Connection Bucket"}
             <DownOutlined />
           </Space>
         </Button>

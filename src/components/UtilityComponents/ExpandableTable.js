@@ -21,8 +21,8 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
   let maxPlayersCanBuy = Math.floor(currentAuction.players.length/currentAuction.teams.length)
   let maxAmountAllowedForBid = (maxPlayersCanBuy - row.playersBought) * currentAuction.minimumBid
   let balAfterBid = row.balanceAmount - maxAmountAllowedForBid
-  console.log("PROPS", balAfterBid <= currentBid - currentAuction.minimumBid || row.playersBought === maxPlayersCanBuy)
-  console.log("playerDataplayerDataplayerData", currentAuction.minimumBid);
+  let allowedMaxBidForCurrentPlayer = row.balanceAmount - (currentAuction.minimumBid * (maxPlayersCanBuy - row.playersBought - 1)) + currentAuction.minimumBid
+
   const handleResetBuy = (row, historyRow) => {
     
     handleRevertBuy(historyRow.playerId, row.teamId);
@@ -48,6 +48,7 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{maxPlayersCanBuy - row.playersBought - 1}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{allowedMaxBidForCurrentPlayer}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.balanceAmount)}</TableCell>
         </TableRow>
         <TableRow>
@@ -103,6 +104,7 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
           <TableCell style={{fontSize: 13}} align="right">{row.captainName}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{row.playersBought}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{maxPlayersCanBuy - row.playersBought -1}</TableCell>
+          <TableCell style={{fontSize: 13}} align="right">{allowedMaxBidForCurrentPlayer}</TableCell>
           <TableCell style={{fontSize: 13}} align="right">{convertNumbers(row.balanceAmount)}</TableCell>
         </TableRow>
         <TableRow>
@@ -166,6 +168,7 @@ const ExpandableTable = ({handleRevertBuy, teamCalc, intialRows, currentAuction,
             <TableCell style={{fontSize: 15}} align="right">Captain</TableCell>
             <TableCell style={{fontSize: 15}} align="right">Players Bought</TableCell>
             <TableCell style={{fontSize: 15}} align="right">Players To Be Bought</TableCell>
+            <TableCell style={{fontSize: 15}} align="right">Max Allowed Bid</TableCell>
             <TableCell style={{fontSize: 15}} align="right">Balance Amount</TableCell>
           </TableRow>
         </TableHead>

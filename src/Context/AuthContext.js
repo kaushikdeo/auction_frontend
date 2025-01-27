@@ -8,17 +8,12 @@ export const AuthContext = createContext();
 export const authReducer = (prevState, action) => {
     switch (action.type) {
         case "LOGIN":
-            console.log("stata", {user: action.payload})
             return {user: action.payload}
         case "LOGOUT":
-            console.log("stata", {user: null})
             return {user: null}
         case "UPDATEROLE":
-            console.log("stata", {user: {...prevState, currentRole: action.payload} })
             return {user: {...prevState, currentRole: action.payload} }
         case "HYDRATEUSER": {
-            console.log("PREV STATE", prevState, action.payload);
-            console.log("stata", {user: {...prevState, user: action.payload} })
             return {user: {...prevState, user: action.payload} }
         }
         default:

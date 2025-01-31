@@ -7,6 +7,7 @@ import {
   Space, 
   Table, 
   Tag, 
+  Select,
   Button, 
   Steps,
   Tooltip,
@@ -24,10 +25,13 @@ import { GET_LOGGED_IN_USER } from "../../graphql/queries/userQueries";
 import AddConnections from "../User/AddConnections";
 import AddPlayers from "./AddPlayers";
 import UserProfileUploadWidget from "../UtilityComponents/UserProfileUploadWidget";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const { Content } = Layout;
 
 const NewAuction = () => {
+  const { user, dispatch } = useAuthContext();
+
   const items = [
     {
       key: '1',
@@ -197,7 +201,9 @@ const NewAuction = () => {
     error: loggedInUserError,
     refetch
   } = useQuery(GET_LOGGED_IN_USER);
-  const [auctionName, setAuctionName] = useState("");
+  const [auctionName, setAuctionName] = useState("ALL");
+  const [menuProps, setMenuProps] = useState([])
+  const [currentSelection, setCurrentSelection] = useState("");
   const [bucketWalletBalance, setBucketWalletBalance] = useState(null);
   const [walletBalanceDifference, setWalletBalanceDifference] = useState(null);
   const [sportsName, setSportsName] = useState("");
@@ -230,6 +236,11 @@ const NewAuction = () => {
   const [searchInput, setSearchInput] = useState("");
 
   console.log("selectedUsersselectedUsers", selectedUsers);
+
+  const handleMenuClick = (e) => {
+    console.log("menuclick", e);
+    setCurrentSelection(e);
+  };
 
   const onChangeStart = (value,dateString) => {
     console.log('Selected Time: ', value);
@@ -578,23 +589,22 @@ const NewAuction = () => {
       return (
         <div className="formContainer">
           <div className="title">Players Bucket</div>
-          <input type="button" value='Refetch Connections' onClick={() => refetchConnections() } />
+          <Button type="primary" onClick={() => refetchConnections() }>Refetch Connections</Button>
           <Button type="primary" onClick={addAllToBucket}>Add All Players To Auctions</Button>
-          <Dropdown menu={{ items }}>
-            <a onClick={(e) => e.preventDefault()}>
-              <Space>
-                Hover me
-                <DownOutlined />
-              </Space>
-            </a>
-          </Dropdown>
+          <Select
+            placeholder="Select Bucket Name"
+            defaultValue={"ALL"}
+            style={{ width: 120 }}
+            onChange={handleMenuClick}
+            options={menuProps}
+          />
           {loggedInUser &&
           loggedInUser.connections &&
           loggedInUser.connections.length && (
             <div className="new-auction-table-container">
               <div className="tableTitle">{`Connections (${loggedInUser.connections.length})`}</div>
               <div>
-                <Table columns={tableColumnsInit} dataSource={selectedUsers} />
+                <Table columns={tableColumnsInit} dataSource={selectedUsers} currentSelection={currentSelection}/>
               </div>
               <div className="tableTitle">{`Tournament Players (${playerBucket.length})`}</div>
               <div>
@@ -610,6 +620,7 @@ const NewAuction = () => {
     }
   }
   console.log("Hello", shouldShowStats)
+
   useEffect(() => {
     if (
       loggedInUserData &&
@@ -619,22 +630,55 @@ const NewAuction = () => {
       !loggedInUserError
     ) {
       let initialUsers = [];
-      loggedInUserData.getMe.connections.map((conn, i) => {
-        console.log("PHODNI", conn)
-        initialUsers.push({
-          key: i + 1,
-          userId: conn?.user?.userId,
-          name: `${conn?.user?.firstName} ${conn?.user?.lastName}`,
-          email: `${conn?.user?.email}`,
-          tags: conn?.user?.role,
-          profileImage: conn?.user?.imageUrl
-        });
+      if (currentSelection === "" || currentSelection === "ALL") {
+        loggedInUserData.getMe.connections.map((conn, i) => {
+          console.log("PHODNI", conn)
+          initialUsers.push({
+            key: i + 1,
+            userId: conn?.user?.userId,
+            name: `${conn?.user?.firstName} ${conn?.user?.lastName}`,
+            email: `${conn?.user?.email}`,
+            tags: conn?.user?.role,
+            profileImage: conn?.user?.imageUrl
+          });
+        })
+      } else {
+        let filteredUsers = loggedInUserData.getMe.connections.filter(e => {
+          if (currentSelection === "") {
+            return e
+          } else {
+            console.log("ETETETETYE", e.connectionBucket);
+            return e.connectionBucket.some((buck => buck === currentSelection))
+          }
+        })
+        filteredUsers.map((conn, i) => {
+          console.log("PHODNI", conn)
+          initialUsers.push({
+            key: i + 1,
+            userId: conn?.user?.userId,
+            name: `${conn?.user?.firstName} ${conn?.user?.lastName}`,
+            email: `${conn?.user?.email}`,
+            tags: conn?.user?.role,
+            profileImage: conn?.user?.imageUrl
+          });
+        })
+      }
+
+      let allBuckets = [];
+      loggedInUserData.getMe.connections.map((entry, index) => {
+        allBuckets.push(entry.connectionBucket);
+      });
+      const uniqueBuckets = [...new Set(allBuckets.flat())];
+      const menuProps = uniqueBuckets.map ((bucketName) => {
+        return { value: bucketName, label: bucketName }
       })
-      console.log("INITIALUSERS", initialUsers)
+      menuProps.push({ value: "ALL", label: "ALL" })
+      console.log("TAPAT", initialUsers, currentSelection)
+      setMenuProps(menuProps)
       setSelectedUsers(initialUsers);
       setLoggedInUser(loggedInUserData.getMe);
     }
-  }, [loggedInUserData, loggedInUserLoading, loggedInUserError]);
+  }, [loggedInUserData, loggedInUserLoading, loggedInUserError, currentSelection]);
   console.log("loggedInUserloggedInUser", loggedInUser);
   return (
     <div className="newAuctionContainer">

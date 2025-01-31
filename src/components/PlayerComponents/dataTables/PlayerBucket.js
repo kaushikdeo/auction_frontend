@@ -3,13 +3,16 @@ import './playerSoldTableStyle.scss';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
+import { Input } from 'antd';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
+import { StyledTableRow, StyledTableCell } from '../../Common/StylizedTableRow';
 
 const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSelectedPlayerb}) => {
+  const { Search } = Input;
   console.log("aksjnxkjansxkajnsxxxx", currentAuction);
   let uniquePlayers = currentAuction.players.filter(({ userId: id1 }) => !soldPlayers.some(({player}) => player.userId === id1));
   let finalUniquePlayers = uniquePlayers.filter(({ userId: id1 }) => !currentAuction.unallocatedPlayers.some(({userId: id2}) => id2 === id1));
@@ -30,40 +33,37 @@ const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSele
     }
 
     useEffect(() => {
-        let filtered = finalUniquePlayers.filter(ele => ele.firstName?.toLowerCase().includes(searchInput.toLowerCase()))
+        let filtered = finalUniquePlayers.filter(ele => ele.firstName?.toLowerCase().includes(searchInput.toLowerCase()) || ele.lastName?.toLowerCase().includes(searchInput.toLowerCase()))
         setFetchedUnsoldPlayers(filtered);
   }, [searchInput])
 
     return (
     <TableContainer component={Paper}>
         <div class="search-box">
-            <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" class="search-input" placeholder="Search By Player Name" />
-            <button class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
+            <Input style={{marginBottom: 20, marginTop: 20, marginLeft: 10}} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" class="search-input" placeholder="Search By Player Name" />
         </div>
       <Table size="medium" aria-label="a dense table">
         <TableHead>
-          <TableRow>
-            <TableCell style={{fontSize: 12}}><b>{`Player Name (${rows.length})`}</b></TableCell>
-            <TableCell style={{fontSize: 12}}><b>{`Player Type`}</b></TableCell>
-            {currentAuction?.showPlayerStats &&<TableCell style={{fontSize: 12}} align="right"><b>Action</b></TableCell>}
-          </TableRow>
+          <StyledTableRow>
+            <StyledTableCell style={{fontSize: 12}}><b>{`Player Name (${rows.length})`}</b></StyledTableCell>
+            <StyledTableCell style={{fontSize: 12}}><b>{`Player Type`}</b></StyledTableCell>
+            {currentAuction?.showPlayerStats &&<StyledTableCell style={{fontSize: 12}} align="right"><b>Action</b></StyledTableCell>}
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {rows.map((row, i) => (
-            <TableRow
+            <StyledTableRow
               key={row.playerName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell style={{fontSize: 12}} component="th" scope="row">
+              <StyledTableCell style={{fontSize: 12}} component="th" scope="row">
                 {row.playerName}
-              </TableCell>
-              <TableCell style={{fontSize: 12}} component="th" scope="row">
+              </StyledTableCell>
+              <StyledTableCell style={{fontSize: 12}} component="th" scope="row">
                 {row.playerType}
-              </TableCell>
-              {currentAuction?.showPlayerStats && <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>}
-            </TableRow>
+              </StyledTableCell>
+              {currentAuction?.showPlayerStats && <StyledTableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></StyledTableCell>}
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

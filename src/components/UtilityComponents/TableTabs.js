@@ -38,7 +38,17 @@ function a11yProps(index) {
   };
 }
 
-const TableTabs = ({setUnallocatedPlayerBucket, unallocatedPlayerBucketCount, setPlayerBucketCount, playerBucketCount, currentAuction, soldPlayers, setDrawerSelectedPlayerb}) => {
+const TableTabs = ({
+  setUnallocatedPlayerBucket, 
+  unallocatedPlayerBucketCount, 
+  setPlayerBucketCount, 
+  playerBucketCount, 
+  currentAuction, 
+  soldPlayers, 
+  setDrawerSelectedPlayerb,
+  allTeamPlayerData
+}) => {
+  console.log("asjnkjasnxkjansxkjansxkjansx", currentAuction);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -51,26 +61,26 @@ const TableTabs = ({setUnallocatedPlayerBucket, unallocatedPlayerBucketCount, se
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="basic tabs example">
           <Tab label={`Player Bucket`} />
-          <Tab label="Unsold Players" />
-          <Tab label="Players Sold" />
           <Tab label="Teams" />
           <Tab label="My Team" />
+          <Tab label="Unsold Players" />
+          <Tab label="Players Sold" />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <PlayerBucket unsoldPlayers={currentAuction.unallocatedPlayers} playerBucketCount={playerBucketCount} setPlayerBucketCount={setPlayerBucketCount} soldPlayers={soldPlayers} currentAuction={currentAuction} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb}/>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <UnsoldPlayerstable unsoldPlayers={currentAuction.unallocatedPlayers} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} currentAuction={currentAuction}/>
+      <CustomTabPanel value={value} index={1} soldPlayers={soldPlayers}>
+        <AllTeamsTable soldPlayers={soldPlayers} allTeamPlayerData={allTeamPlayerData} walletBal={currentAuction?.bucketWalletBalance}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <PlayersSoldTable setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} soldPlayers={soldPlayers}/>
+        <MyTeamsTable currentAuction={currentAuction}/>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3} soldPlayers={soldPlayers}>
-        <AllTeamsTable soldPlayers={soldPlayers}/>
+      <CustomTabPanel value={value} index={3}>
+        <UnsoldPlayerstable unsoldPlayers={currentAuction.unallocatedPlayers} setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} currentAuction={currentAuction}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <MyTeamsTable currentAuction={currentAuction}/>
+        <PlayersSoldTable setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} soldPlayers={soldPlayers}/>
       </CustomTabPanel>
     </Box>
   );

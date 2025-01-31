@@ -9,9 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 import { convertNumbers } from '../../../utils/utility';
+import { StyledTableRow, StyledTableCell } from '../../Common/StylizedTableRow';
 
 const MyTeamsTable = ({currentAuction}) => {
-console.log("currentAuctionggg", currentAuction.auctionDetails.auctionTeams[0].teamPlayers);
 let currentTeam = currentAuction.auctionDetails.auctionTeams[0].team.teamName;
 let row = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.map(tp=> {
     return {
@@ -22,27 +22,27 @@ let row = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.map(tp=> {
 })
     return (
     <TableContainer component={Paper}>
-        <h2>{currentTeam}</h2>
+        <h3>{currentTeam}</h3>
       <Table size="medium" aria-label="a dense table">
         <TableHead>
-          <TableRow>
-            <TableCell style={{fontSize: 12}}><b>{`Player Name (${row.length})`}</b></TableCell>
-            <TableCell style={{fontSize: 12}} align="right"><b>Players Type</b></TableCell>
-            <TableCell style={{fontSize: 12}} align="right"><b>Bought For</b></TableCell>
-          </TableRow>
+          <StyledTableRow>
+            <StyledTableCell style={{fontSize: 12}}><b>{`Player Name (${row.length})`}</b></StyledTableCell>
+            <StyledTableCell style={{fontSize: 12}} align="right"><b>Players Type</b></StyledTableCell>
+            <StyledTableCell style={{fontSize: 12}} align="right"><b>Bought For</b></StyledTableCell>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {row.map((row) => (
-            <TableRow
+            <StyledTableRow
               key={row.playerName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell style={{fontSize: 12}} component="th" scope="row">
+              <StyledTableCell style={{fontSize: 12}} component="th" scope="row">
                 {row.playerName}
-              </TableCell>
-              <TableCell style={{fontSize: 12}} align="right">{row.playerType}</TableCell>
-              <TableCell style={{fontSize: 12}} align="right">{convertNumbers(row.boughtFor)}</TableCell>
-            </TableRow>
+              </StyledTableCell>
+              <StyledTableCell style={{fontSize: 12}} align="right">{row.playerType}</StyledTableCell>
+              <StyledTableCell style={{fontSize: 12}} align="right">{convertNumbers(row.boughtFor)}</StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

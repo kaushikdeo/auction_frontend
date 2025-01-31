@@ -38,6 +38,7 @@ const PlayerConnections = () => {
       const menuProps = uniqueBuckets.map ((bucketName) => {
         return { value: bucketName, label: bucketName }
       })
+      menuProps.push({ value: "ALL", label: "ALL" })
       setMenuProps(menuProps)
       setUserConnections(user.user.connections);
     }
@@ -60,7 +61,7 @@ if (user?.user?.connections) {
         <div className="connectionDropdpwnStyles">
         <Select
         placeholder="Select Bucket Name"
-          defaultValue={menuProps && menuProps?.length ? menuProps[0].label : ""}
+          defaultValue={"ALL"}
           style={{ width: 120 }}
           onChange={handleMenuClick}
           options={menuProps}
@@ -100,7 +101,7 @@ if (user?.user?.connections) {
           </TableHead>
           <TableBody>
             {userConnections.filter(e => {
-              if (currentSelection === "") {
+              if (currentSelection === "" || currentSelection === "ALL") {
                 return e
               } else {
                 console.log("ETETETETYE", e.connectionBucket);

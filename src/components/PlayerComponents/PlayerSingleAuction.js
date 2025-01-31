@@ -36,6 +36,7 @@ const PlayerSingleAuction = () => {
   const [currentBid, setCurrentBid] = useState(0);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [soldPlayers, setSoldPlayers] = useState([]);
+  const [allTeamPlayerData, setAllTeamPlayerData] = useState();
   const [playerBucketCount, setPlayerBucketCount] = useState(0);
   const [unallocatedPlayerBucketCount, setUnallocatedPlayerBucket] = useState(0);
   const [playerSoldBucketCount, setPlayerSoldBucketCount] = useState(0);
@@ -142,10 +143,12 @@ const PlayerSingleAuction = () => {
       data.getAuctionDetailsForCaptain.auctionData &&
       data.getAuctionDetailsForCaptain.auctionData.auctionId
     ) {
+      console.log("IJSNIJNSXJNXSX", data.getAuctionDetailsForCaptain.auctionData.auctionDetails.auctionTeams)
       setCurrentAuction(data.getAuctionDetailsForCaptain.auctionData);
       setSoldPlayers(data.getAuctionDetailsForCaptain.playersBought);
       setCurrentBid(data.getAuctionDetailsForCaptain.currentPlayerBid)
       setSelectedPlayer(data.getAuctionDetailsForCaptain.selectedPlayer)
+      setAllTeamPlayerData(data?.getAuctionDetailsForCaptain?.auctionData?.auctionDetails?.auctionTeams)
     }
   }, [data, error, loading]);
   console.log("currewwwntAuction", drawerSelectedPlayer);
@@ -178,15 +181,17 @@ const PlayerSingleAuction = () => {
                   <h2 style={{display:"flex", justifyContent: "center"}}>Current Auction Data</h2>
                   <Item>
                       <TableTabs
-                      playerSoldBucketCount={playerSoldBucketCount}
-                      setPlayerSoldBucketCount={setPlayerSoldBucketCount}
-                      unallocatedPlayerBucketCount={unallocatedPlayerBucketCount}
-                      setUnallocatedPlayerBucket={setUnallocatedPlayerBucket}
-                      playerBucketCount={playerBucketCount} 
-                      setPlayerBucketCount={setPlayerBucketCount}
-                      setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} 
-                      currentAuction={currentAuction} 
-                      soldPlayers={soldPlayers}/>
+                        playerSoldBucketCount={playerSoldBucketCount}
+                        setPlayerSoldBucketCount={setPlayerSoldBucketCount}
+                        unallocatedPlayerBucketCount={unallocatedPlayerBucketCount}
+                        setUnallocatedPlayerBucket={setUnallocatedPlayerBucket}
+                        playerBucketCount={playerBucketCount} 
+                        setPlayerBucketCount={setPlayerBucketCount}
+                        setDrawerSelectedPlayerb={setDrawerSelectedPlayerb} 
+                        currentAuction={currentAuction} 
+                        soldPlayers={soldPlayers}
+                        allTeamPlayerData={allTeamPlayerData}
+                      />
                   </Item>
                 </Grid>
               </Grid>

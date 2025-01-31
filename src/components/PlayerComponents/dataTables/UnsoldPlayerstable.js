@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
+import { StyledTableRow, StyledTableCell } from '../../Common/StylizedTableRow';
+import { Input } from 'antd';
 
 const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb, currentAuction}) => {
   const [searchInput, setSearchInput] = useState('');
@@ -43,31 +45,28 @@ const UnsoldPlayerstable = ({unsoldPlayers, setDrawerSelectedPlayerb, currentAuc
     return (
         <TableContainer component={Paper}>
           <div class="search-box">
-            <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" class="search-input" placeholder="Search By Player Name" />
-            <button class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
+          <Input style={{marginBottom: 20, marginTop: 20, marginLeft: 10}} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" class="search-input" placeholder="Search By Player Name" />
         </div>
       <Table size="medium" aria-label="a dense table">
         <TableHead>
-          <TableRow>
-            <TableCell style={{fontSize: 12}}><b>{`Player Name (${unsoldPlayersBucket.length})`}</b></TableCell>
-            <TableCell style={{fontSize: 12}} align="right"><b>Player Type</b></TableCell>
-            {currentAuction?.showPlayerStats &&<TableCell align="right">Action</TableCell>}
-          </TableRow>
+          <StyledTableRow>
+            <StyledTableCell style={{fontSize: 12}}><b>{`Player Name (${unsoldPlayersBucket.length})`}</b></StyledTableCell>
+            <StyledTableCell style={{fontSize: 12}} align="right"><b>Player Type</b></StyledTableCell>
+            {currentAuction?.showPlayerStats &&<StyledTableCell align="right">Action</StyledTableCell>}
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {unsoldPlayersBucket.map((row, i) => (
-            <TableRow
+            <StyledTableRow
               key={row.playerName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell style={{fontSize: 12}} component="th" scope="row">
+              <StyledTableCell style={{fontSize: 12}} component="th" scope="row">
                 {row.playerName}
-              </TableCell>
-              <TableCell style={{fontSize: 12}} align="right">{row.playerType}</TableCell>
-              {currentAuction?.showPlayerStats && <TableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></TableCell>}
-            </TableRow>
+              </StyledTableCell>
+              <StyledTableCell style={{fontSize: 12}} align="right">{row.playerType}</StyledTableCell>
+              {currentAuction?.showPlayerStats && <StyledTableCell align="right"><Button onClick={() => handleCheckStats(row)} variant="contained">Check Stats</Button></StyledTableCell>}
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

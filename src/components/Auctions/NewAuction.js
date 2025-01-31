@@ -201,7 +201,7 @@ const NewAuction = () => {
     error: loggedInUserError,
     refetch
   } = useQuery(GET_LOGGED_IN_USER);
-  const [auctionName, setAuctionName] = useState("ALL");
+  const [auctionName, setAuctionName] = useState("");
   const [menuProps, setMenuProps] = useState([])
   const [currentSelection, setCurrentSelection] = useState("");
   const [bucketWalletBalance, setBucketWalletBalance] = useState(null);
@@ -374,7 +374,7 @@ const NewAuction = () => {
   }
 
   const renderStepsForms = () => {
-    console.log("Hello", currentStep)
+    console.log("Hello", selectedUsers, playerBucket)
     if (currentStep === 0) {
       return (
         <div className="auctionDetailsContainer">
@@ -604,7 +604,7 @@ const NewAuction = () => {
             <div className="new-auction-table-container">
               <div className="tableTitle">{`Connections (${loggedInUser.connections.length})`}</div>
               <div>
-                <Table columns={tableColumnsInit} dataSource={selectedUsers} currentSelection={currentSelection}/>
+                <Table columns={tableColumnsInit} dataSource={selectedUsers.filter(su => !playerBucket.some(pb => su.userId === pb.userId))} currentSelection={currentSelection}/>
               </div>
               <div className="tableTitle">{`Tournament Players (${playerBucket.length})`}</div>
               <div>
@@ -673,7 +673,7 @@ const NewAuction = () => {
         return { value: bucketName, label: bucketName }
       })
       menuProps.push({ value: "ALL", label: "ALL" })
-      console.log("TAPAT", initialUsers, currentSelection)
+      console.log("TAPAT", initialUsers, selectedUsers)
       setMenuProps(menuProps)
       setSelectedUsers(initialUsers);
       setLoggedInUser(loggedInUserData.getMe);

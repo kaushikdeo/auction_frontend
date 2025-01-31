@@ -6,13 +6,13 @@ import { setContext } from '@apollo/client/link/context';
 import { getItem } from '../../utils/localStore';
 
 const httpLink = createHttpLink({
-    uri: 'https://auctions-backend.onrender.com/graphql',
-    // uri: 'http://localhost:4000/graphql',
+    // uri: 'https://auctions-backend.onrender.com/graphql',
+    uri: 'http://localhost:4000/graphql',
   });
 
   const wsLink = new GraphQLWsLink(createClient({
-    url: 'wss://auctions-backend.onrender.com/graphql',
-    // url: 'ws://localhost:4000/graphql',
+    // url: 'wss://auctions-backend.onrender.com/graphql',
+    url: 'ws://localhost:4000/graphql',
     options: {
       reconnect: true,
     },

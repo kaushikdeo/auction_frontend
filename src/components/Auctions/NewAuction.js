@@ -300,22 +300,25 @@ const NewAuction = () => {
   }
 
   const addAllToBucket = () => {
-    let initialPlayerBucket = [...playerBucket];
     let initialSelectedUsers = [...selectedUsers];
+    let allPlayers = [...initialSelectedUsers, ...playerBucket];
+    const unique = [...new Set(allPlayers.map(item => item.userId))];
+    const uniqueArray = [...new Map(allPlayers.map(obj => [obj.userId, obj])).values()];
+    console.log("KJNXSKJNXSKJNX", uniqueArray);
     if (initialSelectedUsers?.length !== 0) {
-      setPlayerBucket(initialSelectedUsers);
+      setPlayerBucket(uniqueArray);
       setSelectedUsers([])
     }
   }
 
   const removeFromBucket = (rec) => {
     let initialPlayerBucket = [...playerBucket];
-    let initialSelectedUsers = [...selectedUsers];
+    // let initialSelectedUsers = [...selectedUsers];
     let ans = initialPlayerBucket.filter(us => us.userId !== rec.userId);
     setPlayerBucket(ans)
     console.log("initialPlayerBucket", initialPlayerBucket);
-    initialSelectedUsers.push(rec);
-    setSelectedUsers(initialSelectedUsers);
+    // initialSelectedUsers.push(rec);
+    // setSelectedUsers(initialSelectedUsers);
   }
 
   const handleCreateNewAuction = async (values) => {

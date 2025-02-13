@@ -235,27 +235,19 @@ const NewAuction = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  console.log("selectedUsersselectedUsers", selectedUsers);
-
   const handleMenuClick = (e) => {
-    console.log("menuclick", e);
     setCurrentSelection(e);
   };
 
   const onChangeStart = (value,dateString) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
     setStartDateTime(dateString)
   };
 
   const onChangeEnd = (value,dateString) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
     setEndDateTime(dateString)
   };
 
   const onStepChange = (value) => {
-    console.log('onChange:', value);
     setCurrentStep(value);
   };
 
@@ -265,7 +257,6 @@ const NewAuction = () => {
 
   const addNewTeam = () => {
     let initTeams = [...teams];
-    console.log(teamName, teamCaptain, teamViceCaptain, teamDescription);
     let newTeam = {
       teamName,
       teamCaptain: `${teamCaptain.firstName} ${teamCaptain.lastName}`,
@@ -292,7 +283,6 @@ const NewAuction = () => {
   const addToBucket = (rec) => {
     let initialPlayerBucket = [...playerBucket];
     let initialSelectedUsers = [...selectedUsers];
-    console.log("ADDALLLOGIC", rec, initialPlayerBucket, initialSelectedUsers)
     initialPlayerBucket.push(rec);
     setPlayerBucket(initialPlayerBucket);
     let ans = initialSelectedUsers.filter(us => us.userId !== rec.userId);
@@ -304,11 +294,22 @@ const NewAuction = () => {
     let allPlayers = [...initialSelectedUsers, ...playerBucket];
     const unique = [...new Set(allPlayers.map(item => item.userId))];
     const uniqueArray = [...new Map(allPlayers.map(obj => [obj.userId, obj])).values()];
-    console.log("KJNXSKJNXSKJNX", uniqueArray);
     if (initialSelectedUsers?.length !== 0) {
       setPlayerBucket(uniqueArray);
       setSelectedUsers([])
     }
+  }
+
+  const removeAllToBucket = () => {
+    // let initialSelectedUsers = [...selectedUsers];
+    // let allPlayers = [...initialSelectedUsers, ...playerBucket];
+    // const unique = [...new Set(allPlayers.map(item => item.userId))];
+    // const uniqueArray = [...new Map(allPlayers.map(obj => [obj.userId, obj])).values()];
+    // console.log("KJNXSKJNXSKJNX", uniqueArray);
+    // if (initialSelectedUsers?.length !== 0) {
+    //   setPlayerBucket(uniqueArray);
+    //   setSelectedUsers([])
+    // }
   }
 
   const removeFromBucket = (rec) => {
@@ -316,7 +317,6 @@ const NewAuction = () => {
     // let initialSelectedUsers = [...selectedUsers];
     let ans = initialPlayerBucket.filter(us => us.userId !== rec.userId);
     setPlayerBucket(ans)
-    console.log("initialPlayerBucket", initialPlayerBucket);
     // initialSelectedUsers.push(rec);
     // setSelectedUsers(initialSelectedUsers);
   }
@@ -332,7 +332,6 @@ const NewAuction = () => {
       }
     })
     let formattedPlayers = playerBucket.map(player => player.userId)
-    console.log("playerBucketplayerBucketplayerBucketplayerBucket", values)
     let newAuction = {
         auctionName,
         startTime: startDateTime,
@@ -348,7 +347,6 @@ const NewAuction = () => {
         minimumBid: Number(minimumBid),
         showPlayerStats: shouldShowStats,
     }
-    console.log("Received values:", newAuction);
     let addedAuction = await addNewAuction({
       variables: {
         newAuctionInput: {
@@ -359,15 +357,12 @@ const NewAuction = () => {
       },
     });
     if (addedAuction && addedAuction.data && addedAuction.data.addNewAuction) {
-      console.log("addedAuction", addedAuction.data);
-      console.log("DATAuoo", addedAuction.data.addNewAuction);
       navigate("/auctioneerDashboard");
     }
     // Implement your logic to handle form submission
   };
 
   const addTeamCaptain = (addedCaptain) => {
-    console.log("ADDED CAPTAIN", addedCaptain);
     let newCap = {
       firstName: addedCaptain.name.split(" ")[0],
       lastName: addedCaptain.name.split(" ")[1],
@@ -377,7 +372,6 @@ const NewAuction = () => {
   }
 
   const renderStepsForms = () => {
-    console.log("Hello", selectedUsers, playerBucket)
     if (currentStep === 0) {
       return (
         <div className="auctionDetailsContainer">
@@ -601,6 +595,7 @@ const NewAuction = () => {
             onChange={handleMenuClick}
             options={menuProps}
           />
+          <Button type="primary" onClick={removeAllToBucket}>Reset All Player Selection</Button>
           {loggedInUser &&
           loggedInUser.connections &&
           loggedInUser.connections.length && (
@@ -622,7 +617,6 @@ const NewAuction = () => {
       )
     }
   }
-  console.log("Hello", shouldShowStats)
 
   useEffect(() => {
     if (
@@ -635,7 +629,6 @@ const NewAuction = () => {
       let initialUsers = [];
       if (currentSelection === "" || currentSelection === "ALL") {
         loggedInUserData.getMe.connections.map((conn, i) => {
-          console.log("PHODNI", conn)
           initialUsers.push({
             key: i + 1,
             userId: conn?.user?.userId,
@@ -650,12 +643,10 @@ const NewAuction = () => {
           if (currentSelection === "") {
             return e
           } else {
-            console.log("ETETETETYE", e.connectionBucket);
             return e.connectionBucket.some((buck => buck === currentSelection))
           }
         })
         filteredUsers.map((conn, i) => {
-          console.log("PHODNI", conn)
           initialUsers.push({
             key: i + 1,
             userId: conn?.user?.userId,
@@ -676,13 +667,11 @@ const NewAuction = () => {
         return { value: bucketName, label: bucketName }
       })
       menuProps.push({ value: "ALL", label: "ALL" })
-      console.log("TAPAT", initialUsers, selectedUsers)
       setMenuProps(menuProps)
       setSelectedUsers(initialUsers);
       setLoggedInUser(loggedInUserData.getMe);
     }
   }, [loggedInUserData, loggedInUserLoading, loggedInUserError, currentSelection]);
-  console.log("loggedInUserloggedInUser", loggedInUser);
   return (
     <div className="newAuctionContainer">
       <div className="innterAuctionContainer">

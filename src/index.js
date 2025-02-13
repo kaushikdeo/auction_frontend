@@ -7,17 +7,28 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "./graphql/client";
 import { AuthContextProvider } from "./Context/AuthContext";
+import { LoggingProvider, LogLevel } from "./logging/LogginProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <AuthContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AuthContextProvider>
-    </ApolloProvider>
+    <LoggingProvider
+      config={{
+        applicationId: "auction_app",
+        environment: "production",
+        logLevel: LogLevel.DEBUG,
+        enableRemoteLogging: false,
+        sentryDsn: 'https://ec901856500706228ccfa548e5f34df4@o4508796343287808.ingest.us.sentry.io/4508796345647104'
+      }}
+    >
+      <ApolloProvider client={apolloClient}>
+        <AuthContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthContextProvider>
+      </ApolloProvider>
+    </LoggingProvider>
   </React.StrictMode>
 );
 

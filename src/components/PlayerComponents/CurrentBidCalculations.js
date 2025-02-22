@@ -1,9 +1,15 @@
 import React from "react";
 import { convertNumbers } from "../../utils/utility"
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const CurrentBidCalculations = ({currentBid, playersBought, maxPlayersCanBuy, currentAuction}) => {
-    let currentSpent = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.reduce((tot, curr) => {
+    const { user, dispatch } = useAuthContext();
+    let currentTeam = currentAuction.auctionDetails.auctionTeams.find((team) => {
+        console.log("UYXSBKXNS", team.teamPlayers[0].player.userId === user.user.userId, team.teamPlayers[0].player.userId, user.user.userId)
+        return team.teamPlayers[0].player.userId === user.user.userId
+      });
+    let currentSpent = currentTeam.teamPlayers.reduce((tot, curr) => {
         return tot+=curr.soldFor
     }, 0)
     let currentWalletBalance = currentAuction.bucketWalletBalance - currentSpent

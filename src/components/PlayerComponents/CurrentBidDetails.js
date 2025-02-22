@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CurrentBidCalculations from "./CurrentBidCalculations";
 import { convertNumbers } from "../../utils/utility";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,9 +16,14 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 const CurrentBidDetails = ({currentBid, currentAuction}) => {
+    const { user, dispatch } = useAuthContext();
+    let currentTeam = currentAuction.auctionDetails.auctionTeams.find((team) => {
+        console.log("UYXSBKXNS", team.teamPlayers[0].player.userId === user.user.userId, team.teamPlayers[0].player.userId, user.user.userId)
+        return team.teamPlayers[0].player.userId === user.user.userId
+      });
     let maxPlayersCanBuy = Math.floor(currentAuction.players.length/currentAuction.teams.length)
-    let playersBought = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.length - 1;
-    let currentSpent = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.reduce((tot, curr) => {
+    let playersBought = currentTeam.teamPlayers.length - 1;
+    let currentSpent = currentTeam.teamPlayers.reduce((tot, curr) => {
         return tot+=curr.soldFor
     }, 0)
     let currentWalletBalance = currentAuction.bucketWalletBalance - currentSpent

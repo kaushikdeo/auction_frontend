@@ -10,8 +10,10 @@ import PlayersSoldTable from '../PlayerComponents/dataTables/PlayersSoldTable';
 import AllTeamsTable from '../PlayerComponents/dataTables/AllTeamsTable';
 import MyTeamsTable from '../PlayerComponents/dataTables/MyTeamsTable';
 import PlayerBucket from '../PlayerComponents/dataTables/PlayerBucket';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function CustomTabPanel(props) {
+  const { user, dispatch } = useAuthContext();
   const { children, value, index, ...other } = props;
 
   return (

@@ -10,20 +10,28 @@ import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 import { convertNumbers } from '../../../utils/utility';
 import { StyledTableRow, StyledTableCell } from '../../Common/StylizedTableRow';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
 const MyTeamsTable = ({currentAuction}) => {
-let currentTeam = currentAuction.auctionDetails.auctionTeams[0].team.teamName;
-console.log("CURREMLKSMXLKM",currentTeam)
-let row = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.map(tp=> {
-    return {
-        playerName: `${tp.player.firstName} ${tp.player.lastName} ${tp.soldFor === 0 ? '(C)' : ''}`,
-        playerType: tp.player.playerType,
-        boughtFor: tp.soldFor,
-    }
-})
+  const { user, dispatch } = useAuthContext();
+  let currentTeam = currentAuction.auctionDetails.auctionTeams.find((team) => {
+    console.log("UYXSBKXNS", team.teamPlayers[0].player.userId === user.user.userId, team.teamPlayers[0].player.userId, user.user.userId)
+    return team.teamPlayers[0].player.userId === user.user.userId
+  });
+  // let currentTeam = currentAuction.auctionDetails.auctionTeams.find((team) => {
+  //   console.log("UYXSBKXNS", team.teamPlayers[0].player.userId, user.user.userId)
+  // });
+  console.log("asjnkjasnxkjansxkjansxkjansx",currentTeam)
+  let row = currentTeam.teamPlayers.map(tp=> {
+      return {
+          playerName: `${tp.player.firstName} ${tp.player.lastName} ${tp.soldFor === 0 ? '(C)' : ''}`,
+          playerType: tp.player.playerType,
+          boughtFor: tp.soldFor,
+      }
+  })
     return (
     <TableContainer component={Paper}>
-        <h3>{currentTeam}</h3>
+        <h3>{currentTeam.team.teamName}</h3>
       <Table size="medium" aria-label="a dense table">
         <TableHead>
           <StyledTableRow>

@@ -186,6 +186,7 @@ query GetAuctionDetailsForCaptain($auctionId: String) {
             lastName
             firstName
             userId
+            email
             playerType
             imageUrl
           }

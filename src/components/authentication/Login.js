@@ -37,6 +37,7 @@ const Login = () => {
     }
   }, [data])
 console.log("USERFROMLOGIN", user);
+
   return (
     <Content>
       <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>

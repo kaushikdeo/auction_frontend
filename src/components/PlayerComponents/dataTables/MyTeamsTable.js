@@ -13,6 +13,7 @@ import { StyledTableRow, StyledTableCell } from '../../Common/StylizedTableRow';
 
 const MyTeamsTable = ({currentAuction}) => {
 let currentTeam = currentAuction.auctionDetails.auctionTeams[0].team.teamName;
+console.log("CURREMLKSMXLKM",currentTeam)
 let row = currentAuction.auctionDetails.auctionTeams[0].teamPlayers.map(tp=> {
     return {
         playerName: `${tp.player.firstName} ${tp.player.lastName} ${tp.soldFor === 0 ? '(C)' : ''}`,

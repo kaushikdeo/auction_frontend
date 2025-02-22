@@ -1,9 +1,8 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState } from 'react';
 import './playerDashboard.scss';
-import { useQuery, useSubscription } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Divider, Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { HANDLE_PLAYER_SELECT_SUBSCRIPTION } from '../../graphql/subscriptions/auctionSubscriptions';
 import Modal from '../UtilityComponents/ModalComponent';
 import { GET_LOGGED_IN_USER, LOGGEDINPLAYERAUCTION } from '../../graphql/queries/userQueries';
 import dayjs from 'dayjs';
@@ -17,7 +16,7 @@ const PlayerDashboard = () => {
     const {data: playerAuctionData, loading: playerAuctionLoading , error: playerAuctionError} = useQuery(LOGGEDINPLAYERAUCTION);
 
     const [openModal, setOpenModal] = useState(false)
-    const [auctionedPlayer, setAuctionedPlayer] = useState(null);
+    const [auctionedPlayer] = useState(null);
     const [currentUserData, setCurrentUserData] = useState(null);
     const [fetchedAuction, setFetchedAuctions] = useState([]);
 
@@ -56,7 +55,7 @@ const PlayerDashboard = () => {
                             <p style={{ color: 'white', textAlign: 'center', fontSize: '20px' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p>
                             <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed />
                             <div className="card-author">
-                            <a className="author-avatar" href="#">
+                            <a className="author-avatar" href="/#">
                                 <img
                                     height={50}
                                     width={50}
@@ -78,36 +77,9 @@ const PlayerDashboard = () => {
                         </div>
                     </div>
                 </div>
-                // <div className="aucCard" onClick={() => { handleSingleAuction(auc.auctionId) }}>
-                //     <div className="card">
-                //         <header className="card-header">
-                //             {/* <p style={{ color: 'white' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p> */}
-                //             <span style={{ color: 'white' }} className="title">{auc.auctionName}</span>
-                //         </header>
-                //         <div className="card-author">
-                //             <a className="author-avatar" href="#">
-                //                 <span><img
-                //                     alt="example"
-                //                     src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                //                 /></span>
-                //             </a>
-                //             <svg className="half-circle" viewBox="0 0 106 57">
-                //                 <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-                //             </svg>
-                //             <div className="author-name">
-                //                 <div className="author-name-prefix">Creator</div> Kaushik Deo
-                //             </div>
-                //         </div>
-                //         <div className="tags">
-                //             <p style={{ color: 'white' }} className='card-bottom-p'>Sport : {auc.sportName}</p>
-                //         </div>
-                //     </div>
-                // </div>
             ))
         }
     }
-
-    console.log("kajsnkjasnxkjnskanxkajsnkajsnxa", currentUserData);
     return (
         <Content>
             {
@@ -160,13 +132,13 @@ const PlayerDashboard = () => {
                                     <span className="icon-bar"></span>
                                     <span className="icon-bar"></span>
                                 </button>
-                                <a className="navbar-brand" href="#">Logo</a>
+                                <a className="navbar-brand" href="/#">Logo</a>
                             </div>
                             <div className="collapse navbar-collapse" id="myNavbar">
                                 <ul className="nav navbar-nav">
-                                    <li className="active"><a href="#">Dashboard</a></li>
-                                    <li onClick={handleLogout}><a href="#">Logout</a></li>
-                                    <li><a href="#">teams</a></li>
+                                    <li className="active"><a href="/#">Dashboard</a></li>
+                                    <li onClick={handleLogout}><a href="/#">Logout</a></li>
+                                    <li><a href="/#">teams</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -180,7 +152,7 @@ const PlayerDashboard = () => {
                                 <ul className="nav nav-pills nav-stacked">
                                     <li className="active"><a href="#section1">Auctions</a></li>
                                     <li onClick={handleLogout}><a>Logout</a></li>
-                                    <li><a href="#">teams</a></li>
+                                    <li><a href="/#">teams</a></li>
                                 </ul><br />
                             </div>
                             <br />
@@ -206,4 +178,4 @@ const PlayerDashboard = () => {
     )
 }
 
-export default memo(PlayerDashboard)
+export default PlayerDashboard

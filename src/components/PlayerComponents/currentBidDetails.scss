@@ -1,77 +1,87 @@
-.number-card-number{
-    margin-top:0px;
-    margin-bottom:0px;
-    color:#fff;
-    font-weight:300;
-}
- .tagline{
-    font-size:12px;
-    font-weight:500;
-    letter-spacing:2px;
-    text-transform:uppercase;
-}
- .tagline.number-card-currency{
-    color:#fff;
-}
- .basic-column{
-    padding-right:5px;
-    padding-left:5px;
-}
- .number-card{
-    padding:15px 10px;
-    border-radius:8px;
-    background-image:-webkit-linear-gradient(270deg, #1991eb, #1991eb);
-    background-image:linear-gradient(180deg, #1991eb, #1991eb);
-}
- .number-card.number-card-content3{
-    background-image:-webkit-linear-gradient(270deg, #ed629a, #c850c0);
-    background-image:linear-gradient(180deg, #ed629a, #c850c0);
-}
- .number-card.number-card-content4{
-    background-image:-webkit-linear-gradient(270deg, #ff8308, #fd4f00);
-    background-image:linear-gradient(180deg, #ff8308, #fd4f00);
-}
- .number-card.number-card-content2{
-    display:block;
-    background-image:-webkit-linear-gradient(270deg, #ff0000, #bf1010 0%, #9f3434);
-    background-image:linear-gradient(180deg, #ff0000, #bf1010 0%, #9f3434);
-    color:#333;
-}
- .number-card.number-card-content1{
-    background-image:-webkit-linear-gradient(270deg, #7042bf, #3023ae);
-    background-image:linear-gradient(180deg, #7042bf, #3023ae);
-}
- .number-card-progress-wrapper{
-    display:-webkit-box;
-    display:-webkit-flex;
-    display:-ms-flexbox;
-    display:flex;
-    -webkit-box-pack:justify;
-    -webkit-justify-content:space-between;
-    -ms-flex-pack:justify;
-    justify-content:space-between;
-}
- .number-card-divider{
-    height:1px;
-    margin-top:10px;
-    margin-bottom:14px;
-    background-color:hsla(0, 0%, 100%, .15);
-}
- .number-card-dollars{
-    color:hsla(0, 0%, 100%, .8);
-    font-size:12px;
-    line-height:20px;
-}
- .number-card-progress{
-    color:#fff;
-    text-align:right;
-}
- @media (max-width: 991px){
-     .number-card-number{
-        font-size:20px;
+// Executive Palette
+$bg-main: #09090b;      // Zinc 950 - Deepest background
+$bg-card: #18181b;      // Zinc 900 - Card background
+$bg-element: #27272a;   // Zinc 800 - Input/Item background
+$border: #3f3f46;       // Zinc 700 - Borders
+$text-primary: #fafafa; // Zinc 50 - High contrast text
+$text-secondary: #a1a1aa; // Zinc 400 - Muted text
+$accent-gold: #b45309;  // Amber 700 - Strategic accent
+$success: #059669;      // Emerald 600 - Positive values
+$error: #dc2626;        // Red 600 - Negative/Warning
+
+.number-card {
+    padding: 24px 20px;
+    border-radius: 6px; // Sharp, professional corners (not too rounded)
+    background: $bg-card;
+    border: 1px solid $border;
+    color: $text-primary;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: border-color 0.2s ease;
+
+    &:hover {
+        border-color: $accent-gold;
     }
-     .number-card{
-        padding-top:12px;
-        padding-bottom:16px;
+
+    // Overwrite old gradient classes
+    &.number-card-content1,
+    &.number-card-content2,
+    &.number-card-content3,
+    &.number-card-content4 {
+        background: $bg-card;
+        background-image: none;
+    }
+
+    &.number-card-content2 {
+        // Specifically for "Cannot bid" warning
+        border-color: $error;
+        background: rgba($error, 0.1);
+        
+        .number-card-number {
+            color: #f87171;
+            font-size: 16px;
+        }
+    }
+}
+
+.number-card-number {
+    margin: 0;
+    color: $text-primary;
+    font-weight: 600;
+    font-size: 28px; // Prominent numbers
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.number-card-dollars {
+    color: $text-secondary;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.number-card-divider {
+    height: 1px;
+    margin: 12px 0;
+    background-color: $border;
+    width: 100%;
+    opacity: 0.5;
+}
+
+// Utility tweaks
+.basic-column {
+    padding: 0 8px;
+}
+
+@media (max-width: 991px) {
+    .number-card-number {
+        font-size: 20px;
+    }
+    .number-card {
+        padding: 16px;
     }
 }

@@ -1,19 +1,18 @@
 import React, {memo} from "react";
-import { Card } from "antd";
 import './userStyles.scss'
 import { useNavigate } from 'react-router-dom';
 import Constants from "../../Constants";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import AddConnections from "./AddConnections";
-import UploadWidget from "../UtilityComponents/UploadWidget";
-
-const { Meta } = Card;
+import GavelIcon from '@mui/icons-material/Gavel';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const UserRole = () => {
 
   const navigate = useNavigate();
   const { user, dispatch } = useAuthContext();
-console.log("USERROLEDATA", user);
+  console.log("USERROLEDATA", user);
+  
   const handleRoleSelect = (i) => {
     console.log("IIIII", i);
     if (i === 0) {
@@ -30,28 +29,50 @@ console.log("USERROLEDATA", user);
 
   return (
     <div className="userRoleContainer">
-      <h1 className="roleHeader">Select Role</h1>
-      <div className="roleContainer">
-        <div className="card" onClick={() => handleRoleSelect(0)}>
-            <h1>Auctioneer</h1>
-          <p className="body-text">Select this role if you want to conduct auctions</p> 
-        </div>
-        <div className="card" onClick={() => handleRoleSelect(2)}>
-            <h1>Viewer</h1>
-          <p className="body-text">Select this role if you want to view in a auction as a player</p> 
-        </div>
-        <div className="card" onClick={() => handleRoleSelect(1)}>
-            <h1>Bidder</h1>
-          <p className="body-text">Select this role if you want to login as a Captain or a Bidder in the Auction</p> 
+      <div className="header-section">
+        <h1 className="brand-title">FANTASY HAMMER</h1>
+        <p className="brand-subtitle">Executive Auction Engine</p>
+      </div>
+      
+      <div className="role-selection-area">
+        <h2 className="section-title">Select Your Role</h2>
+        <div className="roleContainer">
+          
+          <div className="role-card" onClick={() => handleRoleSelect(0)}>
+            <div className="icon-wrapper">
+              <GavelIcon className="role-icon" />
+            </div>
+            <div className="content-wrapper">
+              <h3>Auctioneer</h3>
+              <p className="role-desc">Conduct auctions, manage bids, and control the floor.</p> 
+            </div>
+            <div className="hover-indicator"></div>
+          </div>
+
+          <div className="role-card" onClick={() => handleRoleSelect(1)}>
+            <div className="icon-wrapper">
+              <GroupsIcon className="role-icon" />
+            </div>
+            <div className="content-wrapper">
+              <h3>Bidder</h3>
+              <p className="role-desc">Captain your team, manage budget, and secure players.</p> 
+            </div>
+            <div className="hover-indicator"></div>
+          </div>
+
+          <div className="role-card" onClick={() => handleRoleSelect(2)}>
+            <div className="icon-wrapper">
+              <VisibilityIcon className="role-icon" />
+            </div>
+            <div className="content-wrapper">
+              <h3>Viewer</h3>
+              <p className="role-desc">Monitor auction progress and analyze team compositions.</p> 
+            </div>
+            <div className="hover-indicator"></div>
+          </div>
+
         </div>
       </div>
-      <div className="upload widget">
-      <UploadWidget />
-      </div>
-      {/* <h1 className="connectionHeader">Add Connections</h1> */}
-      {/* <div className="connectionsContainer">
-        <AddConnections />
-      </div> */}
     </div>
   )
 };

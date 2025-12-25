@@ -1,6 +1,5 @@
 import React from "react";
 import './teamsTable.scss';
-import './teamsTable.scss';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -37,7 +36,9 @@ const TeamsTable = ({handleRevertBuy, teamCalc, currentBid, currentAuction}) => 
     }
   })
   return (
-    <ExpandableTable handleRevertBuy={handleRevertBuy} teamCalc={teamCalc} intialRows={rows} currentAuction={currentAuction} currentBid={currentBid}/>
+    <div className="teamsTableWrapper">
+      <ExpandableTable handleRevertBuy={handleRevertBuy} teamCalc={teamCalc} intialRows={rows} currentAuction={currentAuction} currentBid={currentBid}/>
+    </div>
   )
 }
 

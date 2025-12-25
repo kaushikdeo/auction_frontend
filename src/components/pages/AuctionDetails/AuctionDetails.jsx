@@ -14,7 +14,7 @@ const AuctionDetails = ({selectPlayer, isRandomSelection, handleRevertBuy, teamC
             <div className="featuredRight">
             <BucketPlayerTable selectPlayer={selectPlayer} isRandomSelection={isRandomSelection} currentAuction={currentAuction} boughtPlayers={boughtPlayers} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
             </div>
-            <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed><UserDeleteOutlined /></Divider>
+            <Divider variant="dashed" style={{ borderColor: '#059669', color: '#a1a1aa' }} dashed><UserDeleteOutlined /></Divider>
             <div className="featuredRight">
             <UnallocatedplayerTable selectPlayer={selectPlayer} isRandomSelection={isRandomSelection} currentAuction={currentAuction} boughtPlayers={boughtPlayers} showDrawer={showDrawer} currentPlayers={currentAuction.players} handleDrawerSelectedPlayer={handleDrawerSelectedPlayer}/>
             </div>

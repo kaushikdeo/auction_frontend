@@ -12,7 +12,7 @@ const PrivateRoutes = () => {
         auth ? <Outlet/> : <Navigate to='/login'/>
       )
   } else {
-    <LoadingPage />
+    return <LoadingPage />
   }
 };
 

@@ -1,57 +1,60 @@
+$bg-secondary: #18181b; // Zinc 900
+$border-color: #27272a; // Zinc 800
+$text-primary: #f4f4f5; // Zinc 100
+$text-secondary: #a1a1aa; // Zinc 400
+
 .auctionDetailsWidget {
     display: flex;
-    justify-content: space-between;
-    flex: 1;
-    padding: 10px;
-    -webkit-box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
-    box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
-    border-radius: 10px;
-    height: 100px;
+    gap: 24px;
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    margin-top: 0; // Removed margin top as gap is handled by parent
 
-    .left {
-        display: flex;
+    .right {
         flex: 1;
+        background-color: $bg-secondary;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: none;
+        display: flex;
         flex-direction: column;
-        -webkit-box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
-        box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
-        padding: 10px;
-        border-radius: 5px;
-        margin: 10px;
-        .title {
-            font-weight: bold;
-            font-size: 25px;
-            color: gray
+        transition: border-color 0.2s;
+
+        &:hover {
+            border-color: #3f3f46;
         }
-        .featuredLeft {
+
+        .title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: $text-secondary;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            display: block;
+            padding-bottom: 12px;
+            border-bottom: 1px solid $border-color;
+        }
+        
+        .featuredRight {
+            flex: 1;
+            overflow: hidden; // Manage internal scrolling if needed
             display: flex;
             flex-direction: column;
-            .top {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                color: gray;
+        }
+
+        // Custom styling for dividers if any
+        .ant-divider {
+            border-color: $border-color !important;
+            color: $text-secondary;
+            font-size: 12px;
+            
+            .anticon {
+                color: $text-secondary;
             }
         }
     }
-
-    .right {
-        display: flex;
-        flex: 5;
-        flex-direction: column;
-        -webkit-box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
-        box-shadow: 2px 4px 10px 1px rgb(0,0,0,0.47);
-        padding: 10px;
-        border-radius: 5px;
-        margin: 10px;
-        .title {
-            font-weight: bold;
-            font-size: 25px;
-            color: gray
-        }
-        .featuredRight {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-
 }

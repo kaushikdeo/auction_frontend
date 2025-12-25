@@ -34,7 +34,7 @@ const Row = ({ handleRevertBuy, setTeamCalc, row, currentAuction, currentBid }) 
     console.log("ISALLOWED", row.balanceAmount, false)
     return (
       <React.Fragment>
-        <TableRow style={{backgroundColor: 'red'}} sx={{ '& > *': { borderBottom: 'unset' } }}>
+        <TableRow style={{backgroundColor: 'rgba(127, 29, 29, 0.2)'}} sx={{ '& > *': { borderBottom: 'unset' } }}>
           <TableCell>
             <IconButton
               aria-label="expand row"

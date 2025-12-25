@@ -1,84 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+$bg-color: #18181b; // Zinc 900
+$border-color: #3f3f46; // Zinc 700
+$text-primary: #f4f4f5; // Zinc 100
+$text-secondary: #a1a1aa; // Zinc 400
+$hover-bg: #27272a; // Zinc 800
+$primary-color: #f59e0b; // Amber 500 (Muted Gold)
+
 .sidebar {
-    flex: 1;
-    border-right: 0.5px solid lightgray;
+    flex: 0 0 250px; // Fixed width, don't grow/shrink
+    width: 250px;
+    border-right: 1px solid $border-color;
     min-height: 100vh;
-    background-color: white;
+    background-color: $bg-color;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+
     .top {
-        height: 50px;
+        height: 64px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        padding: 0 24px;
+        border-bottom: 1px solid $border-color;
+        
         .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #6439ff;
+            font-size: 16px;
+            font-weight: 700;
+            color: $primary-color;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
     }
-    hr {
-        height: 0;
-        border: 0.5px solid lightgray;
-    }   
+
     .center {
-        padding-left: 10px;
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
+        padding: 24px 16px;
+        flex: 1;
+        
+        .menu-group {
+            margin-bottom: 24px;
+            
             .title {
-                font-size: 10px;
-                font-weight: bold;
-                color: gray;
-                margin-top: 15px;
-                margin-bottom: 5px;
+                font-size: 11px;
+                font-weight: 600;
+                color: $text-secondary;
+                margin-bottom: 8px;
+                padding-left: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                display: block;
+                opacity: 0.7;
             }
-            li {
-                display: flex;
-                align-items: center;
-                padding: 5px;
-                cursor: pointer;
-                &:hover {
-                    background-color: #ece8ff;
-                }
 
-                .icon {
-                    font-size: 18px;
-                    color: #7451f8;
-                }
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
 
-                span {
-                    font-size: 13px;
-                    font-weight: bold;
-                    color: gray;
-                    margin-left: 10px;
+                li {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px 12px;
+                    cursor: pointer;
+                    border-radius: 6px;
+                    transition: all 0.2s ease;
+                    margin-bottom: 2px;
+                    color: $text-secondary;
+
+                    &:hover {
+                        background-color: $hover-bg;
+                        color: $text-primary;
+                        
+                        .icon {
+                            color: $text-primary;
+                        }
+                        
+                        span {
+                            color: $text-primary;
+                        }
+                    }
+
+                    .icon {
+                        font-size: 20px;
+                        color: $text-secondary;
+                        transition: color 0.2s;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    span {
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: $text-secondary;
+                        margin-left: 12px;
+                        transition: color 0.2s;
+                    }
                 }
             }
         }
-    }
-
-    .bottom {
-        display: flex;
-        align-items: center;
-        margin: 10px;
-
-        .colorOption {
-            width: 20px;
-            height: 20px;
-            border-radius: 5px;
-            border: 1px solid #7451f8;
-            cursor: pointer;
-            margin: 5px;
-
-            &:nth-child(1) {
-                background-color: whitesmoke;
-            }
-            &:nth-child(2) {
-                background-color: #333;
-            }
-        }
-    }
-    a {
-        line-height: 10px;
-        min-width: 0;
-        background: none
     }
 }

@@ -1,10 +1,17 @@
 import dayjs from "dayjs";
 
 const AuctionDetailsStrip = ({currentAuction}) => {
-    console.log("hasbxjhabshh", currentAuction);
     return (
-        <div>
-            <h1>{`${currentAuction.auctionName} || ${currentAuction.sportName} || ${currentAuction.venue} || ${dayjs(currentAuction.startTime).format('DD MMM YYYY')}`}</h1>
+        <div className="auction-details-header">
+            <h1>
+                {currentAuction.auctionName} 
+                <span>||</span> 
+                {currentAuction.sportName} 
+                <span>||</span> 
+                {currentAuction.venue} 
+                <span>||</span> 
+                {dayjs(currentAuction.startTime).format('DD MMM YYYY')}
+            </h1>
         </div>
     )
 }

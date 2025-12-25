@@ -1,37 +1,76 @@
-.search-box{
-    width: 40%;
+// Executive Palette
+$bg-secondary: #18181b; // Zinc 900
+$border-color: #3f3f46; // Zinc 700
+$text-primary: #fafafa; // Zinc 50
+$text-secondary: #a1a1aa; // Zinc 400
+
+.search-box {
+    width: 100%;
     position: relative;
     display: flex;
-  
-  }
-  .search-input{
+    margin-bottom: 16px;
+    padding: 0 16px;
+}
+
+.search-input {
     width: 100%;
-    padding: 3px;
-    border: 1px solid #111d5e;
-    border-radius:10px 0 0 10px ;
-    border-right: none;
+    padding: 10px 12px;
+    border: 1px solid #ffffff; // Updated to White
+    border-radius: 6px;
     outline: none;
-    font-size: 12px;
-    background: none;
-  }
-  .search-button{
-    text-align: center;
-  width: 40px;
-  outline: none;
-  cursor: pointer;
-  border: 1px solid #111d5e;
-   border-radius: 0 10px 10px 0 ;
-  border-left: none;
-  background: none;
-  font-size: 12px;
-  border-left: 1px solid #111d5e;
-  
-  
-  }
-  .container{
+    font-size: 13px;
+    background: $bg-secondary;
+    color: $text-primary;
+    font-family: 'Inter', system-ui, sans-serif;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+        color: $text-secondary;
+    }
+
+    &:focus {
+        border-color: #b45309; // Accent Gold
+    }
+}
+
+// Override Ant Design Input if used within
+.ant-input {
+    background-color: transparent !important;
+    color: $text-primary !important;
+    border: none !important;
+    
+    &::placeholder {
+        color: $text-secondary;
+    }
+}
+
+.MuiTableContainer-root {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    
+    // Fixed height for scrolling
+    height: 450px; 
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #09090b;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $border-color;
+        border-radius: 3px;
+    }
+}
+
+.container {
+    // keeping this but it seemed unused or for centering
     position: absolute;
     left: 40%;
     top: 40%;
-    transform: translate(-50% , -50%);
-  }
-  
+    transform: translate(-50%, -50%);
+}

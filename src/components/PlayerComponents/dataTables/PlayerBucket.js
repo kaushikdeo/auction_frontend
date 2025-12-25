@@ -39,8 +39,8 @@ const PlayerBucket = ({unsoldPlayers, soldPlayers, currentAuction, setDrawerSele
 
     return (
     <TableContainer component={Paper}>
-        <div class="search-box">
-            <Input style={{marginBottom: 20, marginTop: 20, marginLeft: 10}} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" class="search-input" placeholder="Search By Player Name" />
+        <div className="search-box">
+            <Input style={{marginBottom: 20, marginTop: 20, marginLeft: 10}} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" className="search-input" placeholder="Search By Player Name" />
         </div>
       <Table size="medium" aria-label="a dense table">
         <TableHead>

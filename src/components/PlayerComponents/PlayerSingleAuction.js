@@ -12,20 +12,14 @@ import AuctionPlayerDrawer from "../Dashbaord/AuctionPlayerDrawer";
 import SideBar from "../pages/Sidebar/Sidebar";
 import NavBar from "../pages/Navbar/Navbar";
 import PlayerAuctionDetails from "../pages/AuctionDetails/PlayerAuctionDetails/PlayerAuctionDetails";
+import "./newPlayerSingleAuction.scss";
+// import AuctionDetailsStrip from "./AuctionDetailsStrip";
 import AuctionDetailsStrip from "./AuctionDetailsStrip";
 import PlayerProfileCard from "../playerProfile/PlayerProfile";
 import CurrentBidDetails from "./CurrentBidDetails";
 import { HANDLE_BID_FEED, HANDLE_MOVE_PLAYER_TO_UNALLOCATED, HANDLE_PLAYER_BUY_FEED, HANDLE_PLAYER_SELECT_SUBSCRIPTION, PLAYER_RESET_FEED } from "../../graphql/subscriptions/auctionSubscriptions";
 import TableTabs from "../UtilityComponents/TableTabs";
 import LoadingPage from "../UtilityComponents/LoadingPage";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 const PlayerSingleAuction = () => {
   const params = useParams();
@@ -153,7 +147,7 @@ const PlayerSingleAuction = () => {
   }, [data, error, loading]);
   console.log("currewwwntAuction", drawerSelectedPlayer);
   return (
-    <div className="home">
+    <div className="auction-dashboard-wrapper">
       {currentAuction && !loading ? (
         <>
           <AuctionPlayerDrawer
@@ -165,21 +159,21 @@ const PlayerSingleAuction = () => {
           <div className="homeContainer">
             {/* <NavBar /> */}
             <div className="widgets" style={{fontSize: 20}}>
-              <Grid container spacing={2}>
+              <Grid container spacing={4}>
               <Grid xs={12}>
-                  <Item><AuctionDetailsStrip currentAuction={currentAuction} /></Item>
+                  <AuctionDetailsStrip currentAuction={currentAuction} />
                 </Grid>
-                <Grid xs={4}>
-                  <h2 style={{display:"flex", justifyContent: "center"}}>Selected Player</h2>
-                  <Item><PlayerProfileCard selectedPlayer={selectedPlayer} showStats={currentAuction?.showPlayerStats}/></Item>
+                <Grid xs={12} lg={4}>
+                  <h2 style={{display:"flex", justifyContent: "flex-start"}}>Selected Player</h2>
+                  <PlayerProfileCard selectedPlayer={selectedPlayer} showStats={currentAuction?.showPlayerStats}/>
                 </Grid>
-                <Grid xs={4}>
-                  <h2 style={{display:"flex", justifyContent: "center"}}>Current Auction Details</h2>
-                  <Item><CurrentBidDetails currentBid={currentBid} currentAuction={currentAuction}/></Item>
+                <Grid xs={12} lg={4}>
+                  <h2 style={{display:"flex", justifyContent: "flex-start"}}>Current Auction Details</h2>
+                  <CurrentBidDetails currentBid={currentBid} currentAuction={currentAuction}/>
                 </Grid>
-                <Grid xs={4}>
-                  <h2 style={{display:"flex", justifyContent: "center"}}>Current Auction Data</h2>
-                  <Item>
+                <Grid xs={12} lg={4}>
+                  <h2 style={{display:"flex", justifyContent: "flex-start"}}>Current Auction Data</h2>
+                  
                       <TableTabs
                         playerSoldBucketCount={playerSoldBucketCount}
                         setPlayerSoldBucketCount={setPlayerSoldBucketCount}
@@ -192,7 +186,7 @@ const PlayerSingleAuction = () => {
                         soldPlayers={soldPlayers}
                         allTeamPlayerData={allTeamPlayerData}
                       />
-                  </Item>
+                  
                 </Grid>
               </Grid>
             </div>

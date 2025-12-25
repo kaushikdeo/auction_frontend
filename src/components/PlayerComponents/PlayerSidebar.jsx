@@ -1,16 +1,13 @@
 import React from "react";
-import './sidebar.scss'
+import '../pages/Sidebar/sidebar.scss'; // Reusing the sidebar styles
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
-import HardwareIcon from '@mui/icons-material/Hardware';
-import AddIcon from '@mui/icons-material/Add';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import SpokeIcon from '@mui/icons-material/Spoke';
+import GroupsIcon from '@mui/icons-material/Groups';
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { clearItem } from "../../../utils/localStore";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { clearItem } from "../../utils/localStore";
 
-const SideBar = () => {
+const PlayerSidebar = () => {
     const navigate = useNavigate();
     const { dispatch } = useAuthContext();
 
@@ -27,7 +24,7 @@ const SideBar = () => {
                 <div className="menu-group">
                     <span className="title">MAIN</span>
                     <ul>
-                        <li onClick={() => navigate("/auctioneerDashboard")}>
+                        <li onClick={() => navigate("/playerDashboard")}>
                             <SpaceDashboardIcon className="icon"/>
                             <span>Dashboard</span>
                         </li>
@@ -35,30 +32,18 @@ const SideBar = () => {
                 </div>
                 
                 <div className="menu-group">
-                    <span className="title">AUCTIONS</span>
+                    <span className="title">YOUR TEAMS</span>
                     <ul>
-                        <li onClick={() => navigate("/auctioneerDashboard")}>
-                            <HardwareIcon className="icon"/>
-                            <span>Auctions</span>
-                        </li>
-                        <li onClick={() => navigate("/newAuction")}>
-                            <AddIcon className="icon"/>
-                            <span>New Auction</span>
+                        <li onClick={() => navigate("/#")}>
+                            <GroupsIcon className="icon"/>
+                            <span>My Teams</span>
                         </li>
                     </ul>
                 </div>
 
                 <div className="menu-group">
-                    <span className="title">USER</span>
+                    <span className="title">ACCOUNT</span>
                     <ul>
-                        <li onClick={() => navigate("/additionalAuctioneerInfo")}>
-                            <AccountCircleIcon className="icon"/>
-                            <span>Profile</span>
-                        </li>
-                        <li onClick={() => navigate("/connections")}>
-                            <SpokeIcon className="icon"/>
-                            <span>Connections</span>
-                        </li>
                         <li onClick={handleLogout}>
                             <LogoutIcon className="icon"/>
                             <span>Logout</span>
@@ -70,4 +55,5 @@ const SideBar = () => {
     )
 }
 
-export default SideBar
+export default PlayerSidebar;
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Your Company</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="brand">
+                <h1>Your<span>Brand</span></h1>
+                <p class="tagline">Elevate your experience</p>
+            </div>
+            <div class="illustration">
+                <!-- SVG illustration can go here -->
+                <div class="floating-elements">
+                    <div class="float-item item1"></div>
+                    <div class="float-item item2"></div>
+                    <div class="float-item item3"></div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p>"This platform has transformed how we work. Highly recommended!"</p>
+                <div class="author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial author">
+                    <div>
+                        <h4>Sarah Johnson</h4>
+                        <p>Marketing Director, Acme Inc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="form-container">
+                <h2>Welcome back</h2>
+                <p class="subtitle">Sign in to continue to your account</p>
+                
+                <form class="signin-form">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Your email address" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="label-row">
+                            <label for="password">Password</label>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Your password" required>
+                            <i class="far fa-eye-slash toggle-password"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="remember-me">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="remember">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="signin-btn">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                
+                <div class="social-signin">
+                    <button class="social-btn google">
+                        <i class="fab fa-google"></i>
+                        <span>Continue with Google</span>
+                    </button>
+                    <button class="social-btn apple">
+                        <i class="fab fa-apple"></i>
+                        <span>Continue with Apple</span>
+                    </button>
+                </div>
+                
+                <p class="signup-prompt">
+                    Don't have an account? <a href="#">Sign up now</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -49,16 +49,8 @@ const BoughtPlayersTable = ({ currentAuction }) => {
   if (tablePlayersData && tablePlayersData.length) {
     return (
       <div>
-        <span
-          style={{
-            fontWeight: "bold",
-            fontSize: 25,
-            color: "gray",
-            paddingRight: 100,
-          }}
-          className="title"
-        >{`Players Sold (${tablePlayersData.length})`}</span>
-        <Input prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} className="searchInputStyle" placeholder="Search" onChange={onSearchChange} />
+        <span className="title">{`Players Sold (${tablePlayersData.length})`}</span>
+        <Input prefix={<UserOutlined style={{ color: '#a1a1aa' }} />} className="searchInputStyle" placeholder="Search" onChange={onSearchChange} />
         <div style={{ overflowY: "scroll" }} className="playertableContainer">
           <TableContainer component={Paper}>
             <Table
@@ -123,16 +115,8 @@ const BoughtPlayersTable = ({ currentAuction }) => {
   } else {
     return (
       <div>
-        <span
-          style={{
-            fontWeight: "bold",
-            fontSize: 25,
-            color: "gray",
-            paddingRight: 100,
-          }}
-          className="title"
-        >{`Players Sold (${tablePlayersData.length})`}</span>
-        <Input prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} className="searchInputStyle" placeholder="Search" onChange={onSearchChange} allowClear/>
+        <span className="title">{`Players Sold (${tablePlayersData.length})`}</span>
+        <Input prefix={<UserOutlined style={{ color: '#a1a1aa' }} />} className="searchInputStyle" placeholder="Search" onChange={onSearchChange} allowClear/>
       </div>
     );
   }

@@ -1,0 +1,224 @@
+// Fantasy Hammer Auth Theme
+// Colors
+$color-charcoal: #121212;
+$color-charcoal-light: #1e1e1e;
+$color-slate: #64748b;
+$color-slate-dark: #334155;
+$color-deep-green: #064e3b;
+$color-deep-green-hover: #065f46;
+$color-muted-gold: #c5a059;
+$color-gold-hover: #d4af37;
+$color-text-primary: #f8fafc;
+$color-text-secondary: #94a3b8;
+$color-border: #334155;
+$color-error: #ef4444;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.auth-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-charcoal;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba($color-deep-green, 0.08) 0%, transparent 25%), 
+    radial-gradient(circle at 85% 30%, rgba($color-muted-gold, 0.05) 0%, transparent 25%);
+  font-family: 'Inter', sans-serif;
+  color: $color-text-primary;
+  position: relative;
+  overflow: hidden;
+
+  // Subtle Pitch Texture Overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: rgba($color-charcoal-light, 0.95);
+  border: 1px solid $color-border;
+  border-radius: 8px; // Sharp, professional corners, not too rounded
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 1;
+
+  // Subtle top highlight for depth
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-muted-gold, 0.3), transparent);
+  }
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+
+  .brand-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: $color-text-primary;
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    
+    span {
+      color: $color-muted-gold;
+    }
+  }
+
+  .brand-subtitle {
+    font-size: 14px;
+    color: $color-text-secondary;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+}
+
+// Override Ant Design Form Styles
+.auth-form {
+  .ant-form-item {
+    margin-bottom: 20px;
+  }
+
+  .ant-form-item-label > label {
+    color: $color-text-secondary !important;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .ant-input, 
+  .ant-input-password,
+  .ant-input-affix-wrapper {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border-color: $color-border !important;
+    color: $color-text-primary !important;
+    border-radius: 4px;
+    height: 42px;
+    padding: 4px 11px;
+    box-shadow: none !important;
+
+    &:hover, &:focus {
+      border-color: $color-muted-gold !important;
+    }
+
+    input {
+      background-color: transparent !important;
+      color: $color-text-primary !important;
+      &::placeholder {
+        color: rgba($color-text-primary, 0.7);
+      }
+      
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover, 
+      &:-webkit-autofill:focus, 
+      &:-webkit-autofill:active{
+        -webkit-text-fill-color: $color-text-primary !important;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+    
+    &::placeholder {
+      color: rgba($color-text-primary, 0.7);
+    }
+    
+    .anticon {
+      color: rgba($color-text-primary, 0.7) !important;
+    }
+  }
+
+  .ant-input-affix-wrapper-focused {
+    border-color: $color-muted-gold;
+    box-shadow: 0 0 0 2px rgba($color-muted-gold, 0.1) !important;
+  }
+  
+  // Remove default Ant Design validation status colors if they clash, 
+  // but usually red is fine for errors.
+}
+
+.auth-button {
+  width: 100%;
+  height: 44px;
+  background-color: $color-muted-gold;
+  border: none;
+  border-radius: 4px;
+  color: $color-charcoal;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: $color-gold-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($color-muted-gold, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.auth-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: $color-text-secondary;
+
+  a {
+    color: $color-muted-gold;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 5px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Checkbox overrides
+.ant-checkbox-wrapper {
+  color: $color-text-secondary;
+  
+  &:hover .ant-checkbox-inner {
+    border-color: $color-muted-gold;
+  }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: $color-muted-gold;
+  border-color: $color-muted-gold;
+}
+
+.ant-checkbox-inner::after {
+  border-color: $color-charcoal;
+}
+
+// Specific adjustments for Register page
+.register-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+

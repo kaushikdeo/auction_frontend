@@ -112,8 +112,10 @@ const tableColumns = [
 
   console.log("fetchedusers", fetchedUsers);
   return (
-    <div>
+    <div className="add-players-container">
           <input
+            type="text"
+            className="search-input"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Type to search ... "

@@ -1,84 +1,53 @@
-section {
-    min-height: 100vh;
-    margin: 0 30px;
-    .container {
-        padding-left: 25px;
-        padding-right: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
-  }
-  
-  
-  
-  .card {
-    background-color: #FFF;
-    padding: 3rem 3.5rem;
-    border-radius: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    max-width: 500px;
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0px;
-    left: 10px;
-    width: 101%;
-    height: 110%;
-    background-image: linear-gradient(to right bottom, #4081f8, #7dd2f9);
-    z-index: -1;
-    border-radius: 15px;
-    transform: rotate(-5deg);
-    box-shadow: 0 0 45px 5px rgba(0, 0, 0, .2);
-  }
-  .card li {
-    width: 50%;
-    margin: 15px 0;
-  }
-  
-  .card li p {
-    display: flex;
-  }
-  
-  .card li h3 {
-    display: inline-block;
-    font-size: 2rem;
-    color: #333;
-    vertical-align: top;
-    margin-right: 5px;
-    line-height: 1.2;
-  }
-  .card li .fa {
-    font-size: .75rem;
-  }
-  .card li span {
-    color: #9ea6a8;
-    font-weight: bold;
-    font-size: .95rem;
-  }
-  
-  
-  .clr-up {
-    color: green;
-  }
-  
-  .clr-down {
-    color: red;
-  }
-  
-  @media screen and (max-width: 500px) {
-    .card::before {
-      top: -10px;
-      left: -2px;
+// Executive Palette
+$bg-main: #09090b;      // Zinc 950
+$bg-card: #18181b;      // Zinc 900
+$border-color: #3f3f46; // Zinc 700
+$text-primary: #fafafa; // Zinc 50
+$text-secondary: #a1a1aa; // Zinc 400
+$accent-gold: #b45309;  // Amber 700
+
+.auction-player-drawer {
+    .ant-drawer-content {
+        background-color: $bg-card !important;
     }
-    .card li {
-      width: 100%;
+
+    .ant-drawer-header {
+        background-color: $bg-card !important;
+        border-bottom: 1px solid $border-color !important;
+        padding: 16px 24px;
+        
+        .ant-drawer-title {
+            color: $text-primary !important;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 14px;
+        }
+
+        .ant-drawer-close {
+            color: $text-secondary !important;
+            
+            &:hover {
+                color: $text-primary !important;
+            }
+        }
     }
-    .card li:not(:first-of-type) {
-      margin-top: 15px;
+
+    .ant-drawer-body {
+        background-color: $bg-card !important;
+        padding: 24px !important;
+        
+        // Ensure scrollbar matches theme
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+        &::-webkit-scrollbar-track {
+            background: $bg-card;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: $border-color;
+            border-radius: 3px;
+        }
     }
-  }
+}

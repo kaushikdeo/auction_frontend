@@ -1,107 +1,605 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+$bg-color: #09090b; // Zinc 950
+$card-bg: #18181b; // Zinc 900
+$input-bg: #27272a; // Zinc 800
+$border-color: #3f3f46; // Zinc 700
+$primary-color: #f59e0b; // Amber 500 (Muted Gold)
+$text-primary: #e4e4e7; // Zinc 200
+$text-secondary: #a1a1aa; // Zinc 400
+$success-color: #10b981; // Emerald 500
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
-Button {
-    margin: 10px
-}
+.newAuctionContainer {
+    background-color: $bg-color;
+    min-height: 100vh;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    color: $text-primary;
 
-.dropzoneSection {
-    border: 1px dashed red;
-}
-
-.dropZonepText {
-    text-align: center;
-    padding-top: 7px;
-}
-
-.tableTitle {
-    font-size: 20px;
-    font-weight: 500;
-}
-
-
-.button {
-    height: 45px;
-    input {
-        height: 100%;
+    .innterAuctionContainer {
         width: 100%;
-        outline: none;
-        color: #fff;
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 1px;
-        border-radius: 5px;
-        background: linear-gradient(135deg, #71b7e6, #9b59);
+        max-width: 1200px;
+        background-color: $card-bg;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 40px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+        // Steps Override
+        .stepsStyles {
+            margin-bottom: 40px;
+            
+            .ant-steps-item-title {
+                color: $text-secondary !important;
+                font-weight: 500;
+            }
+            
+            .ant-steps-item-process .ant-steps-item-title {
+                color: $text-primary !important;
+                font-weight: 600;
+            }
+
+            .ant-steps-item-icon {
+                border-color: $border-color;
+                background-color: transparent;
+                
+                .ant-steps-icon {
+                    color: $text-secondary;
+                }
+            }
+
+            .ant-steps-item-process .ant-steps-item-icon {
+                background-color: $primary-color;
+                border-color: $primary-color;
+                
+                .ant-steps-icon {
+                    color: #000;
+                }
+            }
+            
+            .ant-steps-item-finish .ant-steps-item-icon {
+                border-color: $primary-color;
+                background-color: transparent;
+                
+                .ant-steps-icon {
+                    color: $primary-color;
+                }
+            }
+
+            .ant-steps-item-tail::after {
+                background-color: $border-color !important;
+            }
+        }
+
+        .auctionDetailsContainer {
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 32px;
+                border-bottom: 1px solid $border-color;
+                padding-bottom: 16px;
+
+                h2 {
+                    font-size: 24px;
+                    font-weight: 600;
+                    color: $text-primary;
+                    margin: 0;
+                }
+
+                .sliderTextAfter {
+                    color: $text-secondary;
+                    font-size: 14px;
+                    margin-right: 12px;
+                }
+
+                .ant-switch {
+                    background-color: $input-bg;
+                    &.ant-switch-checked {
+                        background-color: $primary-color;
+                    }
+                }
+            }
+
+            .inputContainerStyles {
+                margin-bottom: 32px;
+                
+                .innerTitle {
+                    margin-bottom: 20px;
+                    h4 {
+                        font-size: 16px;
+                        font-weight: 500;
+                        color: $primary-color; // Accent color for section titles
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                    }
+                }
+
+                .inputLineStyles {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 24px;
+                    margin-bottom: 24px;
+                    width: 100%;
+
+                    @media (max-width: 768px) {
+                        grid-template-columns: 1fr;
+                        gap: 16px;
+                    }
+                }
+            }
+        }
+
+        // Common Input Styles (mimic Shadcn)
+        .ant-input-affix-wrapper, 
+        .ant-picker {
+            background-color: $bg-color !important; // Darker than card
+            border: 1px solid $border-color !important;
+            border-radius: 6px;
+            padding: 8px 11px;
+            box-shadow: none !important;
+            transition: border-color 0.2s;
+            width: 100%;
+
+            &:hover, &:focus-within {
+                border-color: $text-secondary !important;
+            }
+
+            input {
+                background-color: transparent !important;
+                color: $text-primary !important;
+                
+                &::placeholder {
+                    color: $text-secondary;
+                }
+            }
+
+            .anticon {
+                color: $text-secondary;
+            }
+            
+            .icon-prefix, .icon-suffix {
+                color: $text-secondary; 
+            }
+        }
+        
+        // Remove input styles class width constraints if any
+        .inputStyles {
+            width: 100%;
+        }
+
+        // Date Picker specific overrides
+        .datetimeInputStyles {
+            width: 100%;
+            
+            input {
+                color: $text-primary !important;
+            }
+            
+            .ant-picker-suffix {
+                color: $text-secondary;
+            }
+        }
+
+        // Form Container Step 2 & 3
+        .formContainer {
+            .title {
+                font-size: 24px;
+                font-weight: 600;
+                color: $text-primary;
+                margin-bottom: 24px;
+                border-bottom: 1px solid $border-color;
+                padding-bottom: 16px;
+            }
+            
+            .user-details {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+
+    .newInputs {
+        display: flex;
+        flex-direction: column;
+                gap: 8px;
+
+                .details {
+                    color: $text-secondary;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+
+                input[type="text"], .search-input {
+                    background-color: $bg-color;
+                    border: 1px solid $border-color;
+                    border-radius: 6px;
+                    padding: 10px 12px;
+                    color: $text-primary;
+                    font-size: 14px;
+                    outline: none;
+                    transition: border-color 0.2s;
+                    width: 100%;
+
+                    &:focus {
+                        border-color: $primary-color;
+                    }
+
+                    &::placeholder {
+                        color: #52525b; // Zinc 600
+                    }
+                }
+            }
+            
+            // AddPlayers Search Results
+            .add-players-container {
+                position: relative;
+                width: 100%;
+
+                .search-results-list {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background-color: $card-bg;
+                    border: 1px solid $border-color;
+                    border-radius: 0 0 6px 6px;
+                    max-height: 200px;
+                    overflow-y: auto;
+                    z-index: 10;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+
+                    .search-result {
+                        padding: 10px 12px;
+                        cursor: pointer;
+                        color: $text-primary;
+                        border-bottom: 1px solid $border-color;
+                        transition: background-color 0.15s;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        &:hover {
+                            background-color: $input-bg;
+                        }
+                    }
+                    
+                    &:empty {
+                        display: none;
+                    }
+                }
+            }
+            
+            .tableTitle {
+                color: $text-primary;
+                font-size: 18px;
+                font-weight: 500;
+                margin: 24px 0 16px;
+            }
+
+            .player-actions-toolbar {
+                margin-bottom: 24px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                align-items: center;
+
+                .ant-space {
+                    gap: 12px !important;
+                }
+
+                .action-btn {
+                    background-color: $bg-color;
+                    border: 1px solid $border-color;
+                    color: $text-primary;
+                    height: 40px;
+                    border-radius: 6px;
+                    font-weight: 500;
+                    box-shadow: none;
+
+                    &:hover {
+                        border-color: $primary-color;
+                        color: $primary-color;
+                        background-color: transparent;
+                    }
+                }
+
+                .bucket-select {
+                    .ant-select-selector {
+                        height: 40px !important;
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+
+        // Buttons
+        .button {
+            margin-top: 32px;
+            display: flex;
+            justify-content: flex-end;
+
+            input[type="button"], button {
+                background-color: $primary-color; // Gold/Primary
+                color: #000; // Contrast for gold
+                border: none;
+                padding: 10px 24px;
+                border-radius: 6px;
+                font-weight: 600;
+                font-size: 14px;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    opacity: 0.9;
+                    transform: translateY(-1px);
+                }
+                
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+
+        // Ant Button Overrides (for Step 3 buttons)
+        .ant-btn {
+            background-color: $input-bg;
+            border: 1px solid $border-color;
+            color: $text-primary;
+            border-radius: 6px;
+            height: 40px;
+            font-weight: 500;
+            box-shadow: none;
+
+            &:hover {
+                border-color: $text-secondary;
+                color: #fff;
+            }
+
+            &.ant-btn-primary {
+                background-color: $primary-color;
+                border-color: $primary-color;
+                color: #000;
+                
+                &:hover {
+                    background-color: lighten($primary-color, 5%);
+                    border-color: lighten($primary-color, 5%);
+                }
+            }
+        }
+
+        // Ant Table Overrides
+        .ant-table-wrapper {
+            background: transparent;
+            
+            .ant-table {
+                background: transparent;
+                color: $text-primary;
+                
+                .ant-table-thead > tr > th {
+                    background: $input-bg;
+                    color: $text-secondary;
+                    border-bottom: 1px solid $border-color;
+                    font-weight: 500;
+                }
+                
+                .ant-table-tbody > tr > td {
+                    border-bottom: 1px solid $border-color;
+                    color: $text-primary;
+                    
+                    a {
+                        color: $primary-color;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                .ant-table-tbody > tr:hover > td {
+                    background: rgba(255, 255, 255, 0.05) !important;
+                }
+                
+                .ant-empty-description {
+                    color: $text-secondary;
+                }
+            }
+
+            // Pagination Override
+            .ant-pagination {
+                margin: 16px 0 !important;
+                
+                .ant-pagination-item {
+                    background-color: transparent !important;
+                    border-color: $border-color !important;
+                    border-radius: 4px;
+                    
+                    a {
+                        color: $text-secondary !important;
+                    }
+
+                    &:hover {
+                        border-color: $primary-color !important;
+                        a { color: $primary-color !important; }
+                    }
+
+                    &.ant-pagination-item-active {
+                        background-color: $primary-color !important;
+                        border-color: $primary-color !important;
+                        a { color: #000 !important; }
+                    }
+                }
+
+                .ant-pagination-prev, .ant-pagination-next {
+                    .ant-pagination-item-link {
+                        background-color: transparent !important;
+                        border-color: $border-color !important;
+                        color: $text-secondary !important;
+                        border-radius: 4px;
+
+                        &:hover {
+                            border-color: $primary-color !important;
+                            color: $primary-color !important;
+                        }
+                    }
+
+                    &.ant-pagination-disabled .ant-pagination-item-link {
+                         border-color: $border-color !important;
+                         color: #555 !important;
+                    }
+                }
+            }
+        }
+
+        // Select Override
+        .ant-select {
+            .ant-select-selector {
+                background-color: $bg-color !important;
+                border: 1px solid $border-color !important;
+                color: $text-primary;
+                border-radius: 6px;
+            }
+
+            .ant-select-arrow {
+                color: $text-secondary;
+            }
+        }
     }
 }
 
-input {
-    width: 20%;
-}
-.newAuctionContainer {
-    background: white;
-    padding: 10px;
-    .innterAuctionContainer {
-        background: radial-gradient(circle, #ff6b6b, #3a1c71);
-        transition: 0.8s ease-out, box-shadow 0.5s ease-out;
-        box-shadow: 0 0 10px rgba(255, 107, 107, 0.5); /* Glow effect */
-        color: #bebebf;
-        display: flex;
-        padding: 3em;
-        border-radius: 20px;
-        border-left: 1px solid rgba(255, 255, 255, 0.3);
-        border-top: 1px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        position: relative;
-        flex-direction: column;
-        text-align: start;
-        .auctionDetailsContainer{
-            display: flex;
-            padding-top: 20px;
-            flex-direction: column;
-            .title {
-                align-self: flex-start;
+// Global overrides for Ant Design Popups/Dropdowns ensuring dark mode
+.ant-picker-dropdown, 
+.ant-select-dropdown {
+    background-color: $card-bg;
+    
+    .ant-picker-panel-container {
+        background-color: $card-bg;
+        
+        .ant-picker-header {
+            color: $text-primary;
+            border-bottom: 1px solid $border-color;
+            
+            button {
+                color: $text-secondary;
+                &:hover { color: $text-primary; }
             }
-            .newAuctionHeading{
-                display: flex;
-                flex-direction: row;
-                vertical-align: middle;
+        }
+        
+        .ant-picker-body {
+            th { color: $text-secondary; }
+            td.ant-picker-cell {
+                color: $text-secondary;
+                &:hover .ant-picker-cell-inner { background-color: $input-bg; }
             }
-            .inputContainerStyles {
-                border: 1px solid white;
-                padding: 20px;
-                margin: 20px;
-                border-radius: 20px;
-                h4 {
-                    color: #bebebf;
+            td.ant-picker-cell-in-view {
+                color: $text-primary;
+            }
+            td.ant-picker-cell-selected .ant-picker-cell-inner {
+                background-color: $primary-color;
+                color: #000;
+            }
+        }
+
+        // Time Picker Panel Overrides
+        .ant-picker-time-panel {
+            .ant-picker-time-panel-column {
+                &:not(:last-child) {
+                    border-right: 1px solid $border-color;
                 }
-                .inputLineStyles {
-                    display: flex;
-                    flex-direction: row;
-                    padding: 10px;
-                    .datetimeInputStyles {
-                        flex: 1;
-                        margin: 2px;
-                        height: 50px;
+                
+                > li.ant-picker-time-panel-cell {
+                    .ant-picker-time-panel-cell-inner {
+                        color: $text-primary;
+                        
+                        &:hover {
+                            background-color: $input-bg;
+                        }
                     }
-                    .inputStyles {
-                        margin-right: 2%;
+
+                    &.ant-picker-time-panel-cell-selected {
+                        .ant-picker-time-panel-cell-inner {
+                            background-color: $primary-color;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+        }
+
+        .ant-picker-footer {
+            border-top: 1px solid $border-color;
+            background-color: $card-bg;
+            
+            .ant-picker-ranges {
+                // Style the "Now" link/button
+                .ant-picker-now {
+                    a {
+                        color: $primary-color;
+                        font-weight: 500;
+                        &:hover {
+                            color: lighten($primary-color, 10%);
+                        }
+                    }
+                }
+
+                // Style the "OK" button
+                .ant-picker-ok {
+                    .ant-btn {
+                        background-color: $primary-color !important;
+                        border-color: $primary-color !important;
+                        color: #000 !important;
+                        border-radius: 4px;
+                        font-weight: 600;
+                        height: 24px;
+                        padding: 0 10px;
+                        line-height: 22px; 
+                        box-shadow: none;
+                        font-size: 12px;
+
+                        &:hover {
+                            background-color: lighten($primary-color, 5%) !important;
+                            border-color: lighten($primary-color, 5%) !important;
+                            color: #000 !important;
+                        }
+                        
+                        &:disabled {
+                            background-color: $input-bg !important;
+                            border-color: $border-color !important;
+                            color: $text-secondary !important;
+                        }
                     }
                 }
             }
         }
     }
-    .newInputs {
-        display: flex;
-        flex-direction: column;
+
+    .ant-select-item {
+        color: $text-primary;
+        &.ant-select-item-option-selected {
+            background-color: $input-bg;
+            font-weight: 600;
+        }
+        &.ant-select-item-option-active {
+            background-color: $bg-color;
+        }
     }
 }
-.sliderTextAfter {
-    margin-right: 20px;
+
+// Media Query for overall container responsiveness
+@media (max-width: 768px) {
+    .newAuctionContainer {
+        padding: 20px;
+        
+        .innterAuctionContainer {
+            padding: 20px;
+        }
+    }
 }

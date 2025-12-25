@@ -11,6 +11,7 @@ import AllTeamsTable from '../PlayerComponents/dataTables/AllTeamsTable';
 import MyTeamsTable from '../PlayerComponents/dataTables/MyTeamsTable';
 import PlayerBucket from '../PlayerComponents/dataTables/PlayerBucket';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import './tableTabs.scss';
 
 function CustomTabPanel(props) {
   const { user, dispatch } = useAuthContext();
@@ -25,8 +26,8 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ p: 0, pt: 2 }}>
+          {children}
         </Box>
       )}
     </div>
@@ -59,7 +60,7 @@ const TableTabs = ({
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box className="table-tabs-wrapper">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="basic tabs example">
           <Tab label={`Player Bucket`} />

@@ -7,6 +7,7 @@ import "react-dropdown/style.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { convertNumbers } from "../../../utils/utility";
+import "./bucketplayertable.scss";
 
 const AuctionCalc = ({
     teamCalc,
@@ -147,7 +148,7 @@ const AuctionCalc = ({
   const renderChips = () => {
     return notAllowed.map(team => {
         return (<Stack direction="column" spacing={1}>
-        <Chip style={{fontSize: 20, backgroundColor: 'red'}} label={team.label} variant="outlined" />
+        <Chip className="chip-not-allowed" label={team.label} variant="outlined" />
       </Stack>)
     })
   }
@@ -155,7 +156,7 @@ const AuctionCalc = ({
   const renderZeroBalChips = () => {
     return zeroBalTeams.map(team => {
         return (<Stack direction="column" spacing={1}>
-        <Chip style={{fontSize: 20, backgroundColor: '#023970', color: 'white'}} label={team.label} variant="outlined" />
+        <Chip className="chip-zero-bal" label={team.label} variant="outlined" />
       </Stack>)
     })
   }
@@ -163,38 +164,40 @@ const AuctionCalc = ({
   return (
     <div>
       {selectedPlayer && (
-        <div style={{ display: "flex", flex: 1, padding: 10 }}>
-          <div>
+        <div className="auction-calc-controls">
+          <div className="auction-bid-group">
             <input
-              style={{ flex: 1, padding: 10, margin: 20 }}
+              className="auction-calc-input"
               type="text"
               value={convertNumbers(currentBid)}
               disabled
             />
-            <Button
-              style={{ flex: 1, padding: 10, margin: 20 }}
-              variant="contained"
-              onClick={() => handleIncreaseBid()}
-            >
-              Increase Bid
-            </Button>
-            <Button
-              style={{ flex: 1, padding: 10, margin: 20 }}
-              variant="contained"
-              onClick={() => handleDecreaseBid()}
-            >
-              Decrease Bid
-            </Button>
+            <div className="bid-buttons-group">
+              <Button
+                className="auction-calc-btn btn-bid-control"
+                variant="contained"
+                onClick={() => handleIncreaseBid()}
+              >
+                Increase Bid
+              </Button>
+              <Button
+                className="auction-calc-btn btn-bid-control"
+                variant="contained"
+                onClick={() => handleDecreaseBid()}
+              >
+                Decrease Bid
+              </Button>
+            </div>
           </div>
           <Button
-            style={{ flex: 1, padding: 10, margin: 20 }}
+            className="auction-calc-btn btn-sell"
             variant="contained"
             onClick={() => setConfirmSell(true)}
           >
             Sell
           </Button>
           <Button
-            style={{ flex: 1, padding: 10, margin: 20 }}
+            className="auction-calc-btn btn-unsold"
             variant="contained"
             onClick={() => confirmShiftPlayerToUnsold()}
           >
@@ -205,7 +208,7 @@ const AuctionCalc = ({
       {confirmSell && selectedPlayer &&  (
         <>
           <div>
-            <div style={{margin: 10, fontSize: 20}}><b>{`${selectedPlayer.firstName} ${selectedPlayer.lastName} Auctioned For ${convertNumbers(currentBid)} To`}</b></div>
+            <div style={{margin: '16px 0', fontSize: 20, color: '#f4f4f5'}}><b>{`${selectedPlayer.firstName} ${selectedPlayer.lastName} Auctioned For ${convertNumbers(currentBid)} To`}</b></div>
             <div style={{paddingBottom: 10}}>
             <Dropdown
               options={items}
@@ -213,13 +216,16 @@ const AuctionCalc = ({
               defaultValue={{ label: "Select Team", value: 0 }}
               value={selectedTeam}
               placeholder="Select an option"
+              className="custom-dropdown" 
+              controlClassName="custom-dropdown-control"
+              menuClassName="custom-dropdown-menu"
             />
             </div>
-            <div style={{paddingTop: 10, flex: 1}}>
-            <Button style={{paddingTop: 10, margin: 10}} variant="contained" onClick={() => handlePlayerAuction()}>
+            <div style={{paddingTop: 10, display: 'flex', gap: '10px'}}>
+            <Button className="auction-calc-btn btn-sell" variant="contained" onClick={() => handlePlayerAuction()}>
               Confirm Sell
             </Button>
-            <Button style={{paddingTop: 10, margin: 10}} variant="contained" onClick={() => handleResetBuyPlayer()}>
+            <Button className="auction-calc-btn" variant="contained" onClick={() => handleResetBuyPlayer()}>
               Reset Buy
             </Button>
             </div>
@@ -227,21 +233,21 @@ const AuctionCalc = ({
         </>
       )}
       {
-        notAllowed.length !== 0 && zeroBalTeams.length ? <hr class="solid"></hr> : <></>
+        notAllowed.length !== 0 && zeroBalTeams.length ? <hr className="divider-solid"></hr> : <></>
       }
       {
-        notAllowed.length !== 0 ? <h4 style={{color: 'red'}}>Teams Not Allowed To Bid Anymore</h4> : <></>
+        notAllowed.length !== 0 ? <h4 className="section-header" style={{color: '#ef4444'}}>Teams Not Allowed To Bid Anymore</h4> : <></>
       }
       {renderChips()}
       {
-        notAllowed.length !== 0 && zeroBalTeams.length ? <hr class="solid"></hr> : <></>
+        notAllowed.length !== 0 && zeroBalTeams.length ? <hr className="divider-solid"></hr> : <></>
       }
       {
-        zeroBalTeams.length !==0 ? <h4 style={{color: '#023970'}}>Teams With 0 Balance</h4> : <></>
+        zeroBalTeams.length !==0 ? <h4 className="section-header" style={{color: '#60a5fa'}}>Teams With 0 Balance</h4> : <></>
       }
       {renderZeroBalChips()}
       {
-        notAllowed.length !== 0 && zeroBalTeams.length ? <hr class="solid"></hr> : <></>
+        notAllowed.length !== 0 && zeroBalTeams.length ? <hr className="divider-solid"></hr> : <></>
       }
     </div>
   );

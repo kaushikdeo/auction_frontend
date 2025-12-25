@@ -392,59 +392,53 @@ const NewAuction = () => {
             <Input
               className="inputStyles"
               placeholder="Auction Name"
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<UserOutlined className="icon-prefix" />}
               onChange={(e) => setAuctionName(e.target.value)}
               value={auctionName}
               suffix={
                 <Tooltip title="Enter the Auction Name">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
             <Input
               placeholder="Venue"
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              className="inputStyles"
+              prefix={<UserOutlined className="icon-prefix" />}
               onChange={(e) => setVenueName(e.target.value)}
               value={venueName}
               suffix={
                 <Tooltip title="Enter the Venue">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
           </div>
           <div className="inputLineStyles">
             <Input
               className="inputStyles"
               placeholder="Sport Name"
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<UserOutlined className="icon-prefix" />}
               onChange={(e) => setSportsName(e.target.value)}
               value={sportsName}
               suffix={
                 <Tooltip title="Enter the Sport Name">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
             <Input
               placeholder="Buckets"
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              className="inputStyles"
+              prefix={<UserOutlined className="icon-prefix" />}
               onChange={(e) => setBuckets(e.target.value)}
               value={buckets}
               suffix={
                 <Tooltip title="Enter the Bucket Names seperated by commas">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
           </div>
           </div>
           <div className="inputContainerStyles">
@@ -454,75 +448,65 @@ const NewAuction = () => {
               className="inputStyles"
               type="number"
               placeholder="Initial Wallet Balance"
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<UserOutlined className="icon-prefix" />}
               allowClear
               onChange={(e) => setBucketWalletBalance(e.target.value)}
               value={bucketWalletBalance}
               suffix={
                 <Tooltip title="Enter Initial Wallet Balance">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
             <Input
               type="number"
               placeholder="Wallet Balance Difference"
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              className="inputStyles"
+              prefix={<UserOutlined className="icon-prefix" />}
               onChange={(e) => setWalletBalanceDifference(e.target.value)}
               value={walletBalanceDifference}
               allowClear
               suffix={
                 <Tooltip title="Enter Wallet Balance Difference">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
           </div>
           <div className="inputLineStyles">
             <Input
             type="number"
               className="inputStyles"
               placeholder="Minimum Bid"
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<UserOutlined className="icon-prefix" />}
               onChange={(e) => setMinimumBid(e.target.value)}
               value={minimumBid}
               suffix={
                 <Tooltip title="Enter Minimum Bid">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
             <Input
               type="number"
               placeholder="Bid Raise By"
+              className="inputStyles"
               onChange={(e) => setStepPrice(e.target.value)}
               value={stepPrice}
-              prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<UserOutlined className="icon-prefix" />}
               suffix={
                 <Tooltip title="Enter Bid Raise By">
-                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  <InfoCircleOutlined className="icon-suffix" />
                 </Tooltip>
               }
             />
-            <br />
-            <br />
           </div>
           </div>
           <div className="inputContainerStyles">
           <div className="innerTitle"><h4>Auction Duration Details</h4></div>
           <div className="inputLineStyles">
             <DatePicker className="datetimeInputStyles" placeholder="Start Date and Time" showTime onChange={onChangeStart} onOk={onOkStart} />
-            <br />
-            <br />
             <DatePicker className="datetimeInputStyles" placeholder="End Date and Time" showTime onChange={onChangeStart} onOk={onOkStart} />
-            <br />
-            <br />
           </div>
           </div>
           <div className="button">
@@ -586,16 +570,21 @@ const NewAuction = () => {
       return (
         <div className="formContainer">
           <div className="title">Players Bucket</div>
-          <Button type="primary" onClick={() => refetchConnections() }>Refetch Connections</Button>
-          <Button type="primary" onClick={addAllToBucket}>Add All Players To Auctions</Button>
-          <Select
-            placeholder="Select Bucket Name"
-            defaultValue={"ALL"}
-            style={{ width: 120 }}
-            onChange={handleMenuClick}
-            options={menuProps}
-          />
-          <Button type="primary" onClick={removeAllToBucket}>Reset All Player Selection</Button>
+          <div className="player-actions-toolbar">
+            <Space wrap>
+              <Button className="action-btn" onClick={() => refetchConnections() }>Refetch Connections</Button>
+              <Button className="action-btn" onClick={addAllToBucket}>Add All Players To Auctions</Button>
+              <Select
+                placeholder="Select Bucket Name"
+                defaultValue={"ALL"}
+                style={{ width: 160 }}
+                onChange={handleMenuClick}
+                options={menuProps}
+                className="bucket-select"
+              />
+              <Button className="action-btn" onClick={removeAllToBucket}>Reset All Player Selection</Button>
+            </Space>
+          </div>
           {loggedInUser &&
           loggedInUser.connections &&
           loggedInUser.connections.length && (

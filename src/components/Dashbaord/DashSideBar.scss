@@ -1,0 +1,107 @@
+.dashboard-sidebar {
+  background-color: #1a5f7a !important;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  
+  .sidebar-header {
+    padding: 20px 16px;
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
+      .logo-icon {
+        font-size: 32px;
+        color: #57c5b6;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 8px;
+      }
+      
+      h1 {
+        margin: 0;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+  
+  .sidebar-menu {
+    background-color: transparent;
+    border-right: none;
+    
+    .ant-menu-item {
+      margin: 8px 16px;
+      padding: 0 16px;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      height: 48px;
+      line-height: 48px;
+      display: flex;
+      align-items: center;
+      
+      &::after {
+        display: none;
+      }
+      
+      .anticon {
+        font-size: 16px;
+        margin-right: 12px;
+      }
+      
+      &:hover {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      &.ant-menu-item-selected {
+        background-color: #57c5b6;
+        color: white;
+        font-weight: 500;
+      }
+      
+      &.logout-item {
+        margin-top: 32px;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #ff9494;
+        
+        .anticon {
+          margin-right: 12px;
+        }
+        
+        &:hover {
+          background-color: rgba(255, 0, 0, 0.1);
+        }
+      }
+      
+      a {
+        color: inherit;
+        
+        &:hover {
+          color: inherit;
+        }
+      }
+    }
+  }
+  
+  .sidebar-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    padding: 0 16px;
+    text-align: center;
+    
+    p {
+      margin: 4px 0;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+  }
+} 

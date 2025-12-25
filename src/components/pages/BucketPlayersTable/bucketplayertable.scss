@@ -1,65 +1,301 @@
+/* src/components/pages/BucketPlayersTable/bucketplayertable.scss */
+$bg-secondary: #18181b; // Zinc 900
+$border-color: #27272a; // Zinc 800
+$text-primary: #f4f4f5; // Zinc 100
+$text-secondary: #a1a1aa; // Zinc 400
+$accent-green: #059669; // Emerald 600
+$accent-gold: #b45309; // Amber 700
+
 .playertableContainer {
-    overflow-y:scroll;
-   height:450px;
-   display:block;
-   .tableCellStyle{
-    font-size: 12px;
-   }
+    overflow-y: scroll;
+    height: 450px;
+    display: block;
+    background-color: $bg-secondary;
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: $bg-secondary; 
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #3f3f46; 
+        border-radius: 4px;
+    }
+
+    .MuiPaper-root {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        color: $text-primary !important;
+    }
+
+    .MuiTable-root {
+        background-color: transparent !important;
+    }
+
+    .MuiTableCell-root {
+        border-bottom: 1px solid $border-color !important;
+        color: $text-secondary !important;
+        padding: 12px 16px;
+        
+        &.MuiTableCell-head {
+            background-color: #27272a !important; 
+            color: $text-primary !important;
+            font-weight: 600 !important;
+            border-bottom: 1px solid #3f3f46 !important;
+        }
+
+        h6, h6 b {
+            font-weight: 600;
+            font-size: 13px;
+            margin: 0;
+            color: $text-primary;
+        }
+        
+        // Target h4 inside tables
+        h4, h4 b {
+            font-weight: 600;
+            font-size: 13px;
+            margin: 0;
+            color: $text-primary;
+        }
+    }
+
+    .MuiTableRow-root {
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+        }
+    }
+
+    .tableCellStyle {
+        font-size: 13px !important;
+        color: $text-primary !important;
+        
+        b {
+             color: $text-primary !important;
+        }
+    }
+    
+    .MuiButton-contained {
+        background-color: #27272a;
+        color: $text-primary;
+        box-shadow: none;
+        border: 1px solid $border-color;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        
+        &:hover {
+            background-color: $accent-green;
+            border-color: $accent-green;
+            color: white;
+        }
+    }
+
+    .MuiAvatar-root {
+        background-color: #3f3f46 !important;
+        color: $text-primary !important;
+        font-size: 14px;
+        font-weight: 600;
+    }
 }
 
-.switch {
-    font-size: 17px;
-    position: relative;
-    display: inline-block;
-    width: 62px;
-    height: 35px;
-   }
-   
-   /* Hide default HTML checkbox */
-   .switch input {
-    opacity: 1;
-    width: 0;
-    height: 0;
-   }
-   
-   /* The slider */
-   .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0px;
-    background: #fff;
-    transition: .4s;
-    border-radius: 30px;
-    border: 1px solid #ccc;
-   }
-   
-   .slider:before {
-    position: absolute;
-    content: "";
-    height: 1.9em;
-    width: 1.9em;
-    border-radius: 16px;
-    left: 1.2px;
-    top: 0;
-    bottom: 0;
-    background-color: white;
-    box-shadow: 0 2px 5px #999999;
-    transition: .4s;
-   }
-   
-   input:checked + .slider {
-    background-color: #5fdd54;
-    border: 1px solid transparent;
-   }
-   
-   input:checked + .slider:before {
-    transform: translateX(1.5em);
-   }
-
-   .searchInputStyle {
+.searchInputStyle {
     margin-bottom: 15px;
     margin-top: 15px;
-   }
+    background-color: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    color: $text-primary;
+    padding: 8px 12px;
+    
+    .ant-input {
+        background-color: transparent !important;
+        color: $text-primary !important;
+        &::placeholder {
+            color: $text-secondary;
+        }
+    }
+    
+    .anticon {
+        color: $text-secondary !important;
+    }
+
+    &:hover, &:focus-within {
+        border-color: #52525b;
+    }
+}
+
+.title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 12px;
+}
+
+// Auction Calc Styles
+.auction-calc-controls {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.auction-bid-group {
+    display: flex;
+    align-items: stretch;
+    background-color: #27272a;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.auction-calc-input {
+    background-color: transparent;
+    border: none;
+    color: $accent-gold;
+    padding: 10px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    min-width: 120px;
+    text-align: center;
+    border-right: 1px solid #52525b; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:disabled {
+        opacity: 1; 
+        -webkit-text-fill-color: $accent-gold;
+    }
+}
+
+.bid-buttons-group {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #52525b;
+    gap: 1px;
+    background-color: #52525b; // Separator color
+}
+
+.auction-calc-btn {
+    flex: 1;
+    background-color: #27272a !important;
+    color: $text-primary !important;
+    border: 1px solid $border-color !important;
+    box-shadow: none !important;
+    min-width: auto !important;
+    padding: 8px 16px !important;
+    white-space: nowrap;
+    font-size: 13px !important;
+    height: 100%; 
+    
+    &:hover {
+        background-color: #3f3f46 !important;
+        border-color: #52525b !important;
+    }
+
+    &.btn-bid-control {
+        border: none !important;
+        border-radius: 0 !important;
+        font-size: 12px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: auto; 
+        padding: 4px 12px !important;
+        flex-grow: 1;
+        
+        &:first-of-type {
+            // No specific border needed as gap handles it
+        }
+    }
+    
+    &.btn-sell {
+        background-color: $accent-green !important;
+        color: white !important;
+        border: none !important;
+        font-size: 14px !important;
+        flex-grow: 2;
+        &:hover {
+            background-color: #047857 !important;
+        }
+    }
+    
+    &.btn-unsold {
+        background-color: rgba(127, 29, 29, 0.4) !important;
+        color: #fca5a5 !important;
+        border: 1px solid #7f1d1d !important;
+        &:hover {
+            background-color: rgba(127, 29, 29, 0.6) !important;
+        }
+    }
+}
+
+.chip-not-allowed {
+    font-size: 14px !important;
+    background-color: rgba(127, 29, 29, 0.2) !important;
+    color: #fca5a5 !important;
+    border-color: #7f1d1d !important;
+}
+
+.chip-zero-bal {
+    font-size: 14px !important;
+    background-color: rgba(30, 58, 138, 0.2) !important;
+    color: #93c5fd !important;
+    border-color: #1e3a8a !important;
+}
+
+.divider-solid {
+    border-top: 1px solid $border-color;
+    margin: 16px 0;
+}
+
+.section-header {
+    font-size: 14px;
+    color: $text-secondary;
+    margin: 16px 0 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+// React Dropdown Overrides
+.custom-dropdown-control {
+    background-color: #27272a !important;
+    border: 1px solid #3f3f46 !important;
+    color: #f4f4f5 !important;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.custom-dropdown-menu {
+    background-color: #27272a !important;
+    border: 1px solid #3f3f46 !important;
+    margin-top: 4px;
+    
+    .Dropdown-option {
+        color: #f4f4f5 !important;
+        padding: 10px;
+        
+        &:hover {
+            background-color: #3f3f46 !important;
+            color: #fff !important;
+        }
+        
+        &.is-selected {
+            background-color: $accent-green !important;
+            color: white !important;
+        }
+    }
+}

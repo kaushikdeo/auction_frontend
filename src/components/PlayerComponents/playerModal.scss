@@ -1,0 +1,91 @@
+// Variables
+$bg-dark: #18181b;      // Zinc 900
+$bg-card: #27272a;      // Zinc 800
+$bg-hover: #3f3f46;     // Zinc 700
+$border-color: #3f3f46; // Zinc 700
+$text-primary: #f4f4f5; // Zinc 100
+$text-secondary: #a1a1aa; // Zinc 400
+$accent-gold: #d97706;  // Amber 600 (Darker Gold for better contrast)
+$accent-green: #059669; // Emerald 600
+$font-family: 'Inter', sans-serif;
+
+.player-dashboard-content {
+    background-color: $bg-card;
+    color: $text-primary;
+    padding: 24px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 24px;
+        color: $accent-gold;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 20px;
+    }
+
+    .player-card-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+
+        @media (min-width: 768px) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .player-info-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid $border-color;
+
+            h3 {
+                color: $accent-gold;
+                font-size: 14px;
+                text-transform: uppercase;
+                margin-bottom: 12px;
+                border-bottom: 1px solid $border-color;
+                padding-bottom: 8px;
+            }
+
+            .stat-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 8px;
+                font-size: 14px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .label {
+                    color: $text-secondary;
+                }
+
+                .value {
+                    color: $text-primary;
+                    font-weight: 600;
+                }
+            }
+
+            .player-name {
+                font-size: 24px;
+                font-weight: 700;
+                color: $text-primary;
+                margin-bottom: 4px;
+                display: block;
+            }
+
+            .player-role {
+                color: $text-secondary;
+                font-size: 14px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+        }
+    }
+}
+

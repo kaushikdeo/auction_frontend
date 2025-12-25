@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './playerDashboard.scss';
 import { useQuery } from '@apollo/client';
-import { Divider, Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../UtilityComponents/ModalComponent';
 import { GET_LOGGED_IN_USER, LOGGEDINPLAYERAUCTION } from '../../graphql/queries/userQueries';
 import dayjs from 'dayjs';
 import LoadingPage from '../UtilityComponents/LoadingPage';
-// ----------------------------------------------- THIS IS THE DASHBOARD FOR THE PLAYER LOGIN --------------------------------------------------------------------------
-const { Content } = Layout;
+import PlayerSidebar from './PlayerSidebar';
+import HardwareIcon from '@mui/icons-material/Hardware';
 
 const PlayerDashboard = () => {
     const navigate = useNavigate();
@@ -20,22 +19,14 @@ const PlayerDashboard = () => {
     const [currentUserData, setCurrentUserData] = useState(null);
     const [fetchedAuction, setFetchedAuctions] = useState([]);
 
-    const handleLogout = () => {
-        console.log("AM I CALLLDE");
-    }
-
-    // console.log("playerAuctionDataplayerAuctionDataplayerAuctionData", playerAuctionData, playerAuctionLoading, playerAuctionError)
-
     useEffect(() => {
         if (!playerAuctionLoading && !playerAuctionError && playerAuctionData && playerAuctionData.getPlayerAuctions && playerAuctionData.getPlayerAuctions.length) {
-            console.log("aijsnxaksjxnajksnxkansxaknskxj", playerAuctionData);
             setFetchedAuctions(playerAuctionData.getPlayerAuctions)
         }
     }, [playerAuctionData, playerAuctionLoading, playerAuctionError])
 
     useEffect(() => {
         if (loggedInUserData && loggedInUserData.getMe && !loggedInUserLoading && !loggedInUserError) {
-            console.log("aijsnx", loggedInUserData.getMe.auctions);
             setCurrentUserData(loggedInUserData.getMe);
         }
     }, [loggedInUserData, loggedInUserLoading, loggedInUserError])
@@ -45,137 +36,115 @@ const PlayerDashboard = () => {
     }
 
     const renderCurrentAuctions = () => {
-        console.log("data.ajsxba", fetchedAuction)
         if (fetchedAuction && fetchedAuction.length) {
-            console.log("data.ajsxba", fetchedAuction, fetchedAuction.length)
             return fetchedAuction.map((auc) => auc && (
-                <div className="aucCard" onClick={() => { handleSingleAuction(auc.auctionId) }}>
-                    <div className="card">
-                        <header className="card-header">
-                            <p style={{ color: 'white', textAlign: 'center', fontSize: '20px' }}>{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</p>
-                            <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed />
-                            <div className="card-author">
-                            <a className="author-avatar" href="/#">
-                                <img
-                                    height={50}
-                                    width={50}
-                                    className='auc_avt_img'
-                                    alt="example"
-                                    src={auc.sportName === "Cricket" ? "https://res.cloudinary.com/dfrmnqtwi/image/upload/v1735954806/ol3wjmj7k9oexbgql1hj.jpg" : ""}
-                                />
-                            </a>
-                            <div className="author-name">
-                                <span className='creatorNameStyle'>{auc.auctionName}</span>
-                            </div>
+                <div key={auc.auctionId} className="auction-card" onClick={() => { handleSingleAuction(auc.auctionId) }}>
+                    <div className="card-header">
+                        <span className="auction-title">{auc.auctionName}</span>
+                        <span className="auction-sport">{auc.sportName}</span>
+                    </div>
+                    <div className="card-body">
+                        <div className="info-row">
+                            <span className="label">Start Time</span>
+                            <span className="value">{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</span>
                         </div>
-                            <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed />
-                        </header>
-                        <div className="tags">
-                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Creator : {auc?.createdBy?.firstName} {auc?.createdBy?.lastName}</p>
-                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Sport : {auc.sportName}</p>
-                            <p style={{ color: 'white', textAlign: 'center', fontSize: '15px' }} className='card-bottom-p'>Venue : {auc.venue}</p>
+                        <div className="info-row">
+                            <span className="label">Venue</span>
+                            <span className="value">{auc.venue}</span>
+                        </div>
+                        <div className="info-row">
+                            <span className="label">Creator</span>
+                            <span className="value">{auc?.createdBy?.firstName} {auc?.createdBy?.lastName}</span>
                         </div>
                     </div>
+                    <div className="card-footer">
+                        <span className="status-badge">Active</span>
+                    </div>
                 </div>
-            ))
+            ));
         }
+        return <div style={{ color: '#a1a1aa', padding: '20px' }}>No active auctions found.</div>;
     }
+
+    if (loggedInUserLoading) return <LoadingPage />;
+
     return (
-        <Content>
-            {
-                currentUserData ? (<>
-                    {
-                        auctionedPlayer && <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                        <div className="container">
-                            <div style={{margin: "auto", textAlign:"center"}}><h2>Current Auctioned Player</h2></div>
-                            <div className="top">
-                                <div className="main">
-                                    <ul>
-                                        {/* <li className="dorsal">Rank 1</li> */}
-                                        <li className="name">{`${auctionedPlayer.firstName} ${auctionedPlayer.lastName}`}</li>
-                                        <li className="bar"></li>
-                                        <li className="position">{auctionedPlayer.playerType}</li>
-                                    </ul>
+        <div className="player-dashboard-container">
+            <PlayerSidebar />
+            <div className="dashboard-content">
+                {currentUserData ? (
+                    <>
+                        {auctionedPlayer && <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+                            <div className="player-dashboard-content">
+                                <h2>Current Auctioned Player</h2>
+                                <div className="player-info-section" style={{marginBottom: '24px', textAlign: 'center'}}>
+                                    <span className="player-name">{`${auctionedPlayer.firstName} ${auctionedPlayer.lastName}`}</span>
+                                    <span className="player-role">{auctionedPlayer.playerType}</span>
                                 </div>
-                                <div className="photo"></div>
-                                <div className="info">
-                                    <ul>
-                                        <li className="header"><b>Batting Stats</b></li>
-                                        <li className="header">{`${auctionedPlayer.battingHand} Hand - Bat`}</li>
-                                        <li className="bar"></li>
-                                        <li className="header">{`Innings : ${auctionedPlayer.stats.battingStats.innings}`}</li>
-                                        <li className="header">{`Runs : ${auctionedPlayer.stats.battingStats.runs}`}</li>
-                                        <li className="header">{`Strike Rate : ${Math.round(Number(auctionedPlayer.stats.battingStats.strikeRate))}`}</li>
-                                        <li className="bar"></li>
-                                    </ul>
-                                </div>
-                                <div className="info">
-                                    <ul>
-                                        <li className="header"><b>Bowling Stats</b></li>
-                                        <li className="header">{`${auctionedPlayer.bowlingHand} Hand - Bowl`}</li>
-                                        <li className="bar"></li>
-                                        <li className="header">{`Innings : ${auctionedPlayer.stats.bowlingStats.overs}`}</li>
-                                        <li className="header">{`Wickets : ${auctionedPlayer.stats.bowlingStats.wickets}`}</li>
-                                        <li className="header">{`Economy : ${Number(auctionedPlayer.stats.bowlingStats.economy).toFixed(2)}`}</li>
-                                        <li className="bar"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </Modal>
-                    }
-                    <nav className="navbar navbar-inverse visible-xs">
-                        <div className="container-fluid">
-                            <div className="navbar-header">
-                                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                    <span className="icon-bar"></span>
-                                    <span className="icon-bar"></span>
-                                    <span className="icon-bar"></span>
-                                </button>
-                                <a className="navbar-brand" href="/#">Logo</a>
-                            </div>
-                            <div className="collapse navbar-collapse" id="myNavbar">
-                                <ul className="nav navbar-nav">
-                                    <li className="active"><a href="/#">Dashboard</a></li>
-                                    <li onClick={handleLogout}><a href="/#">Logout</a></li>
-                                    <li><a href="/#">teams</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-    
-                    <div className="container-fluid">
-                        <div className="row content">
-                            {/* Sidebar */}
-                            <div className="col-sm-2 sidenav hidden-xs">
-                                <h2>Logo</h2>
-                                <ul className="nav nav-pills nav-stacked">
-                                    <li className="active"><a href="#section1">Auctions</a></li>
-                                    <li onClick={handleLogout}><a>Logout</a></li>
-                                    <li><a href="/#">teams</a></li>
-                                </ul><br />
-                            </div>
-                            <br />
-                            {/* Content */}
-                            <div className="col-sm-10">
-                                <div className="well">
-                                    <div className='d-flex justify-content-start'><h4>Player Dashboard</h4></div>
-                                    <div className='d-flex justify-content-end'><h4>Welcome {currentUserData.firstName} {currentUserData.lastName}</h4></div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-sm-12">
-                                        <div style={{display: "flex", overflowX: "scroll"}} className="well">
-                                        {renderCurrentAuctions()}
+                                <div className="player-card-grid">
+                                    <div className="player-info-section">
+                                        <h3>Batting Stats</h3>
+                                        <div className="stat-row">
+                                            <span className="label">Style</span>
+                                            <span className="value">{auctionedPlayer.battingHand}</span>
+                                        </div>
+                                        <div className="stat-row">
+                                            <span className="label">Innings</span>
+                                            <span className="value">{auctionedPlayer.stats.battingStats.innings}</span>
+                                        </div>
+                                        <div className="stat-row">
+                                            <span className="label">Runs</span>
+                                            <span className="value">{auctionedPlayer.stats.battingStats.runs}</span>
+                                        </div>
+                                        <div className="stat-row">
+                                            <span className="label">Strike Rate</span>
+                                            <span className="value">{Math.round(Number(auctionedPlayer.stats.battingStats.strikeRate))}</span>
+                                        </div>
+                                    </div>
+                                    <div className="player-info-section">
+                                        <h3>Bowling Stats</h3>
+                                        <div className="stat-row">
+                                            <span className="label">Style</span>
+                                            <span className="value">{auctionedPlayer.bowlingHand}</span>
+                                        </div>
+                                        <div className="stat-row">
+                                            <span className="label">Innings</span>
+                                            <span className="value">{auctionedPlayer.stats.bowlingStats.overs}</span>
+                                        </div>
+                                        <div className="stat-row">
+                                            <span className="label">Wickets</span>
+                                            <span className="value">{auctionedPlayer.stats.bowlingStats.wickets}</span>
+                                        </div>
+                                        <div className="stat-row">
+                                            <span className="label">Economy</span>
+                                            <span className="value">{Number(auctionedPlayer.stats.bowlingStats.economy).toFixed(2)}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </>) : <LoadingPage />
-            }
-        </Content>
+                        </Modal>}
+
+                        <header className="dashboard-header">
+                            <h1>Player Dashboard</h1>
+                            <div className="welcome-text">
+                                Welcome, <span>{currentUserData.firstName} {currentUserData.lastName}</span>
+                            </div>
+                        </header>
+
+                        <main className="dashboard-main">
+                            <div className="section-title">
+                                <HardwareIcon sx={{ color: '#d97706' }} />
+                                Current Auctions
+                            </div>
+                            <div className="auctions-grid">
+                                {renderCurrentAuctions()}
+                            </div>
+                        </main>
+                    </>
+                ) : <LoadingPage />}
+            </div>
+        </div>
     )
 }
 
-export default PlayerDashboard
+export default PlayerDashboard;

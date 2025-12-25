@@ -162,7 +162,8 @@ $accent-gold: #b45309; // Amber 700
 
 .auction-calc-input {
     background-color: transparent;
-    border: none;
+    border: 3px solid $accent-gold;
+    border-radius: 4px;
     color: $accent-gold;
     padding: 10px 24px;
     font-family: 'Inter', sans-serif;
@@ -170,7 +171,6 @@ $accent-gold: #b45309; // Amber 700
     font-weight: 700;
     min-width: 120px;
     text-align: center;
-    border-right: 1px solid #52525b; 
     display: flex;
     align-items: center;
     justify-content: center;

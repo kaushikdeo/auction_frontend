@@ -13,17 +13,22 @@ $accent-gold: #b45309;
     border: 1px solid $border;
     border-radius: 6px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 
     // Override MUI Table Styles
     .MuiPaper-root {
         background-color: transparent !important;
         box-shadow: none !important;
         border-radius: 0 !important;
+        height: 100%;
     }
 
     .MuiTableContainer-root {
         background-color: transparent;
-        max-height: 450px;
+        height: 100%;
+        max-height: none;
+        flex: 1;
         
         &::-webkit-scrollbar {
             width: 6px;

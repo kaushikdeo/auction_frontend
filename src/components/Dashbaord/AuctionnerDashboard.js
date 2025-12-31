@@ -1,11 +1,14 @@
 import React, { useEffect, useState, memo } from 'react';
-import { Layout } from 'antd';
-import { useQuery } from '@apollo/client';
+import { Layout, Select, message } from 'antd';
+import { useQuery, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { clearItem } from '../../utils/localStore'
 import { GET_AUCTIONS } from '../../graphql/queries/auctionQueries';
+import { UPDATE_AUCTION } from '../../graphql/mutations/auctionMutations';
+import { GET_LOGGED_IN_USER } from '../../graphql/queries/userQueries';
 import dayjs from 'dayjs';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import Modal from '../UtilityComponents/ModalComponent';
 import './AuctioneerDashboard.scss'
 
 const { Content } = Layout;
@@ -13,9 +16,19 @@ const { Content } = Layout;
 const AuctionnerDashboard = () => {
     const [currentTab, setCurrentTab] = useState('current');
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [configModalOpen, setConfigModalOpen] = useState(false);
+    const [selectedAuction, setSelectedAuction] = useState(null);
+    const [selectedViewers, setSelectedViewers] = useState([]);
+    const [configForm, setConfigForm] = useState({
+        auctionName: '',
+        sportName: '',
+        venue: ''
+    });
     const navigate = useNavigate();
     const { user, dispatch } = useAuthContext();
-    const { data, loading, error } = useQuery(GET_AUCTIONS);
+    const { data, loading, error, refetch } = useQuery(GET_AUCTIONS);
+    const { data: userData } = useQuery(GET_LOGGED_IN_USER);
+    const [updateAuction, { loading: updateLoading }] = useMutation(UPDATE_AUCTION);
 
     console.log("I AM IN AUCTIONEER DASH", data, user)
     
@@ -38,6 +51,68 @@ const AuctionnerDashboard = () => {
         navigate(`/auction/${auctionId}`)
     }
 
+    const handleConfigureAuction = (e, auction) => {
+        e.stopPropagation();
+        setSelectedAuction(auction);
+        setConfigForm({
+            auctionName: auction.auctionName || '',
+            sportName: auction.sportName || '',
+            venue: auction.venue || ''
+        });
+        setSelectedViewers([]);
+        setConfigModalOpen(true);
+    }
+
+    const handleCloseConfigModal = () => {
+        setConfigModalOpen(false);
+        setSelectedAuction(null);
+        setSelectedViewers([]);
+    }
+
+    const handleConfigFormChange = (field, value) => {
+        setConfigForm(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    }
+
+    const handleViewerChange = (values) => {
+        setSelectedViewers(values);
+    }
+
+    const handleSaveConfiguration = async () => {
+        try {
+            const updateInput = {
+                auctionId: selectedAuction.auctionId,
+                auctionName: configForm.auctionName,
+                sportName: configForm.sportName,
+                venue: configForm.venue,
+                viewers: selectedViewers
+            };
+
+            await updateAuction({
+                variables: { updateAuctionInput: updateInput }
+            });
+
+            message.success('Auction configuration updated successfully');
+            refetch();
+            handleCloseConfigModal();
+        } catch (error) {
+            console.error('Error updating auction:', error);
+            message.error('Failed to update auction configuration');
+        }
+    }
+
+    const getViewerOptions = () => {
+        if (userData?.getMe?.connections) {
+            return userData.getMe.connections.map(conn => ({
+                label: `${conn.user.firstName} ${conn.user.lastName} (${conn.user.email})`,
+                value: conn.user.userId
+            }));
+        }
+        return [];
+    }
+
     const renderCurrentAuctions = () => {
         if (data && data.auctions && data.auctions.length) {
             return data.auctions.map((auc) => (
@@ -46,6 +121,16 @@ const AuctionnerDashboard = () => {
                     className="auction-card" 
                     onClick={() => handleSingleAuction(auc.auctionId)}
                 >
+                    <button 
+                        className="configure-button"
+                        onClick={(e) => handleConfigureAuction(e, auc)}
+                        aria-label="Configure auction"
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3"/>
+                        </svg>
+                    </button>
                     <div className="auction-card-header">
                         <span className="auction-date">{dayjs(auc.startTime).format('D MMM YY - h:mm a')}</span>
                     </div>
@@ -179,6 +264,80 @@ const AuctionnerDashboard = () => {
                     </div>
                 </div>
             </div>
+
+            <Modal isOpen={configModalOpen} onClose={handleCloseConfigModal}>
+                <div className="config-modal-content">
+                    <h2 className="config-modal-title">Configure Auction</h2>
+                    
+                    <div className="config-form">
+                        <div className="form-group">
+                            <label className="form-label">Auction Name</label>
+                            <input
+                                type="text"
+                                className="form-input"
+                                value={configForm.auctionName}
+                                onChange={(e) => handleConfigFormChange('auctionName', e.target.value)}
+                                placeholder="Enter auction name"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Sport</label>
+                            <input
+                                type="text"
+                                className="form-input"
+                                value={configForm.sportName}
+                                onChange={(e) => handleConfigFormChange('sportName', e.target.value)}
+                                placeholder="Enter sport name"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Venue</label>
+                            <input
+                                type="text"
+                                className="form-input"
+                                value={configForm.venue}
+                                onChange={(e) => handleConfigFormChange('venue', e.target.value)}
+                                placeholder="Enter venue"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Add Viewers</label>
+                            <Select
+                                mode="multiple"
+                                className="viewer-select"
+                                placeholder="Select viewers from your connections"
+                                value={selectedViewers}
+                                onChange={handleViewerChange}
+                                options={getViewerOptions()}
+                                showSearch
+                                filterOption={(input, option) =>
+                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                                style={{ width: '100%' }}
+                            />
+                        </div>
+
+                        <div className="config-modal-actions">
+                            <button 
+                                className="btn-cancel"
+                                onClick={handleCloseConfigModal}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                className="btn-save"
+                                onClick={handleSaveConfiguration}
+                                disabled={updateLoading}
+                            >
+                                {updateLoading ? 'Saving...' : 'Save Changes'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </Content>
     );
 };

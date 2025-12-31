@@ -7,6 +7,7 @@ import { HANDLE_BID_FEED, HANDLE_PLAYER_BUY_FEED, HANDLE_PLAYER_SELECT_SUBSCRIPT
 import PlayerProfileCard from '../playerProfile/PlayerProfile';
 import { convertNumbers } from '../../utils/utility';
 import LoadingPage from '../UtilityComponents/LoadingPage';
+import './viewerSingleAuction.scss';
 
 const ViewerSingleAuction = () => {
     const [fetchedAuction, setFetchedAuction] = useState();
@@ -16,9 +17,7 @@ const ViewerSingleAuction = () => {
     console.log("PARAMS", params)
     const { loading, error, data, refetch } = useQuery(GET_SINGLE_AUCTION_FOR_VIEWER, {variables: { auctionId: params.auctionId },});
     const { data: selectedPlayerSubData, loading: selectedPlayerSubLoading, error: selectedPlayerSubError } = useSubscription(HANDLE_PLAYER_SELECT_SUBSCRIPTION);
-    // bid update for a selected player
     const { data: bidFeedData, loading: bidFeedLoading, error: bidFeedError } = useSubscription(HANDLE_BID_FEED);
-    // player bought update
     const { data: buyFeedData, loading: buyFeedLoading, error: buyFeedError } = useSubscription(HANDLE_PLAYER_BUY_FEED);
     console.log("aslkjxakjsnxajsx", bidFeedData, buyFeedData, selectedPlayerSubData, selectedPlayerSubLoading, selectedPlayerSubError);
     useEffect(() => {
@@ -50,16 +49,28 @@ const ViewerSingleAuction = () => {
     }, [buyFeedData, buyFeedLoading, buyFeedError])
     if (fetchedAuction?.auctionName) {
         return (
-            <div className='viewerContainer'>
-                <div><h4>{fetchedAuction.auctionName}</h4></div>
-                <div style={{margin: 17}} className="number-card number-card-content1">
-                    <h3 className="number-card-number">{`Current Bid ${currentBid}`}</h3>
+            <div className='viewer-auction-container'>
+                <div className="viewer-auction-header">
+                    <div className="auction-title-badge">
+                        <span className="auction-live-indicator"></span>
+                        <h1 className="auction-title">{fetchedAuction.auctionName}</h1>
+                    </div>
                 </div>
-                <div><PlayerProfileCard selectedPlayer={selectedPlayer} showStats={fetchedAuction?.showPlayerStats}/></div>
+                
+                <div className="viewer-auction-content">
+                    <div className="current-bid-section">
+                        <div className="bid-label">Current Bid</div>
+                        <div className="bid-amount">{convertNumbers(currentBid)}</div>
+                    </div>
+
+                    <div className="player-profile-section">
+                        <PlayerProfileCard selectedPlayer={selectedPlayer} showStats={fetchedAuction?.showPlayerStats}/>
+                    </div>
+                </div>
             </div>
           )
     } else {
-        <LoadingPage />
+        return <LoadingPage />
     }
 }
 

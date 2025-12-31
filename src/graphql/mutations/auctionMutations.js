@@ -66,3 +66,15 @@ mutation ($playerId: ID!, $teamId: ID!, $auctionId: ID!) {
   handleResetBuy(playerId: $playerId, teamId: $teamId, auctionId: $auctionId)
 }
 `
+
+export const UPDATE_AUCTION = gql`
+mutation UpdateAuction($updateAuctionInput: UpdateAuctionInput!) {
+  updateAuction(updateAuctionInput: $updateAuctionInput) {
+    auctionId
+    auctionName
+    startTime
+    sportName
+    venue
+  }
+}
+`

@@ -23,7 +23,13 @@ const ViewerSingleAuction = () => {
     useEffect(() => {
         if(!loading && !error && data && data.getAuctionDetailsForViewer && data.getAuctionDetailsForViewer.auctionName) {
             console.log("AUCTIONJHXSJHB", data)
-            setFetchedAuction(data.getAuctionDetailsForViewer);
+            const auctionData = data.getAuctionDetailsForViewer;
+            setFetchedAuction(auctionData);
+            
+            if (auctionData.selectedPlayer) {
+                setSelectedPlayer(auctionData.selectedPlayer);
+                setCurrentBid(auctionData.currentPlayerBid || auctionData.minimumBid);
+            }
         }
     }, [data, error, loading])
     useEffect(() => {

@@ -153,6 +153,34 @@ query GetAuction($auctionId: String) {
       teamLogo
     }
     venue
+    selectedPlayer {
+      age
+      battingHand
+      battingPref
+      bowlingHand
+      bowlingStyle
+      email
+      fieldingPref
+      firstName
+      gender
+      lastName
+      playerType
+      imageUrl
+      userId
+      stats {
+        battingStats {
+          innings
+          runs
+          strikeRate
+        }
+        bowlingStats {
+          economy
+          overs
+          wickets
+        }
+      }
+    }
+    currentPlayerBid
   }
 }
 `
@@ -335,6 +363,34 @@ query GetAuctionDetailsForViewer($auctionId: String) {
     auctionId
     minimumBid
     showPlayerStats
+    selectedPlayer {
+      age
+      battingHand
+      battingPref
+      bowlingHand
+      bowlingStyle
+      email
+      fieldingPref
+      firstName
+      gender
+      lastName
+      playerType
+      imageUrl
+      userId
+      stats {
+        battingStats {
+          innings
+          runs
+          strikeRate
+        }
+        bowlingStats {
+          economy
+          overs
+          wickets
+        }
+      }
+    }
+    currentPlayerBid
   }
 }
 `

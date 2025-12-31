@@ -107,14 +107,18 @@ const SingleAuction = () => {
       selectedPlayerSubData &&
       selectedPlayerSubData.auctionFeed &&
       !selectedPlayerSubLoading &&
-      !selectedPlayerSubError
+      !selectedPlayerSubError &&
+      currentAuction &&
+      selectedPlayerSubData.auctionFeed.auctionId === currentAuction.auctionId
     ) {
       console.log(
         "selectedPlayerSubDataselectedPlayerSubDataselectedPlayerSubData",
         selectedPlayerSubData.auctionFeed
       );
+      setSelectedPlayer(selectedPlayerSubData.auctionFeed.user);
+      setCurrentBid(currentAuction.minimumBid);
     }
-  }, [selectedPlayerSubData, selectedPlayerSubLoading, selectedPlayerSubError]);
+  }, [selectedPlayerSubData, selectedPlayerSubLoading, selectedPlayerSubError, currentAuction]);
 
   useEffect(() => {
     console.log(
@@ -146,20 +150,26 @@ const SingleAuction = () => {
         "AUCTIONJHXSJHB",
         data.getAuction.auctionDetails.auctionTeams
       );
+      const auction = data.getAuction;
       let addedPlayers = [];
       if (
-        data?.getAuction?.auctionDetails?.auctionTeams &&
-        data.getAuction.auctionDetails.auctionTeams.length
+        auction?.auctionDetails?.auctionTeams &&
+        auction.auctionDetails.auctionTeams.length
       ) {
-        data.getAuction.auctionDetails.auctionTeams.map((team) => {
+        auction.auctionDetails.auctionTeams.map((team) => {
           team.teamPlayers.map((tp) => {
             addedPlayers.push(tp.player.userId);
           });
         });
       }
       setBoughtPlayers(addedPlayers);
-      setCurrentAuction(data.getAuction);
-      setCurrentBid(data.getAuction.minimumBid);
+      setCurrentAuction(auction);
+      setCurrentBid(auction.minimumBid);
+      
+      if (auction.selectedPlayer) {
+        setSelectedPlayer(auction.selectedPlayer);
+        setCurrentBid(auction.currentPlayerBid || auction.minimumBid);
+      }
     }
   }, [data, error, loading]);
 

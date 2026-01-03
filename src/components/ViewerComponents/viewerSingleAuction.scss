@@ -1,20 +1,20 @@
-$bg-primary: #000000;
-$bg-secondary: #09090b;
-$bg-tertiary: #18181b;
-$text-primary: #ffffff;
-$text-secondary: #e4e4e7;
+$bg-primary: #ffffff;
+$bg-secondary: #f4f4f5;
+$bg-tertiary: #e4e4e7;
+$text-primary: #000000;
+$text-secondary: #18181b;
 $accent-gold: #fbbf24;
 $accent-gold-dark: #b45309;
-$border-color: #52525b;
+$border-color: #d4d4d8;
 
 .viewer-auction-container {
     min-height: 100vh;
     height: 100vh;
-    background: #000000;
-    padding: 2vh 2vw;
+    background: #ffffff;
+    padding: 1vh 2vw;
     display: flex;
     flex-direction: column;
-    gap: 2vh;
+    gap: 1vh;
     overflow: hidden; // Prevent scrolling for projector view
 }
 
@@ -30,16 +30,16 @@ $border-color: #52525b;
     align-items: center;
     justify-content: center;
     gap: 1.5rem;
-    padding: 1.5vh 3vw;
-    background: $bg-tertiary;
-    border: 2px solid $border-color;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 1vh 3vw;
+    background: #ffffff;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .auction-live-indicator {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: #ef4444;
     border-radius: 50%;
     animation: pulse-live 2s ease-in-out infinite;
@@ -59,7 +59,7 @@ $border-color: #52525b;
     margin: 0;
     font-size: 3rem;
     font-weight: 800;
-    color: $text-primary;
+    color: #000000;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     line-height: 1;
@@ -71,47 +71,22 @@ $border-color: #52525b;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 3vh;
+    gap: 1vh;
     flex: 1;
     justify-content: flex-start;
+    padding-bottom: 2vh;
 }
 
 .current-bid-section {
-    background: linear-gradient(135deg, $accent-gold-dark 0%, $accent-gold 100%);
-    border-radius: 20px;
-    padding: 2vh 0;
-    box-shadow: 0 10px 40px rgba(245, 158, 11, 0.4);
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1vh 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border: 3px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid #000000;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            45deg,
-            transparent,
-            rgba(255, 255, 255, 0.2),
-            transparent
-        );
-        transform: rotate(45deg);
-        animation: shimmer 3s infinite;
-    }
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
-    }
-    100% {
-        transform: translateX(100%) translateY(100%) rotate(45deg);
-    }
 }
 
 .bid-label {
@@ -119,120 +94,202 @@ $border-color: #52525b;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: #000;
-    opacity: 0.7;
-    margin-bottom: 0.5vh;
+    color: #000000;
+    opacity: 0.8;
+    margin-bottom: 0vh;
 }
 
 .bid-amount {
-    font-size: 8rem;
-    line-height: 1;
+    font-size: 6rem;
+    line-height: 1.1;
     font-weight: 900;
-    color: #fff;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    color: #000000;
     font-family: 'Inter', 'system-ui', sans-serif;
     letter-spacing: -0.02em;
 }
 
 .player-profile-section {
     width: 100%;
-    max-width: 90vw;
+    max-width: 95vw;
     margin: 0 auto;
     flex: 1;
     display: flex;
-    align-items: center; // Center vertically in remaining space
+    align-items: center; 
     justify-content: center;
+    overflow: hidden;
 
     // Override PlayerProfileCard styles for Projector Mode
     .cardwrapper {
         align-items: center;
+        width: 100%;
+        height: 100%;
     }
 
     .profile-card {
-        padding: 4vh 4vw;
-        background: #18181b;
-        border: 2px solid #52525b;
+        padding: 0;
+        background: #ffffff;
+        border: none;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between; // Push items apart
+        gap: 5vw;
         
         &__img {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 3vh;
-            border-width: 4px;
+            width: 65vh; // Even bigger
+            height: 65vh; // Even bigger
+            max-width: 800px;
+            max-height: 800px;
+            min-width: 400px;
+            min-height: 400px;
+            margin: 0;
+            border-width: 0px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            
+            // Override internal structure
+            .profileInitials, .ant-image {
+                width: 100% !important;
+                height: 100% !important;
+                display: block;
+            }
+
+            img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+        }
+
+        // Wrapper for text content on the right
+        & > div:not(.profile-card__img) {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; // Align all text content to the right
+            flex: 1;
         }
 
         &__name {
-            font-size: 3.5rem;
-            margin-bottom: 1.5vh;
-            color: #fff;
+            font-size: 5rem;
+            margin-bottom: 0.5vh;
+            color: #000000;
+            font-weight: 900;
+            text-align: right;
+            line-height: 1.1;
         }
 
         &-loc { // Player Type
-            font-size: 2rem;
-            margin-bottom: 3vh;
+            font-size: 3rem;
+            margin-bottom: 2vh;
+            color: #333333;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
 
             &__icon {
-                font-size: 2rem;
+                font-size: 3rem;
             }
         }
 
         h3 { // Section Headers (Batting/Bowling Stats)
             font-size: 1.5rem;
-            color: #a1a1aa;
+            color: #555555;
             margin-top: 2vh;
+            text-align: right;
+            font-weight: 700;
+            display: none; // Hide headers to save space if needed
         }
         
         p { // Handedness
-            font-size: 1.2rem;
-            color: #d4d4d8;
+            font-size: 2rem;
+            color: #333333;
+            text-align: right;
+            font-weight: 600;
+            margin-bottom: 2vh;
         }
 
         &-inf { // Stats Container
-            padding: 2vh 0;
-            margin-top: 1.5vh;
-            background: rgba(255,255,255,0.05);
+            padding: 2vh 2vw;
+            margin-top: 0;
+            background: #f4f4f5; 
+            border-radius: 16px;
+            display: flex;
+            justify-content: flex-end; // Align stats to right inside container
+            gap: 3rem;
+            width: auto;
+            min-width: 40%;
 
             &__item {
-                padding: 0 3vw;
+                padding: 0 1vw;
                 min-width: 120px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
             }
 
             &__title { // Stat Value
-                font-size: 2.5rem;
-                color: #fbbf24; // Make stats gold for visibility
+                font-size: 3.5rem;
+                color: #000000;
+                font-weight: 800;
+                line-height: 1;
+                margin-bottom: 0.5vh;
             }
 
             &__txt { // Stat Label
-                font-size: 1rem;
+                font-size: 1.4rem;
                 font-weight: 700;
-                color: #e4e4e7;
+                color: #555555;
+                text-transform: uppercase;
             }
         }
     }
 
     // Override Empty State Card
     .card {
-        background-color: #18181b !important;
-        border: 2px dashed #52525b;
+        background-color: #ffffff !important;
+        border: 4px dashed #000000;
         min-height: 40vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         
         h4 {
             font-size: 2.5rem;
-            color: #e4e4e7;
-            margin-bottom: 1.5vh;
+            color: #000000;
+            margin-bottom: 1vh;
         }
         
         .skeleton {
-            background-color: #27272a;
+            background-color: #e4e4e7;
         }
     }
 }
 
 @media (max-width: 1024px) {
-    .auction-title { font-size: 2rem; }
-    .bid-amount { font-size: 6rem; }
+    .auction-title { font-size: 2.5rem; }
+    .bid-amount { font-size: 5rem; }
     .player-profile-section {
-        .profile-card__img { width: 150px; height: 150px; }
-        .profile-card__name { font-size: 2.5rem; }
-        .profile-card-inf__title { font-size: 2rem; }
+        .profile-card {
+            flex-direction: column;
+            gap: 2vh;
+            
+            & > div:not(.profile-card__img) {
+                align-items: center;
+            }
+            
+            &__name { text-align: center; font-size: 3rem; }
+            &-loc { justify-content: center; }
+            p { text-align: center; }
+            &-inf { justify-content: center; }
+        }
+        .profile-card__img { width: 300px; height: 300px; }
     }
 }

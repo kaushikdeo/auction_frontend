@@ -97,7 +97,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(249, 251, 255,0.6);
+    background: var(--theme-color, #f9fafb);
 }
 
 

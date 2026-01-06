@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { GET_SINGLE_AUCTION } from "../../../graphql/queries/auctionQueries";
 import Button from "@mui/material/Button";
 import AuctionPlayerDrawer from "../../Dashbaord/AuctionPlayerDrawer";
+import { toast } from 'react-toastify';
 import {
   HANDLE_BID_FOR_PLAYER,
   HANDLE_BUY_PLAYER,
@@ -82,6 +83,7 @@ const SingleAuction = () => {
   const [drawerSelectedPlayer, setDrawerSelectedPlayer] = useState(null);
   const [currentBid, setCurrentBid] = useState(null);
   const [boughtPlayers, setBoughtPlayers] = useState([]);
+  const [isSelling, setIsSelling] = useState(false);
   const [biddablePlayers, setBiddablePlayers] = useState([]);
   const [isRandomSelection, setIsRandomSelection] = useState(true);
 
@@ -115,8 +117,16 @@ const SingleAuction = () => {
         "selectedPlayerSubDataselectedPlayerSubDataselectedPlayerSubData",
         selectedPlayerSubData.auctionFeed
       );
-      setSelectedPlayer(selectedPlayerSubData.auctionFeed.user);
-      setCurrentBid(currentAuction.minimumBid);
+      
+      // Handle both selecting a player and clearing selection
+      if (selectedPlayerSubData.auctionFeed.user === null) {
+        // Clear selected player
+        setSelectedPlayer(null);
+      } else {
+        // Set selected player
+        setSelectedPlayer(selectedPlayerSubData.auctionFeed.user);
+        setCurrentBid(currentAuction.minimumBid);
+      }
     }
   }, [selectedPlayerSubData, selectedPlayerSubLoading, selectedPlayerSubError, currentAuction]);
 
@@ -210,17 +220,65 @@ const SingleAuction = () => {
     currentBid,
     currentTeam,
   }) => {
-    await handleBuyPlayer({
-      variables: {
-        playerId,
-        teamId: currentTeam,
-        bidAmount: currentBid,
-        auctionId: currentAuction.auctionId,
-      },
-    });
-    setSelectedPlayer(null);
-    console.log(playerId, currentBid, currentTeam);
-    refetch();
+    // FIX 6: Prevent double submission
+    if (isSelling) {
+      console.log("Sale already in progress");
+      return;
+    }
+    
+    setIsSelling(true);
+    
+    try {
+      const result = await handleBuyPlayer({
+        variables: {
+          playerId,
+          teamId: currentTeam,
+          bidAmount: currentBid,
+          auctionId: currentAuction.auctionId,
+        },
+      });
+      
+      if (!result.data?.handleBuyPlayer) {
+        throw new Error("Player sale failed - no response from server");
+      }
+      
+      console.log("Player sold successfully", {
+        playerId, 
+        currentBid, 
+        currentTeam
+      });
+      
+      // Only clear state on success
+      setSelectedPlayer(null);
+      await refetch();
+      
+      toast.success("Player sold successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      
+    } catch (error) {
+      console.error("Failed to sell player:", error);
+      
+      const errorMessage = error.graphQLErrors?.[0]?.message || 
+                          error.networkError?.message || 
+                          "Failed to sell player. Please try again.";
+      
+      toast.error(errorMessage, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      
+      // Don't clear state on error
+    } finally {
+      setIsSelling(false);
+    }
   };
 
   const showDrawer = () => {

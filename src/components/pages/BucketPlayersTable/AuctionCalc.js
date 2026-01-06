@@ -8,6 +8,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { convertNumbers } from "../../../utils/utility";
 import "./bucketplayertable.scss";
+import { toast } from 'react-toastify';
 
 const AuctionCalc = ({
     teamCalc,
@@ -83,6 +84,7 @@ const AuctionCalc = ({
   }, []);
 
   const [confirmSell, setConfirmSell] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleIncreaseBid = async () => {
     if (selectedPlayer && currentBid && currentAuction) {
@@ -124,25 +126,69 @@ const AuctionCalc = ({
     }
   };
 
-  const handlePlayerAuction = () => {
-    if (selectedTeam) {
-        let currentTeam = currentAuction.teams.find((element) => element.teamName === selectedTeam)
-        console.log("skdbcajks", currentTeam)
-        handleConfirmAuctionPlayer({
-          playerId: selectedPlayer.userId,
-          currentBid,
-          currentTeam: currentTeam.teamId,
-        });
-        setCurrentBid(minBid);
-        setSelectedPlayer(null)
-        setSelectedteam(null);
+  const handlePlayerAuction = async () => {
+    // FIX 6: Validate and prevent double submission
+    if (!selectedTeam) {
+      toast.warning("Please select a team first", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      return;
+    }
+    
+    if (isProcessing) {
+      console.log("Already processing sale");
+      return;
+    }
+    
+    setIsProcessing(true);
+    
+    try {
+      let currentTeam = currentAuction.teams.find(
+        (element) => element.teamName === selectedTeam
+      );
+      
+      if (!currentTeam) {
+        throw new Error("Selected team not found");
+      }
+      
+      console.log("Selling player to team:", currentTeam);
+      
+      await handleConfirmAuctionPlayer({
+        playerId: selectedPlayer.userId,
+        currentBid,
+        currentTeam: currentTeam.teamId,
+      });
+      
+      // Only reset on success
+      setCurrentBid(minBid);
+      setSelectedPlayer(null);
+      setSelectedteam(null);
+      setConfirmSell(false);
+      
+    } catch (error) {
+      console.error("Error in handlePlayerAuction:", error);
+      toast.error("Failed to sell player. Please try again.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      // Don't reset state on error
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   const handleResetBuyPlayer = () => {
         setCurrentBid(minBid);
-        setSelectedPlayer(null)
+        setSelectedPlayer(null);
         setSelectedteam(null);
+        setConfirmSell(false);
   };
 
   const renderChips = () => {
@@ -222,8 +268,13 @@ const AuctionCalc = ({
             />
             </div>
             <div style={{paddingTop: 10, display: 'flex', gap: '10px'}}>
-            <Button className="auction-calc-btn btn-sell" variant="contained" onClick={() => handlePlayerAuction()}>
-              Confirm Sell
+            <Button 
+              className="auction-calc-btn btn-sell" 
+              variant="contained" 
+              onClick={() => handlePlayerAuction()}
+              disabled={isProcessing || !selectedTeam}
+            >
+              {isProcessing ? "Processing..." : "Confirm Sell"}
             </Button>
             <Button className="auction-calc-btn" variant="contained" onClick={() => handleResetBuyPlayer()}>
               Reset Buy
